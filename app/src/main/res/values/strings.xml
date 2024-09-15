@@ -1,0 +1,14 @@
+<!-- File: res/values/strings.xml -->
+<resources>
+    <string name="app_name">Animati App</string>
+    <string name="app_logo">Animati App Logo</string>
+    <string name="register">Registrarse</string>
+    <string name="username">Nombre de Usuario</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="newsletter">Deseo recibir correos electrónicos con novedades</string>
+    <string name="terms_conditions">Acepto los términos y condiciones</string>
+    <string name="send">Enviar</string>
+</resources>
