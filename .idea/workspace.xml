@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f6e1071-2c98-4db5-8cc1-bf5bbb720c1c" name="Changes" comment="" />
+    <list default="true" id="5f6e1071-2c98-4db5-8cc1-bf5bbb720c1c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/gradlew" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,9 +51,10 @@
     "android.gradle.sync.needed": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "Lautaro-Palacio",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "Malvina-Ch",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/xampp/htdocs/AnimatiApp/AnimatiApp Android"
+    "last_opened_file_path": "C:/Users/malvi/OneDrive/Desktop/Animati subir/AnimatiApp"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
