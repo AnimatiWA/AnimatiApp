@@ -1,9 +1,11 @@
 package com.example.animatiappandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
+// Importaciones para CartActivity
+import android.content.Intent;
+import android.widget.Button;
 
 public class activity_inicio extends AppCompatActivity {
 
@@ -18,6 +23,13 @@ public class activity_inicio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
+
+        // Manejar el botón para ir al carrito
+        Button cartButton = findViewById(R.id.cart_button);
+        cartButton.setOnClickListener(view -> {
+            Intent intent = new Intent(activity_inicio.this, CartActivity.class);
+            startActivity(intent);
+        });
 
         // Configurar RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
