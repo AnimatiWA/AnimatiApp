@@ -18,4 +18,22 @@
     <string name="newsletter">Deseo recibir correos electrónicos con novedades</string>
     <string name="terms_conditions">Acepto los términos y condiciones</string>
     <string name="send">Enviar</string>
+
+    <!-- Activity_Gallery -->
+    <string name="inicio">Inicio</string>
+    <string name="galería">Galería</string>
+    <string name="nosotros">Nosotros</string>
+    <string name="contacto">Contacto</string>
+    <string name="carrito_de_compras">Carrito de compras</string>
+    <string name="carrito">carrito</string>
+    <string name="menu">menu</string>
+    <string name="logo">logo</string>
+    <string name="rectangulo">rectangulo</string>
+    <string name="descripcion">descripcion</string>
+    <string name="descripcion_prod_1">Anotadores personalizados con dibujos a pedido, ideales para expresar tu estilo único.</string>
+    <string name="descripcion_prod_2">Señaladores personalizados con diseños únicos. Perfectos para agregar un toque.</string>
+    <string name="descripcion_prod_3">Cubicraft personalizados con tus personajes favoritos. Arma y decora con figuras.</string>
+    <string name="precio_prod_1">1.000,00</string>
+    <string name="precio_prod_2">500,00</string>
+    <string name="precio_prod_3">1.500,00</string>
 </resources>
