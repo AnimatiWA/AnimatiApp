@@ -7,6 +7,14 @@
 </string>
     <string name="nuestros_valores">Calidad: Cada producto en nuestra tienda cumple con los más altos estándares de calidad</string>
 
+<string name="login_button_text">Login</string>
+    <string name="contrasena_text">Contraseña</string>
+    <string name="usuario_text">Usuario</string>
+    <string name="Opciones_inicio_sesion_text">O Iniciar Sesión con</string>
+    <string name="logo_de_google">Logo de google</string>
+    <string name="registro_click_text">Si aún no tiene una cuenta, puede registrarse aquí</string>
+    <string name="descripcion_logo">Logo de la aplicacion en el cual se puede ver un monigote que es la mascota y el nombre de la app Animati Web</string>
+
     <!-- Activity_Register -->
     <string name="app_logo">Animati App Logo</string>
     <string name="register">Registrarse</string>
