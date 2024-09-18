@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">AnimatiApp Android</string>
+    <string name="app_name">Animati App Android</string>
     <string name="quienes_somos">Animati es una papelería dedicada a ofrecer una amplia gama de productos de alta calidad para satisfacer las necesidades de nuestros clientes. Desde nuestra fundación en 2021, nos hemos comprometido a proporcionar artículos de papelería y librería que inspiran la creatividad y la productividad en el día a día.
 </string>
     <string name="nuestra_mision">Aspiramos a ser la papelería de referencia en nuestra comunidad, reconocida por la calidad de nuestros productos, la excelencia en el servicio al cliente y nuestro compromiso con la sostenibilidad. Nos esforzamos por ser el lugar al que acudan estudiantes, profesionales y creativos en busca de inspiración y herramientas de trabajo.</string>
     <string name="nuestra_vision">Aspiramos a ser la papelería de referencia en nuestra comunidad, reconocida por la calidad de nuestros productos, la excelencia en el servicio al cliente y nuestro compromiso con la sostenibilidad.
 </string>
     <string name="nuestros_valores">Calidad: Cada producto en nuestra tienda cumple con los más altos estándares de calidad</string>
+
 <string name="login_button_text">Login</string>
     <string name="contrasena_text">Contraseña</string>
     <string name="usuario_text">Usuario</string>
@@ -14,4 +15,33 @@
     <string name="registro_click_text">Si aún no tiene una cuenta, puede registrarse aquí</string>
     <string name="descripcion_logo">Logo de la aplicacion en el cual se puede ver un monigote que es la mascota y el nombre de la app Animati Web</string>
 
+    <!-- Activity_Register -->
+    <string name="app_logo">Animati App Logo</string>
+    <string name="register">Registrarse</string>
+    <string name="username">Nombre de Usuario</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="newsletter">Deseo recibir correos electrónicos con novedades</string>
+    <string name="terms_conditions">Acepto los términos y condiciones</string>
+    <string name="send">Enviar</string>
+
+    <!-- Activity_Gallery -->
+    <string name="inicio">Inicio</string>
+    <string name="galería">Galería</string>
+    <string name="nosotros">Nosotros</string>
+    <string name="contacto">Contacto</string>
+    <string name="carrito_de_compras">Carrito de compras</string>
+    <string name="carrito">carrito</string>
+    <string name="menu">menu</string>
+    <string name="logo">logo</string>
+    <string name="rectangulo">rectangulo</string>
+    <string name="descripcion">descripcion</string>
+    <string name="descripcion_prod_1">Anotadores personalizados con dibujos a pedido, ideales para expresar tu estilo único.</string>
+    <string name="descripcion_prod_2">Señaladores personalizados con diseños únicos. Perfectos para agregar un toque.</string>
+    <string name="descripcion_prod_3">Cubicraft personalizados con tus personajes favoritos. Arma y decora con figuras.</string>
+    <string name="precio_prod_1">1.000,00</string>
+    <string name="precio_prod_2">500,00</string>
+    <string name="precio_prod_3">1.500,00</string>
 </resources>
