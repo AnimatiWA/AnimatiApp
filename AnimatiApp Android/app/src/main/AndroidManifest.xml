@@ -31,7 +31,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-        <activity android:name=".CartActivity" />
+        
+        <activity 
+            android:name=".CartActivity" 
+            android:exported="true"/>
 
         <!-- Se registra la actividad galería -->
         <activity
