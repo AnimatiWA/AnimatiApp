@@ -26,4 +26,7 @@
     <color name="buttonColor">#FF4FA9</color>
     <!-- Color de texto -->
     <color name="buttonTextColor">#FFFFFF</color> <!-- Color de texto blanco -->
+    <color name="rose">#FFFF86C4</color>
+    <color name="rose1">#FFE08090</color>
+    <color name="transp">#00FF0000</color>
 </resources>
