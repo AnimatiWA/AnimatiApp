@@ -120,7 +120,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11"
         app:srcCompat="@drawable/google_icon"
         tools:layout_editor_absoluteX="159dp"
-        android:contentDescription="Logo de google"/>
+        android:contentDescription="@string/logo_de_google"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
