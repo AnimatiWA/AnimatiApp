@@ -1,9 +1,21 @@
 <resources>
-    <string name="app_name">AnimatiApp Android</string>
+    <string name="app_name">Animati App Android</string>
     <string name="quienes_somos">Animati es una papelería dedicada a ofrecer una amplia gama de productos de alta calidad para satisfacer las necesidades de nuestros clientes. Desde nuestra fundación en 2021, nos hemos comprometido a proporcionar artículos de papelería y librería que inspiran la creatividad y la productividad en el día a día.
 </string>
     <string name="nuestra_mision">Aspiramos a ser la papelería de referencia en nuestra comunidad, reconocida por la calidad de nuestros productos, la excelencia en el servicio al cliente y nuestro compromiso con la sostenibilidad. Nos esforzamos por ser el lugar al que acudan estudiantes, profesionales y creativos en busca de inspiración y herramientas de trabajo.</string>
     <string name="nuestra_vision">Aspiramos a ser la papelería de referencia en nuestra comunidad, reconocida por la calidad de nuestros productos, la excelencia en el servicio al cliente y nuestro compromiso con la sostenibilidad.
 </string>
     <string name="nuestros_valores">Calidad: Cada producto en nuestra tienda cumple con los más altos estándares de calidad</string>
+
+    <!-- Activity_Register -->
+    <string name="app_logo">Animati App Logo</string>
+    <string name="register">Registrarse</string>
+    <string name="username">Nombre de Usuario</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="newsletter">Deseo recibir correos electrónicos con novedades</string>
+    <string name="terms_conditions">Acepto los términos y condiciones</string>
+    <string name="send">Enviar</string>
 </resources>
