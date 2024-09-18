@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimatiAppAndroid"
         tools:targetApi="31">
-        <activity
-            android:name=".SobreNosotrosActivity"
-            android:exported="true"/>
 
         <!-- Cambiado: activity_inicio ahora es la pantalla de inicio -->
         <activity
@@ -26,12 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- Se registra la actividad sobre nosotros -->
+        <activity
+            android:name=".SobreNosotrosActivity"
+            android:exported="true"/>
 
-        <!-- Se registra la actividad del carrito -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-        
+
+         <!-- Se registra la actividad del carrito -->
         <activity 
             android:name=".CartActivity" 
             android:exported="true"/>
@@ -45,6 +47,12 @@
         <!-- Se registra la actividad contacto -->
         <activity
             android:name=".ContactoActivity"
+            android:exported="true">
+        </activity>
+
+         <!-- Se registra la actividad registro -->
+        <activity
+            android:name=".RegisterActivity"
             android:exported="true">
         </activity>
 
