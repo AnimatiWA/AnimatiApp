@@ -25,6 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+                <!-- Se registra la actividad del carrito -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity android:name=".CartActivity" />
+        
     </application>
 
 </manifest>
