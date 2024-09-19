@@ -15,7 +15,7 @@
 
         <!-- Cambiado: activity_inicio ahora es la pantalla de inicio -->
         <activity
-            android:name=".activity_inicio"
+            android:name=".MainMenuActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +27,10 @@
         <!-- Se registra la actividad sobre nosotros -->
         <activity
             android:name=".SobreNosotrosActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name=".InicioActivity"
             android:exported="true"/>
 
         <activity
@@ -53,6 +57,11 @@
          <!-- Se registra la actividad registro -->
         <activity
             android:name=".RegisterActivity"
+            android:exported="true">
+        </activity>
+        <!-- Login -->
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
         </activity>
 
