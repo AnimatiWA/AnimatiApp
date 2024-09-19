@@ -8,6 +8,12 @@
 
 **AnimatiApp** es una aplicación móvil diseñada para la librería Animati, especializada en la venta de stickers, cubecraft, anotadores, entre otros productos. La aplicación permite a los usuarios navegar fácilmente entre distintas secciones: la página de inicio, la galería de productos, la pantalla de contacto, así como las pantallas de registro y login. A través de AnimatiApp, los clientes pueden explorar el catálogo de productos, registrarse, iniciar sesión y ponerse en contacto directamente con la tienda para realizar compras de forma eficiente y rápida.
 
+# Presentación de la App
+Demo del proyecto está disponible en la [Wiki del Proyecto](https://github.com/AnimatiWA/AnimatiApp/wiki/PRESENTACI%C3%93N-DE-LA-APP).
+
+## Documentación
+Toda la documentación del proyecto está disponible en la [Wiki del Proyecto](https://github.com/AnimatiWA/AnimatiApp/wiki/Documento-IEEE830).
+
 ## Miembros del Equipo
 
 Aquí están los miembros del equipo del proyecto Animati:
@@ -37,12 +43,10 @@ Utilizamos un tablero en GitHub con las siguientes columnas para gestionar nuest
 - **Testing Test**
 - **Done**
 
-## Documentación
-Toda la documentación del proyecto está disponible en la [Wiki del Proyecto](https://github.com/AnimatiWA/AnimatiApp/wiki/Documento-IEEE830).
+
 
 ## Preferencias
 
 - **Listas de Tareas:** Las tareas deben estar numeradas comenzando desde 1.
 - **Diseño:** Los documentos deben tener un diseño divertido.
 
-## Contacto
