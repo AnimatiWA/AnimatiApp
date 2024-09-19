@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
 
-    private Button btnInicio, btnContacto, btnSobreNosotros, btnCart, btnRegister;
+    private Button btnInicio, btnContacto, btnSobreNosotros, btnCart, btnRegister, btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class MainMenuActivity extends AppCompatActivity {
         btnSobreNosotros = findViewById(R.id.btn_sobre_nosotros);
         btnCart = findViewById(R.id.btn_cart);
         btnRegister = findViewById(R.id.btn_register);
+        btnLogin = findViewById(R.id.btn_login);
 
         // Abrir actividad de Inicio
         btnInicio.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,15 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Abrir actividad de Login
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);  // Asegúrate de que LoginActivity.java esté bien configurado
                 startActivity(intent);
             }
         });
