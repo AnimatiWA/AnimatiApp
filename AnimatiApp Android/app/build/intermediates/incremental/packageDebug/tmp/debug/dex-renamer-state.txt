@@ -1,4 +1,4 @@
-#Thu Sep 26 17:18:02 ART 2024
+#Thu Sep 26 20:05:14 ART 2024
 base.0=C\:\\xampp\\htdocs\\AnimatiApp\\AnimatiApp Android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\xampp\\htdocs\\AnimatiApp\\AnimatiApp Android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\xampp\\htdocs\\AnimatiApp\\AnimatiApp Android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\15\\classes.dex

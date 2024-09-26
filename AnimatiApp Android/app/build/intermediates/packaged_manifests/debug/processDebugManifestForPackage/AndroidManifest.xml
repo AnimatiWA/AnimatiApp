@@ -44,7 +44,7 @@
             android:name="com.example.animatiappandroid.SobreNosotrosActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.animatiappandroid.InicioActivity"
+            android:name="com.example.animatiappandroid.activity_inicio"
             android:exported="true" />
         <activity
             android:name="com.example.animatiappandroid.MainActivity"

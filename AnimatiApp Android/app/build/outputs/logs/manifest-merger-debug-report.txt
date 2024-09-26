@@ -115,12 +115,12 @@ ADDED from C:\xampp\htdocs\AnimatiApp\AnimatiApp Android\app\src\main\AndroidMan
 		ADDED from C:\xampp\htdocs\AnimatiApp\AnimatiApp Android\app\src\main\AndroidManifest.xml:30:13-36
 	android:name
 		ADDED from C:\xampp\htdocs\AnimatiApp\AnimatiApp Android\app\src\main\AndroidManifest.xml:29:13-50
-activity#com.example.animatiappandroid.InicioActivity
+activity#com.example.animatiappandroid.activity_inicio
 ADDED from C:\xampp\htdocs\AnimatiApp\AnimatiApp Android\app\src\main\AndroidManifest.xml:32:9-34:38
 	android:exported
 		ADDED from C:\xampp\htdocs\AnimatiApp\AnimatiApp Android\app\src\main\AndroidManifest.xml:34:13-36
 	android:name
-		ADDED from C:\xampp\htdocs\AnimatiApp\AnimatiApp Android\app\src\main\AndroidManifest.xml:33:13-43
+		ADDED from C:\xampp\htdocs\AnimatiApp\AnimatiApp Android\app\src\main\AndroidManifest.xml:33:13-44
 activity#com.example.animatiappandroid.MainActivity
 ADDED from C:\xampp\htdocs\AnimatiApp\AnimatiApp Android\app\src\main\AndroidManifest.xml:36:9-38:39
 	android:exported
