@@ -30,7 +30,7 @@
             android:exported="true"/>
 
         <activity
-            android:name=".InicioActivity"
+            android:name=".activity_inicio"
             android:exported="true"/>
 
         <activity

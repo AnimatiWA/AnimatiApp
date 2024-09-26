@@ -27,7 +27,7 @@ public class MainMenuActivity extends AppCompatActivity {
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenuActivity.this, InicioActivity.class);
+                Intent intent = new Intent(MainMenuActivity.this, activity_inicio.class);
                 startActivity(intent);
             }
         });
