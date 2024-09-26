@@ -4,7 +4,7 @@
             "outputFile": "com.example.animatiappandroid.app-mergeDebugResources-26:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Gaby\\.gradle\\caches\\transforms-4\\a306a1e917ef3ee78bf0d17e692da744\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\lauti\\.gradle\\caches\\transforms-4\\a306a1e917ef3ee78bf0d17e692da744\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Gaby\\.gradle\\caches\\transforms-4\\e7da04b325ba4afb59faa19d19fe364e\\transformed\\material-1.9.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\lauti\\.gradle\\caches\\transforms-4\\e7da04b325ba4afb59faa19d19fe364e\\transformed\\material-1.9.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
