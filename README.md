@@ -2,10 +2,17 @@
 
 ## Visión General
 
-¡Bienvenido al proyecto Animati! Este proyecto está actualmente en el Sprint 0, que finaliza el 29/08/2024. El enfoque del Sprint 0 es la reorganización del grupo, la definición del proyecto y la creación del Product Backlog con Historias de Usuario y Criterios de Aceptación.
-
+¡Bienvenido al proyecto Animati! Este proyecto está actualmente en el Sprint 1, que finaliza el 18/09/2024. El enfoque del Sprint 1 es la actualización del modelo relacional y APIs en Django, la presentación de las activities con navegabilidad, la planificación de pruebas, la implementación de políticas de seguridad con Auth0/JWT, y la gestión del proyecto con la documentación correspondiente.
 
 <img src="https://github.com/user-attachments/assets/2e8f1af4-a839-4125-8dd0-aa43c70e0ce6" alt="Imagen del Proyecto" width="300"/>
+
+**AnimatiApp** es una aplicación móvil diseñada para la librería Animati, especializada en la venta de stickers, cubecraft, anotadores, entre otros productos. La aplicación permite a los usuarios navegar fácilmente entre distintas secciones: la página de inicio, la galería de productos, la pantalla de contacto, así como las pantallas de registro y login. A través de AnimatiApp, los clientes pueden explorar el catálogo de productos, registrarse, iniciar sesión y ponerse en contacto directamente con la tienda para realizar compras de forma eficiente y rápida.
+
+# Presentación de la App
+Demo del proyecto está disponible en la [Wiki del Proyecto](https://github.com/AnimatiWA/AnimatiApp/wiki/PRESENTACI%C3%93N-DE-LA-APP).
+
+## Documentación
+Toda la documentación del proyecto está disponible en la [Wiki del Proyecto](https://github.com/AnimatiWA/AnimatiApp/wiki/Documento-IEEE830).
 
 ## Miembros del Equipo
 
@@ -36,16 +43,10 @@ Utilizamos un tablero en GitHub con las siguientes columnas para gestionar nuest
 - **Testing Test**
 - **Done**
 
-## Documentación
-Toda la documentación del proyecto está disponible en la [Wiki del Proyecto](https://github.com/AnimatiWA/AnimatiApp/wiki/Documento-IEEE830).
+
 
 ## Preferencias
 
 - **Listas de Tareas:** Las tareas deben estar numeradas comenzando desde 1.
 - **Diseño:** Los documentos deben tener un diseño divertido.
-
-## Contacto
-
-Para cualquier pregunta o información adicional, por favor contacta al gestor del proyecto, AnimatiWA.
-
 

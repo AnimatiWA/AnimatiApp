@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f6e1071-2c98-4db5-8cc1-bf5bbb720c1c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/.idea/deploymentTargetSelector.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AnimatiApp Android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnimatiApp Android/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AnimatiApp Android/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +32,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Looser3058&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AnimatiWA/AnimatiApp.git&quot;,
+    &quot;accountId&quot;: &quot;601d68e8-58c0-428a-8b16-d4bebc3bf4bc&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -52,9 +62,11 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "Malvina-Ch",
+    "git-widget-placeholder": "Lautaro-Palacio",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/malvi/OneDrive/Desktop/Animati subir/AnimatiApp"
+    "last_opened_file_path": "C:/xampp/htdocs/AnimatiApp",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.notifications"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
