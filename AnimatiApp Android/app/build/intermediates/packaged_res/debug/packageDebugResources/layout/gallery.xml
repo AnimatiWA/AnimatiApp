@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/productos"
+        android:layout_width="250dp"
+        android:layout_height="68.32dp"
+        android:layout_marginTop="75dp"
+        android:background="@mipmap/ico_prod"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/fond_rose"
+        android:layout_width="284dp"
+        android:layout_height="171dp"
+        android:background="@drawable/rounded_corners"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/productos"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/prod_1"
+        android:layout_width="133dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="24dp"
+        android:background="@mipmap/prod_1"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.287"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/productos"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/fond_rose1"
+        android:layout_width="284dp"
+        android:layout_height="171dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corners"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fond_rose"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/prod_4"
+        android:layout_width="133dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="52dp"
+        android:background="@mipmap/prod_4"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.291"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prod_1"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/fond_3"
+        android:layout_width="284dp"
+        android:layout_height="171dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corners"
+        android:contentDescription="@string/descripcion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fond_rose1"
+        tools:ignore="ImageContrastCheck" />
+
+
+    <ImageView
+        android:id="@+id/prod_3"
+        android:layout_width="133dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="60dp"
+        android:background="@mipmap/prod_3"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.291"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prod_4"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/text_prod_1"
+        android:layout_width="126dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/descripcion_prod_1"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/productos"
+        tools:ignore="TextSizeCheck,TextSizeCheck,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/text_prod_2"
+        android:layout_width="126dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="88dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/descripcion_prod_2"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_1"
+        tools:ignore="TextSizeCheck,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/text_prod_3"
+        android:layout_width="126dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="88dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/descripcion_prod_3"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_2"
+        tools:ignore="TextSizeCheck,TextSizeCheck,TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/precio_1"
+        android:layout_width="25dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="8dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_1"
+        app:srcCompat="@mipmap/ico_peso"
+        tools:ignore="ImageContrastCheck" />
+
+
+    <TextView
+        android:id="@+id/precio_prod_1"
+        android:layout_width="59dp"
+        android:layout_height="41dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/precio_prod_1"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_1"
+        tools:ignore="TextSizeCheck,TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/precio_2"
+        android:layout_width="25dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="8dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_2"
+        app:srcCompat="@mipmap/ico_peso"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/precio_prod_2"
+        android:layout_width="59dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/precio_prod_2"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_2"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="25dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="8dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_3"
+        app:srcCompat="@mipmap/ico_peso"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/precio_prod_3"
+        android:layout_width="59dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/precio_prod_3"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_3"
+        tools:ignore="TextSizeCheck,TextContrastCheck" />
+
+    <ImageButton
+        android:id="@+id/carrito_prod_1"
+        android:layout_width="42dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/carrito_de_compras"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ico_shop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_1"
+        tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck,TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/carrito_prod_2"
+        android:layout_width="42dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/carrito_de_compras"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ico_shop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.804"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_2"
+        tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/carrito_prod_3"
+        android:layout_width="42dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/carrito_de_compras"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ico_shop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_prod_3"
+        tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
