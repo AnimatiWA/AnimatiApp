@@ -72,7 +72,8 @@ class LoginAPIView(TokenObtainPairView):
     
 
 class LogoutView(GenericAPIView):
-    permission_classes = [permissions.AllowAny] 
+    permission_classes = [permissions.IsAuthenticated]
+    
     def post(self, request):
         refresh_token = request.data.get('refresh_token')
 
@@ -92,10 +93,10 @@ class LogoutView(GenericAPIView):
 
 
 class ListaDeUsuarios(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UsuarioSerializer
     http_method_names = ['get', 'post']
-    permission_classes = [ permissions.AllowAny]
     
     def list(self, request):
         queryset = self.get_queryset()
@@ -110,7 +111,7 @@ class ListaDeUsuarios(generics.ListCreateAPIView):
         return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class PerfilView(GenericAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = UsuarioSerializer
     http_method_names = ['get', 'patch']
     
@@ -147,9 +148,10 @@ class PerfilView(GenericAPIView):
 #----------------------Vistas Categoria------------------------------------------------
 
 class CategoriaViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
+
     def get_object(self, request):
 
         queryset = self.get_queryset()
@@ -160,16 +162,9 @@ class CategoriaViewSet(viewsets.ModelViewSet):
 
 #--------------Vistas Productos------------
     
-    
-class ListaProductos(APIView):
-    permission_classes = [permissions.AllowAny]
-    http_method_names = [
-        'delete',
-        'get',]
-    def get(self, request, format=None):
-        productos = Producto.objects.all()
-        serializers = ProductosSerializer(productos, many=True)
-        return Response(serializers.data)
+class EliminarProductos(APIView):
+    permission_classes = [permissions.IsAdminUser]
+    http_method_names = ['delete']
     
     def delete(self, request, Codigo_Producto, format=None):
         producto = Producto.objects.filter(pk=Codigo_Producto).first()
@@ -178,11 +173,20 @@ class ListaProductos(APIView):
         
         producto.delete()
         return Response({'message':'Producto Eliminado'},status=status.HTTP_200_OK)
+
     
+class ListaProductos(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get']
+    
+    def get(self, request, format=None):
+        productos = Producto.objects.all()
+        serializers = ProductosSerializer(productos, many=True)
+        return Response(serializers.data)
 class ActualizarProductoApiView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAdminUser]
     serializer_class = ProductosSerializer
     queryset= Producto.objects.all()
-    permission_classes = [permissions.AllowAny]
     lookup_field = 'Codigo_Producto'
 
     def patch(self, request, Codigo_Producto):
@@ -215,7 +219,7 @@ class ActualizarProductoApiView(generics.UpdateAPIView):
 
 
 class anadirProducto(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAdminUser]
     http_method_names = ['post']
 
     def post(self, request, format=None):
@@ -227,7 +231,7 @@ class anadirProducto(APIView):
     
 
 class DetalleCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get']
     
     def get(self, request, id):
@@ -240,13 +244,13 @@ class DetalleCarrito(APIView):
 
 
 class ListaCarritos(generics.ListCreateAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = CarritoSerializer
     queryset = Carrito.objects.all()
 
 
 class CrearCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['post']
     
     def post(self, request, format=None):
@@ -259,7 +263,7 @@ class CrearCarrito(APIView):
 
 
 class ActualizarCarrito(generics.UpdateAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = CarritoSerializer
     queryset = Carrito.objects.all()
 
@@ -292,7 +296,7 @@ class ActualizarCarrito(generics.UpdateAPIView):
 
 
 class EliminarCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['delete']
 
     def delete(self, request, id, format=None):
@@ -305,7 +309,7 @@ class EliminarCarrito(APIView):
 
 
 class DetalleProductosCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get']
     
     def get(self, request, id):
@@ -318,12 +322,12 @@ class DetalleProductosCarrito(APIView):
 
 
 class ListarProductosEnCarrito(generics.ListCreateAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = ProductoCarrito.objects.all()
     serializer_class = ProductoCarritoSerializer
 
 class ListarProductosEnCarritoEspecifico(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get']
 
     def get(self, request, carrito_id, format=None):
@@ -336,7 +340,7 @@ class ListarProductosEnCarritoEspecifico(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class CrearProductosCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     model = ProductoCarritoSerializer
     http_method_names = ['post']
 
@@ -351,7 +355,7 @@ class CrearProductosCarrito(APIView):
         
 
 class ActualizarProductoenCarrito(generics.UpdateAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProductoCarritoSerializer
     queryset = ProductoCarrito.objects.all()
 
@@ -384,7 +388,7 @@ class ActualizarProductoenCarrito(generics.UpdateAPIView):
 
 
 class EliminarItemEnCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['delete']
 
     def delete(self, request, id, format=None):
