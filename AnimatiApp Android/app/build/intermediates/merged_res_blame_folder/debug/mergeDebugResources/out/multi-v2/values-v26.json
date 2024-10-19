@@ -4,7 +4,7 @@
             "outputFile": "com.example.animatiappandroid.app-mergeDebugResources-26:/values-v26/values-v26.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Gaby\\.gradle\\caches\\transforms-4\\a306a1e917ef3ee78bf0d17e692da744\\transformed\\appcompat-1.6.1\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\lauti\\.gradle\\caches\\transforms-4\\a306a1e917ef3ee78bf0d17e692da744\\transformed\\appcompat-1.6.1\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",

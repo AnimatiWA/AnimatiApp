@@ -12,7 +12,14 @@
         android:layout_height="220dp"
         android:scaleType="centerCrop"
         android:src="@drawable/header_image" />
-
+    <Button
+        android:id="@+id/cart_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ir al Carrito"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp" />
+    
     <!-- RecyclerView para las tarjetas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -21,12 +28,6 @@
         android:layout_marginTop="16dp" />
 
     <!-- Botón para ir al carrito de compras -->
-    <Button
-        android:id="@+id/cart_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ir al Carrito"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp" />
+
 
 </LinearLayout>
