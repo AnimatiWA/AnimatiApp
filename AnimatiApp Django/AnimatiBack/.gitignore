@@ -20,7 +20,6 @@ env/
 */migrations/*.pyo
 */migrations/*.pyc
 */migrations/*__pycache__/
-*/migrations/[0-9]*.py
 
 .idea/
 .vscode/
