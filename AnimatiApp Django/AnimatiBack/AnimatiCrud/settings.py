@@ -30,7 +30,9 @@ SECRET_KEY = 'django-insecure-1b-!64*93by4c36iaw^5h0hjvvngpbf+)n&@af=-+tjoyvxirq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'animatiapp.up.railway.app'
+]
 
 
 # Application definition
