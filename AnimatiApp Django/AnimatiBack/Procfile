@@ -1,1 +1,1 @@
-web: python manage.py makemigrations AnimatiApp && python manage.py migrate && gunicorn AnimatiApp.wsgi
+web: python manage.py migrate && gunicorn AnimatiCrud.wsgi:application
