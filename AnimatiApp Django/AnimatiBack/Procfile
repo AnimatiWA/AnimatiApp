@@ -1,1 +1,1 @@
-web: echo "empenzando..." && python manage.py migrate && echo "migrate ok" && gunicorn AnimatiCrud.wsgi:application && echo "gunicorn ok"
+web: python manage.py collectstatic --noinput && python manage.py migrate && gunicorn AnimatiCrud.wsgi:application
