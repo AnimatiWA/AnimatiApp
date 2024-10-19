@@ -5,8 +5,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@drawable/gradient_login"
     tools:context=".LoginActivity">
+    android:background="@drawable/gradient_login">
+
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top" />
+
+    <View
+        android:id="@+id/colorBox"
+        android:layout_width="243dp"
+        android:layout_height="533dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:background="@drawable/card_login"
+        android:backgroundTint="#F6F6F6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.504" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:autofillHints="password"
+        android:ems="10"
+        android:hint="@string/contrasena_text"
+        android:inputType="textPassword"
+        android:textColorHint="#5A5A5A"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText2"
+        app:layout_constraintVertical_bias="0.492" />
+>>>>>>> Stashed changes
 
     <!-- Logo centrado en la parte superior -->
     <ImageView
@@ -14,11 +52,20 @@
         android:layout_width="214dp"
         android:layout_height="106dp"
         android:contentDescription="@string/descripcion_logo"
+<<<<<<< Updated upstream
         app:srcCompat="@drawable/sobre_nosotros"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="60dp" />
+=======
+        app:layout_constraintBottom_toTopOf="@+id/editTextText2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/colorBox"
+        app:layout_constraintVertical_bias="0.467"
+        app:srcCompat="@drawable/sobre_nosotros" />
+>>>>>>> Stashed changes
 
     <!-- EditText para el nombre de usuario centrado -->
     <EditText
@@ -61,6 +108,7 @@
         android:text="@string/login_button_text"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
+<<<<<<< Updated upstream
         app:layout_constraintTop_toBottomOf="@id/editTextTextPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +126,25 @@
         app:layout_constraintTop_toBottomOf="@id/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+=======
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:rippleColor="#000333"
+        tools:layout_editor_absoluteY="404dp" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:autofillHints="username"
+        android:ems="10"
+        android:hint="@string/usuario_text"
+        android:inputType="text"
+        android:textColorHint="#5A5A5A"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        tools:layout_editor_absoluteY="267dp" />
+>>>>>>> Stashed changes
 
     <!-- Texto de opciones de inicio de sesión alternativas -->
     <TextView
@@ -86,21 +153,81 @@
         android:layout_height="wrap_content"
         android:text="@string/Opciones_inicio_sesion_text"
         android:textSize="12sp"
+<<<<<<< Updated upstream
         app:layout_constraintTop_toBottomOf="@id/divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
+=======
+        app:layout_constraintBottom_toBottomOf="@+id/colorBox"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="640dp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="150dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/colorBox"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.111" />
+>>>>>>> Stashed changes
 
     <!-- Botón de Login con Google centrado -->
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="42dp"
         android:layout_height="38dp"
+<<<<<<< Updated upstream
         app:srcCompat="@drawable/google_icon"
         android:contentDescription="@string/logo_de_google"
         app:layout_constraintTop_toBottomOf="@id/textView11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
+=======
+        android:contentDescription="@string/logo_de_google"
+        app:layout_constraintBottom_toBottomOf="@+id/colorBox"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:srcCompat="@drawable/google_icon" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="59dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="58dp" />
+>>>>>>> Stashed changes
 
 </androidx.constraintlayout.widget.ConstraintLayout>
