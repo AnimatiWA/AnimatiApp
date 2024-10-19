@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn AnimatiCrud.wsgi:application
+web: python manage.py migrate && print('migrate ok') && gunicorn AnimatiCrud.wsgi:application && print('gunicorn ok')
