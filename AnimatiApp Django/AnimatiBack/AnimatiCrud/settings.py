@@ -34,6 +34,10 @@ ALLOWED_HOSTS = [
     'animatiapp.up.railway.app'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://animatiapp.up.railway.app',
+]
+
 
 # Application definition
 
