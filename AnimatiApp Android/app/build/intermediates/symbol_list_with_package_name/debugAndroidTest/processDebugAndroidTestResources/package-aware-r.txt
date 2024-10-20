@@ -1,3 +1,0 @@
-com.example.animatiappandroid.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
