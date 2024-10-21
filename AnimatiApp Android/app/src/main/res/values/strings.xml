@@ -7,13 +7,20 @@
 </string>
     <string name="nuestros_valores">Calidad: Cada producto en nuestra tienda cumple con los más altos estándares de calidad</string>
 
-<string name="login_button_text">Login</string>
+    <!-- Activity_Login -->
+    <string name="login_button_text">Login</string>
     <string name="contrasena_text">Contraseña</string>
     <string name="usuario_text">Usuario</string>
     <string name="Opciones_inicio_sesion_text">O Iniciar Sesión con</string>
     <string name="logo_de_google">Logo de google</string>
     <string name="registro_click_text">Si aún no tiene una cuenta, puede registrarse aquí</string>
     <string name="descripcion_logo">Logo de la aplicacion en el cual se puede ver un monigote que es la mascota y el nombre de la app Animati Web</string>
+
+    <!-- Forgot_Password -->
+    <string name="forgot_password_text">¿Olvidaste tu contraseña?</string>
+    <string name="forgot_password_title">Recuperar Contraseña</string>
+    <string name="enter_email">Introduce tu correo electrónico</string>
+    <string name="reset_password_button">Enviar enlace de recuperación</string>
 
     <!-- Activity_Register -->
     <string name="app_logo">Animati App Logo</string>
@@ -44,4 +51,18 @@
     <string name="precio_prod_1">1.000,00</string>
     <string name="precio_prod_2">500,00</string>
     <string name="precio_prod_3">1.500,00</string>
+
+    <!-- Activity_Profile -->
+    <string name="profile_image_desc">Imagen de perfil del usuario</string>
+    <string name="change_profile_image">Cambiar imágen</string>
+    <string name="address_hint">Dirección</string>
+    <string name="edit_address">Editar dirección</string>
+    <string name="location_hint">Localidad</string>
+    <string name="edit_location">Editar localidad</string>
+    <string name="postal_code_hint">Código Postal</string>
+    <string name="edit_postal_code">Editar código postal</string>
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="view_purchase_history">Ver historial de compras</string>
+    <string name="view_order_tracking">Seguimiento de pedidos</string>
+
 </resources>

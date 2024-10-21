@@ -3279,6 +3279,7 @@ id fond_3
 id fond_rose
 id fond_rose1
 id forever
+id forgotPassword
 id fragment_container_view_tag
 id frost
 id fullscreen_header
@@ -3463,6 +3464,7 @@ id rectangulo_rosa
 id recycler_view
 id registerButton
 id registerTitle
+id resetPasswordButton
 id reverseSawtooth
 id right
 id rightToLeft
@@ -3578,6 +3580,7 @@ id textView5
 id textView6
 id textView7
 id textView8
+id textViewForgotPassword
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3750,6 +3753,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_cart
 layout activity_contacto
+layout activity_forgot_password
 layout activity_gallery
 layout activity_inicio
 layout activity_login
@@ -3901,12 +3905,15 @@ string descripcion_prod_1
 string descripcion_prod_2
 string descripcion_prod_3
 string email
+string enter_email
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string first_name
+string forgot_password_text
+string forgot_password_title
 string galería
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
@@ -4034,6 +4041,7 @@ string quienes_somos
 string rectangulo
 string register
 string registro_click_text
+string reset_password_button
 string search_menu_title
 string searchbar_scrolling_view_behavior
 string searchview_clear_text_content_description

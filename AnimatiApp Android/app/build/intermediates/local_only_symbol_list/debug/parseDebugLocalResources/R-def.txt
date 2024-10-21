@@ -87,6 +87,7 @@ id firstNameLayout
 id fond_3
 id fond_rose
 id fond_rose1
+id forgotPassword
 id gallery_section
 id header_image
 id icon_mail
@@ -124,6 +125,7 @@ id rectangulo_rosa
 id recycler_view
 id registerButton
 id registerTitle
+id resetPasswordButton
 id scrollView2
 id termsCheckBox
 id textView
@@ -136,6 +138,7 @@ id textView5
 id textView6
 id textView7
 id textView8
+id textViewForgotPassword
 id text_prod_1
 id text_prod_2
 id text_prod_3
@@ -148,6 +151,7 @@ id usernameEditText
 id usernameLayout
 layout activity_cart
 layout activity_contacto
+layout activity_forgot_password
 layout activity_gallery
 layout activity_inicio
 layout activity_login
@@ -182,7 +186,10 @@ string descripcion_prod_1
 string descripcion_prod_2
 string descripcion_prod_3
 string email
+string enter_email
 string first_name
+string forgot_password_text
+string forgot_password_title
 string galería
 string inicio
 string last_name
@@ -203,6 +210,7 @@ string quienes_somos
 string rectangulo
 string register
 string registro_click_text
+string reset_password_button
 string send
 string terms_conditions
 string username

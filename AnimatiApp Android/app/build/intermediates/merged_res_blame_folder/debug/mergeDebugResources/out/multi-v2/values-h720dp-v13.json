@@ -4,7 +4,7 @@
             "outputFile": "com.example.animatiappandroid.app-mergeDebugResources-26:/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\lauti\\.gradle\\caches\\transforms-4\\a306a1e917ef3ee78bf0d17e692da744\\transformed\\appcompat-1.6.1\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-4\\a306a1e917ef3ee78bf0d17e692da744\\transformed\\appcompat-1.6.1\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
