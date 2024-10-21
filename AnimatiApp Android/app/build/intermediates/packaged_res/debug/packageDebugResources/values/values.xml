@@ -50,7 +50,10 @@
     <string name="descripcion_prod_2">Señaladores personalizados con diseños únicos. Perfectos para agregar un toque.</string>
     <string name="descripcion_prod_3">Cubicraft personalizados con tus personajes favoritos. Arma y decora con figuras.</string>
     <string name="email">Correo Electrónico</string>
+    <string name="enter_email">Introduce tu correo electrónico</string>
     <string name="first_name">Nombre</string>
+    <string name="forgot_password_text">¿Olvidaste tu contraseña?</string>
+    <string name="forgot_password_title">Recuperar Contraseña</string>
     <string name="galería">Galería</string>
     <string name="inicio">Inicio</string>
     <string name="last_name">Apellido</string>
@@ -73,6 +76,7 @@
     <string name="rectangulo">rectangulo</string>
     <string name="register">Registrarse</string>
     <string name="registro_click_text">Si aún no tiene una cuenta, puede registrarse aquí</string>
+    <string name="reset_password_button">Enviar enlace de recuperación</string>
     <string name="send">Enviar</string>
     <string name="terms_conditions">Acepto los términos y condiciones</string>
     <string name="username">Nombre de Usuario</string>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_login"
+    tools:context=".ProfileActivity">
+
+    <!-- Imagen de perfil -->
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/profile_image_desc"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_profile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp" />
+
+    <!-- Botón para cambiar la imagen de perfil -->
+    <Button
+        android:id="@+id/change_profile_image_button"
+        android:layout_width="100dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:text="@string/change_profile_image"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image" />
+
+    <!-- Nombre y apellido del usuario -->
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre Apellido"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/profile_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp" />
+
+    <!-- Dirección del usuario -->
+    <EditText
+        android:id="@+id/user_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/address_hint"
+        app:layout_constraintTop_toBottomOf="@id/user_name"
+        app:layout_constraintStart_toEndOf="@id/profile_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp" />
+
+    <!-- Botón para editar la dirección -->
+    <ImageButton
+        android:id="@+id/edit_address_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit"
+        android:contentDescription="@string/edit_address"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toBottomOf="@id/user_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Localidad del usuario -->
+    <EditText
+        android:id="@+id/user_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/location_hint"
+        app:layout_constraintTop_toBottomOf="@id/edit_address_button"
+        app:layout_constraintStart_toEndOf="@id/profile_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp" />
+
+    <!-- Botón para editar la localidad -->
+    <ImageButton
+        android:id="@+id/edit_location_button"
+        android:layout_width="62dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/edit_location"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_location" />
+
+    <!-- Código Postal del usuario -->
+    <EditText
+        android:id="@+id/user_postal_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/postal_code_hint"
+        app:layout_constraintTop_toBottomOf="@id/edit_location_button"
+        app:layout_constraintStart_toEndOf="@id/profile_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp" />
+
+    <!-- Botón para editar el código postal -->
+    <ImageButton
+        android:id="@+id/edit_postal_code_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit"
+        android:contentDescription="@string/edit_postal_code"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toBottomOf="@id/user_postal_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Botón para cambiar contraseña -->
+    <Button
+        android:id="@+id/change_password_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/change_password"
+        android:background="@drawable/rounded_button_background"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/edit_postal_code_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp" />
+
+    <!-- Botón para ver el historial de compras -->
+    <Button
+        android:id="@+id/view_purchase_history_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/view_purchase_history"
+        android:background="@drawable/rounded_button_background"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/change_password_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp" />
+
+    <!-- Botón para ver el seguimiento de pedidos -->
+    <Button
+        android:id="@+id/view_order_tracking_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/view_order_tracking"
+        android:background="@drawable/rounded_button_background"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/view_purchase_history_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

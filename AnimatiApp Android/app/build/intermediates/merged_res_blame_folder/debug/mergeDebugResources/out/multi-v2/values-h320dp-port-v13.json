@@ -4,7 +4,7 @@
             "outputFile": "com.example.animatiappandroid.app-mergeDebugResources-26:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\lauti\\.gradle\\caches\\transforms-4\\e7da04b325ba4afb59faa19d19fe364e\\transformed\\material-1.9.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
+                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-4\\e7da04b325ba4afb59faa19d19fe364e\\transformed\\material-1.9.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

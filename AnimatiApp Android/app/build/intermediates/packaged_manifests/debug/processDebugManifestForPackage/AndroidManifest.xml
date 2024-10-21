@@ -27,7 +27,9 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.AnimatiAppAndroid" >
-
+        <activity
+            android:name="com.example.animatiappandroid.ForgotPasswordActivity"
+            android:exported="false" />
         <!-- Cambiado: activity_inicio ahora es la pantalla de inicio -->
         <activity
             android:name="com.example.animatiappandroid.MainMenuActivity"
@@ -37,9 +39,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Se registra la actividad sobre nosotros -->
+        </activity> <!-- Se registra la actividad sobre nosotros -->
         <activity
             android:name="com.example.animatiappandroid.SobreNosotrosActivity"
             android:exported="true" />
@@ -48,35 +48,22 @@
             android:exported="true" />
         <activity
             android:name="com.example.animatiappandroid.MainActivity"
-            android:exported="true" />
-
-        <!-- Se registra la actividad del carrito -->
+            android:exported="true" /> <!-- Se registra la actividad del carrito -->
         <activity
             android:name="com.example.animatiappandroid.CartActivity"
-            android:exported="true" />
-
-        <!-- Se registra la actividad galería -->
+            android:exported="true" /> <!-- Se registra la actividad galería -->
         <activity
             android:name="com.example.animatiappandroid.Gallery"
-            android:exported="true" >
-        </activity>
-
-        <!-- Se registra la actividad contacto -->
+            android:exported="true" /> <!-- Se registra la actividad contacto -->
         <activity
             android:name="com.example.animatiappandroid.ContactoActivity"
-            android:exported="true" >
-        </activity>
-
-        <!-- Se registra la actividad registro -->
+            android:exported="true" /> <!-- Se registra la actividad registro -->
         <activity
             android:name="com.example.animatiappandroid.RegisterActivity"
-            android:exported="true" >
-        </activity>
-        <!-- Login -->
+            android:exported="true" /> <!-- Login -->
         <activity
             android:name="com.example.animatiappandroid.LoginActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
