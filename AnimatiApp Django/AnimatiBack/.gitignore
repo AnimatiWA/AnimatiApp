@@ -24,3 +24,7 @@ env/
 
 .idea/
 .vscode/
+
+# Uninstall dependencies
+uninstall.txt
+installed.txt
