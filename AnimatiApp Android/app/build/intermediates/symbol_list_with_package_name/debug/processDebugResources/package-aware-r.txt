@@ -2944,6 +2944,7 @@ drawable contacto_fondotexto
 drawable contacto_imagen2
 drawable contacto_outline_forum_24
 drawable cubecraft
+drawable default_profile
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off
@@ -2956,6 +2957,7 @@ drawable header_image
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
+drawable ic_edit
 drawable ic_email_icon
 drawable ic_firstname_icon
 drawable ic_keyboard_black_24dp
@@ -3162,6 +3164,7 @@ id btn_sobre_nosotros
 id btn_submit
 id button
 id buttonPanel
+id buttonSend
 id cache_measures
 id callMeasure
 id cancel_button
@@ -3182,6 +3185,8 @@ id center_vertical
 id chain
 id chain2
 id chains
+id change_password_button
+id change_profile_image_button
 id checkbox
 id checked
 id chronometer
@@ -3243,8 +3248,12 @@ id easeInOut
 id easeOut
 id east
 id edge
+id editTextEmail
 id editTextText2
 id editTextTextPassword
+id edit_address_button
+id edit_location_button
+id edit_postal_code_button
 id edit_query
 id elastic
 id emailEditText
@@ -3312,6 +3321,7 @@ id imageView
 id imageView2
 id imageView3
 id imageView4
+id imageViewLogo
 id immediateStop
 id included
 id indeterminate
@@ -3455,6 +3465,7 @@ id prod_3
 id prod_4
 id product_list
 id productos
+id profile_image
 id progress_circular
 id progress_horizontal
 id radio
@@ -3464,7 +3475,6 @@ id rectangulo_rosa
 id recycler_view
 id registerButton
 id registerTitle
-id resetPasswordButton
 id reverseSawtooth
 id right
 id rightToLeft
@@ -3580,7 +3590,7 @@ id textView5
 id textView6
 id textView7
 id textView8
-id textViewForgotPassword
+id textViewInfo
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3618,10 +3628,16 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id user_address
+id user_location
+id user_name
+id user_postal_code
 id usernameEditText
 id usernameLayout
 id vertical_only
 id view_offset_helper
+id view_order_tracking_button
+id view_purchase_history_button
 id view_transition
 id view_tree_lifecycle_owner
 id view_tree_on_back_pressed_dispatcher_owner
@@ -3759,6 +3775,7 @@ layout activity_inicio
 layout activity_login
 layout activity_main
 layout activity_main_menu
+layout activity_profile
 layout activity_register
 layout activity_sobre_nosotros
 layout card_item
@@ -3881,6 +3898,7 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string address_hint
 string androidx_startup
 string app_logo
 string app_name
@@ -3893,6 +3911,8 @@ string bottomsheet_drag_handle_clicked
 string bottomsheet_drag_handle_content_description
 string carrito
 string carrito_de_compras
+string change_password
+string change_profile_image
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
@@ -3904,6 +3924,9 @@ string descripcion_logo
 string descripcion_prod_1
 string descripcion_prod_2
 string descripcion_prod_3
+string edit_address
+string edit_location
+string edit_postal_code
 string email
 string enter_email
 string error_a11y_label
@@ -3920,6 +3943,7 @@ string icon_content_description
 string inicio
 string item_view_role_description
 string last_name
+string location_hint
 string login_button_text
 string logo
 string logo_de_google
@@ -4034,9 +4058,11 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string postal_code_hint
 string precio_prod_1
 string precio_prod_2
 string precio_prod_3
+string profile_image_desc
 string quienes_somos
 string rectangulo
 string register
@@ -4053,6 +4079,8 @@ string status_bar_notification_info_overflow
 string terms_conditions
 string username
 string usuario_text
+string view_order_tracking
+string view_purchase_history
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

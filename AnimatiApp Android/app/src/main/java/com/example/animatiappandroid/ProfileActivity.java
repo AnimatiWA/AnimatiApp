@@ -8,12 +8,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
     private ImageView profileImage;
     private EditText userName, userAddress, userLocation, userPostalCode;
-    private Button changeProfileImageButton, changeAddressButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
+    private Button changeProfileImageButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
     private ImageButton editAddressButton, editLocationButton, editPostalCodeButton;
 
     @Override
@@ -26,13 +27,10 @@ public class ProfileActivity extends AppCompatActivity {
         userAddress = findViewById(R.id.user_address);
         userLocation = findViewById(R.id.user_location);
         userPostalCode = findViewById(R.id.user_postal_code);
-
         changeProfileImageButton = findViewById(R.id.change_profile_image_button);
-        changeAddressButton = findViewById(R.id.change_address_button);
         changePasswordButton = findViewById(R.id.change_password_button);
         viewPurchaseHistoryButton = findViewById(R.id.view_purchase_history_button);
         viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
-
         editAddressButton = findViewById(R.id.edit_address_button);
         editLocationButton = findViewById(R.id.edit_location_button);
         editPostalCodeButton = findViewById(R.id.edit_postal_code_button);
