@@ -38,10 +38,13 @@
     <color name="transp">#00FF0000</color>
     <color name="white">#FFFFFFFF</color>
     <string name="Opciones_inicio_sesion_text">O Iniciar Sesión con</string>
+    <string name="address_hint">Dirección</string>
     <string name="app_logo">Animati App Logo</string>
     <string name="app_name">Animati App Android</string>
     <string name="carrito">carrito</string>
     <string name="carrito_de_compras">Carrito de compras</string>
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="change_profile_image">Cambiar imágen</string>
     <string name="contacto">Contacto</string>
     <string name="contrasena_text">Contraseña</string>
     <string name="descripcion">descripcion</string>
@@ -49,6 +52,9 @@
     <string name="descripcion_prod_1">Anotadores personalizados con dibujos a pedido, ideales para expresar tu estilo único.</string>
     <string name="descripcion_prod_2">Señaladores personalizados con diseños únicos. Perfectos para agregar un toque.</string>
     <string name="descripcion_prod_3">Cubicraft personalizados con tus personajes favoritos. Arma y decora con figuras.</string>
+    <string name="edit_address">Editar dirección</string>
+    <string name="edit_location">Editar localidad</string>
+    <string name="edit_postal_code">Editar código postal</string>
     <string name="email">Correo Electrónico</string>
     <string name="enter_email">Introduce tu correo electrónico</string>
     <string name="first_name">Nombre</string>
@@ -57,6 +63,7 @@
     <string name="galería">Galería</string>
     <string name="inicio">Inicio</string>
     <string name="last_name">Apellido</string>
+    <string name="location_hint">Localidad</string>
     <string name="login_button_text">Login</string>
     <string name="logo">logo</string>
     <string name="logo_de_google">Logo de google</string>
@@ -68,9 +75,11 @@
 </string>
     <string name="nuestros_valores">Calidad: Cada producto en nuestra tienda cumple con los más altos estándares de calidad</string>
     <string name="password">Contraseña</string>
+    <string name="postal_code_hint">Código Postal</string>
     <string name="precio_prod_1">1.000,00</string>
     <string name="precio_prod_2">500,00</string>
     <string name="precio_prod_3">1.500,00</string>
+    <string name="profile_image_desc">Imagen de perfil del usuario</string>
     <string name="quienes_somos">Animati es una papelería dedicada a ofrecer una amplia gama de productos de alta calidad para satisfacer las necesidades de nuestros clientes. Desde nuestra fundación en 2021, nos hemos comprometido a proporcionar artículos de papelería y librería que inspiran la creatividad y la productividad en el día a día.
 </string>
     <string name="rectangulo">rectangulo</string>
@@ -81,6 +90,8 @@
     <string name="terms_conditions">Acepto los términos y condiciones</string>
     <string name="username">Nombre de Usuario</string>
     <string name="usuario_text">Usuario</string>
+    <string name="view_order_tracking">Seguimiento de pedidos</string>
+    <string name="view_purchase_history">Ver historial de compras</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         
         <item name="colorPrimary">@color/colorPrimary</item>
