@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,116 +7,132 @@
     android:background="@drawable/gradient_login"
     tools:context=".LoginActivity">
 
-    <!-- Logo centrado en la parte superior -->
+    <View
+        android:id="@+id/colorBox"
+        android:layout_width="243dp"
+        android:layout_height="533dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/card_login"
+        android:backgroundTint="#F6F6F6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="214dp"
+        android:id="@+id/logoImageView"
+        android:layout_width="112dp"
         android:layout_height="106dp"
-        android:contentDescription="@string/descripcion_logo"
-        app:srcCompat="@drawable/sobre_nosotros"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="60dp" />
+        android:contentDescription="@string/logo_description"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText2"
+        app:layout_constraintEnd_toEndOf="@+id/editTextText2"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/colorBox"
+        app:layout_constraintVertical_bias="0.46"
+        app:srcCompat="@drawable/animati_logo" />
 
-    <!-- EditText para el nombre de usuario centrado -->
     <EditText
         android:id="@+id/editTextText2"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:hint="@string/usuario_text"
+        android:layout_width="152dp"
+        android:layout_height="49dp"
+        android:hint="Usuario"
         android:inputType="text"
-        android:autofillHints="username"
-        android:textColorHint="#5A5A5A"
-        app:layout_constraintTop_toBottomOf="@id/imageView3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp" />
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteY="369dp" />
 
-    <!-- EditText para la contraseña centrado -->
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_width="152dp"
+        android:layout_height="49dp"
+        android:autofillHints="Contraseña"
         android:hint="@string/contrasena_text"
         android:inputType="textPassword"
-        android:autofillHints="password"
-        android:textColorHint="#5A5A5A"
-        app:layout_constraintTop_toBottomOf="@id/editTextText2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp" />
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText2"
+        app:layout_constraintVertical_bias="0.404" />
 
-    <!-- Botón de Login centrado -->
     <Button
         android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="102dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="344dp"
         android:background="@drawable/rounded_button_background"
         android:text="@string/login_button_text"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/colorBox" />
 
-    <!-- Separador (divider) -->
     <View
         android:id="@+id/divider"
         android:layout_width="150dp"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@id/button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/forgotPassword"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.411" />
 
-    <!-- Texto de opciones de inicio de sesión alternativas -->
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Opciones_inicio_sesion_text"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
-
-    <!-- Botón de Login con Google centrado -->
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="42dp"
-        android:layout_height="38dp"
-        app:srcCompat="@drawable/google_icon"
-        android:contentDescription="@string/logo_de_google"
-        app:layout_constraintTop_toBottomOf="@id/textView11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
-
-    <!-- Botón de recuperación de contraseña -->
     <Button
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="192dp"
-        android:text="@string/forgot_password_text"
         android:background="@android:color/transparent"
+        android:text="@string/forgot_password_text"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/colorBox"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.742" />
+
+
+    <TextView
+        android:id="@+id/registerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/a_n_no_tienes_una_cuenta"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword" />
+        app:layout_constraintTop_toTopOf="@+id/divider" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="59dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="58dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
