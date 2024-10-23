@@ -1,5 +1,6 @@
 package com.example.animatiappandroid;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private Context context;
 
     public ProductAdapter (List<Product> productList,Context context){
-    this.productList=productList;
-    this.context=context;
+        this.productList=productList;
+        this.context=context;
     }
 
     @NonNull
@@ -33,9 +34,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productName.setText(product.getName());
         holder.productPrice.setText("$"+product.getPrice());
         holder.addToCart.setOnClickListener(v -> {
-
-
-            //Toast.makeText(this, "Producto agregado al carrito", Toast.LENGTH_SHORT).show();
 
 
         });
@@ -55,6 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
             addToCart = itemView.findViewById(R.id.add_to_cart);
+            Log.d("Gallery", "se crea elemento");
         }
     }
 }
