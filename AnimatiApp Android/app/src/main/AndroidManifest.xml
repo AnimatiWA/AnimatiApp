@@ -38,7 +38,7 @@
             android:exported="true" /> <!-- Se registra la actividad del carrito -->
         <activity
             android:name=".CartActivity"
-            android:exported="true" /> <!-- Se registra la actividad galería -->
+            android:exported="true" /> <!-- Se registra la actividad galerÃ­a -->
         <activity
             android:name=".Gallery"
             android:exported="true"></activity> <!-- Se registra la actividad contacto -->
