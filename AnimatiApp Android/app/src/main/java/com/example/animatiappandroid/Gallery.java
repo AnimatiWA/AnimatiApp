@@ -2,6 +2,7 @@ package com.example.animatiappandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import com.example.animatiappandroid.R;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.core.content.ContextCompat;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
@@ -35,13 +38,12 @@ public class Gallery extends AppCompatActivity {
         recyclerView=findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        productList=new ArrayList<>();
-        productList.add(new Product("Product 1", 10.99, 1));
-        productList.add(new Product("Product 2", 19.99, 1));
-        productList.add(new Product("Product 3", 29.99, 1));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.item_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
-        productAdapter=new ProductAdapter(productList,this);
-        recyclerView.setAdapter(productAdapter);
+        cargarProductos();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -65,5 +67,15 @@ public class Gallery extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void cargarProductos(){
 
+
+        productList.add(new Product(nombre, precio, cantidad));
+        productList = new ArrayList<>();
+
+        productAdapter=new ProductAdapter(productList,this);
+        recyclerView.setAdapter(productAdapter);
+
+        productAdapter.notifyDataSetChanged();
+    }
 }
