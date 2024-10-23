@@ -14,19 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimatiAppAndroid"
         tools:targetApi="31">
+
         <activity
-            android:name=".ForgotPasswordActivity"
-            android:exported="false" />
-        <!-- Cambiado: activity_inicio ahora es la pantalla de inicio -->
-        <activity
-            android:name=".MainMenuActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Se registra la actividad sobre nosotros -->
+        </activity>
+
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".SobreNosotrosActivity"
             android:exported="true" />
@@ -35,22 +35,21 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" /> <!-- Se registra la actividad del carrito -->
+            android:exported="true" />
         <activity
             android:name=".CartActivity"
-            android:exported="true" /> <!-- Se registra la actividad galería -->
+            android:exported="true" />
         <activity
             android:name=".Gallery"
-            android:exported="true"></activity> <!-- Se registra la actividad contacto -->
+            android:exported="true"></activity>
         <activity
             android:name=".ContactoActivity"
-            android:exported="true"></activity> <!-- Se registra la actividad registro -->
+            android:exported="true"></activity>
         <activity
             android:name=".RegisterActivity"
-            android:exported="true"></activity> <!-- Login -->
-        <activity
-            android:name=".LoginActivity"
             android:exported="true"></activity>
+
     </application>
 
 </manifest>
+
