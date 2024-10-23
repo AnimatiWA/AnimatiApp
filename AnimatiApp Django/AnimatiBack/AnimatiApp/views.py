@@ -13,7 +13,12 @@ from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status, viewsets, generics
 
-
+# Importaciones ForgotPassword
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 from .models import *
 from .serializers import *
@@ -398,3 +403,25 @@ class EliminarItemEnCarrito(APIView):
         
         productoCarrito.delete()
         return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
+    
+
+# Manejo de recuperación de pass.
+@csrf_exempt
+def password_recovery(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        try:
+            user = User.objects.get(email=email)
+            # Aquí deberíamos generar un token y enviar el correo con el enlace de recuperación
+            send_mail(
+                'Recuperación de contraseña',
+                'Aquí va el enlace para recuperar tu contraseña.',
+                'tu_correo@tu_dominio.com',
+                [email],
+                fail_silently=False,
+            )
+            return JsonResponse({'message': 'Correo de recuperación enviado.'}, status=200)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Correo no encontrado.'}, status=404)
+    return JsonResponse({'error': 'Método no permitido.'}, status=405)
