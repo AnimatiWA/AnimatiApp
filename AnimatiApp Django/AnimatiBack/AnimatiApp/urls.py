@@ -6,6 +6,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from AnimatiApp import views
 from .views import *
 
+# Importación redundante.
+from .views import password_recovery
+
 
 router=routers.DefaultRouter()
 router.register(r'Categoria', views.CategoriaViewSet)
@@ -38,6 +41,8 @@ urlpatterns = [
     path('carritoProductos/crear', CrearProductosCarrito.as_view(), name='crearproductoencarrito'),
     path('carritoProductos/actualizar/<int:id>', ActualizarProductoenCarrito.as_view(), name='actualizarproductoencarrito'),
     path('carritoProductos/eliminar/<int:id>', EliminarItemEnCarrito.as_view(), name='eliminarproductodelcarrito'),
+    # Recuperación pass
+    path('api/password_recovery/', password_recovery, name='password_recovery'), 
         
     path('', include(router.urls)),
 ]
