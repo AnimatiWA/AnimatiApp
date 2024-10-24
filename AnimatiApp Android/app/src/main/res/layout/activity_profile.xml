@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +11,8 @@
     <!-- Imagen de perfil -->
     <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:contentDescription="@string/profile_image_desc"
         android:scaleType="centerCrop"
         android:src="@drawable/default_profile"
@@ -23,22 +24,24 @@
     <!-- Botón para cambiar la imagen de perfil -->
     <Button
         android:id="@+id/change_profile_image_button"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="72dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
         android:text="@string/change_profile_image"
+        android:background="@drawable/button_border"
         android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/profile_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image" />
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
 
-    <!-- Nombre y apellido del usuario -->
+    <!-- Nombre y apellido del usuario con saludo -->
     <TextView
         android:id="@+id/user_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Nombre Apellido"
+        android:text=""
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,83 +51,21 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="32dp" />
 
-    <!-- Dirección del usuario -->
-    <EditText
-        android:id="@+id/user_address"
+    <!-- Botón para cambiar email -->
+    <Button
+        android:id="@+id/change_email_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/address_hint"
-        app:layout_constraintTop_toBottomOf="@id/user_name"
-        app:layout_constraintStart_toEndOf="@id/profile_image"
+        android:text="@string/change_email"
+        android:background="@drawable/rounded_button_background"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/change_profile_image_button"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="32dp"
-        android:visibility="gone" /> <!-- Bloque que quita visibilidad -->
-
-    <!-- Botón para editar la dirección -->
-    <ImageButton
-        android:id="@+id/edit_address_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit"
-        android:contentDescription="@string/edit_address"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintTop_toBottomOf="@id/user_address"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
-
-    <!-- Localidad del usuario -->
-    <EditText
-        android:id="@+id/user_location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/location_hint"
-        app:layout_constraintTop_toBottomOf="@id/edit_address_button"
-        app:layout_constraintStart_toEndOf="@id/profile_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="32dp"
-        android:visibility="gone" />
-
-    <!-- Botón para editar la localidad -->
-    <ImageButton
-        android:id="@+id/edit_location_button"
-        android:layout_width="62dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/edit_location"
-        android:src="@drawable/ic_edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_location" />
-
-    <!-- Código Postal del usuario -->
-    <EditText
-        android:id="@+id/user_postal_code"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/postal_code_hint"
-        app:layout_constraintTop_toBottomOf="@id/edit_location_button"
-        app:layout_constraintStart_toEndOf="@id/profile_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="32dp"
-        android:visibility="gone" />
-
-    <!-- Botón para editar el código postal -->
-    <ImageButton
-        android:id="@+id/edit_postal_code_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit"
-        android:contentDescription="@string/edit_postal_code"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintTop_toBottomOf="@id/user_postal_code"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginEnd="32dp" />
 
     <!-- Botón para cambiar contraseña -->
     <Button
@@ -135,7 +76,7 @@
         android:background="@drawable/rounded_button_background"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/edit_postal_code_button"
+        app:layout_constraintTop_toBottomOf="@id/change_email_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
@@ -173,4 +114,5 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="32dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
