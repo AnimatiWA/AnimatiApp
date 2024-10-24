@@ -408,6 +408,7 @@ class EliminarItemEnCarrito(APIView):
 # Manejo de recuperación de pass.
 class PasswordRecoveryAPIView(APIView):
     permission_classes = [AllowAny]
+    http_method_names = ['post']
 
     @csrf_exempt
     def post(self, request, *args, **kwargs):
