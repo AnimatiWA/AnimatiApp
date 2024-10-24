@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_pink"
-    tools:context=".SobreNosotros">
+    tools:context=".SobreNosotrosActivity">
 
     <ScrollView
         android:layout_width="0dp"
@@ -76,24 +76,41 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
                         android:gravity="center"
                         android:text="Nuestra misión"
                         android:textColor="@android:color/black"
                         android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textViewMissionContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
                         android:gravity="center"
                         android:lineSpacingExtra="8dp"
                         android:text="Nuestra misión es fomentar la creatividad y el arte en todas sus formas. Proveemos productos de alta calidad que permiten a nuestros clientes expresar sus ideas y emociones de manera tangible. Nos esforzamos por crear un entorno donde la creatividad pueda florecer, apoyando tanto a artistas profesionales como a aficionados."
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/volverAtrasButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="16dp"
+                        android:backgroundTint="#008080"
+                        android:padding="16dp"
+                        android:text="Volver"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:layout_marginBottom="16dp" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewMissionContent" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- Botón Volver -->
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
