@@ -35,7 +35,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productPrice.setText("$"+product.getPrice());
         holder.addToCart.setOnClickListener(v -> {
 
-
+            ((Gallery) context).agregarAlCarrito(product);
         });
     };
 
