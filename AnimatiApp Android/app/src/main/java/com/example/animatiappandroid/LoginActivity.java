@@ -89,13 +89,13 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         String token = response.getString("token");
                         JSONObject userData = response.getJSONObject("user");
-                        String userId = userData.getString("id");
+                        int userId = userData.getInt("id");
 
                         // Almacenar en SharedPreferences
                         SharedPreferences sharedPreferences = getSharedPreferences("AnimatiPreferencias", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", token);
-                        editor.putString("idUser", userId);
+                        editor.putInt("idUser", userId);
                         editor.apply();
 
                         Toast.makeText(LoginActivity.this, "Sesion iniciada", Toast.LENGTH_SHORT).show();
