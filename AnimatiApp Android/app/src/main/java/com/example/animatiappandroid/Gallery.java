@@ -92,20 +92,13 @@ public class Gallery extends AppCompatActivity {
     }
 
     public void op_menu(View view) {
-        Intent intent = new Intent(this, MainMenuActivity.class);
-        startActivity(intent);
-    }
-
-    public void viewCart(View view) {
-        Intent intent = new Intent(this, CartActivity.class);
+        Intent intent = new Intent(this, activity_inicio.class);
         startActivity(intent);
     }
 
     public void cargarProductos(){
 
         productList = new ArrayList<>();
-
-        String token = sharedPreferences.getString("token", "");
 
         String url = "https://animatiapp.up.railway.app/api/producto/lista";
 
@@ -157,7 +150,7 @@ public class Gallery extends AppCompatActivity {
     }
 
     public void agregarAlCarrito(Product product) {
-        sharedPreferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
+
         int idCarrito = sharedPreferences.getInt("idCarrito", -1);
 
         if (idCarrito == -1) {
@@ -170,7 +163,7 @@ public class Gallery extends AppCompatActivity {
 
     public void crearYAgregar(Product product) {
         String url = "https://animatiapp.up.railway.app/api/carrito/crear";
-        int idUsuario= sharedPreferences.getInt("idUsuario",-1);
+        int idUsuario= sharedPreferences.getInt("idUser",-1);
         JSONObject jsonObject= new JSONObject();
         try{
             jsonObject.put("Usuario",idUsuario);
