@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("idUser", userId);
                         editor.apply();
 
-                        Toast.makeText(LoginActivity.this, "Login exitoso. Token: " + token, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Sesion iniciada").show();
                         Intent intent = new Intent(LoginActivity.this, activity_inicio.class);
                         startActivity(intent);
                         finish();
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 },
                 error -> {
                     // Manejar el caso de credenciales incorrectas
-                    Toast.makeText(LoginActivity.this, "Credenciales incorrectas o error de conexión: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Credenciales incorrectas " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
         );
 
