@@ -40,19 +40,15 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        //Inicializo el Volley Request queue.
         queue = Volley.newRequestQueue(this);
 
-        //Inicializo el objeto del carrito y el array para los nombres de los productos.
         cart = new Cart();
         productNames = new ArrayList<>();
 
-        //Recibo idCarrito de sharedPreferences para poder hacer las peticiones.
         SharedPreferences preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
         idCarrito = preferences.getInt("idCarrito", -1);
         token = preferences.getString("token", "");
 
-        //Verifico que el idCarrito sea valido
         if(idCarrito == -1){
             Toast.makeText(this, "Error: carrito inexistente", Toast.LENGTH_LONG).show();
             return;
@@ -63,14 +59,11 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
         Button backButton = findViewById(R.id.back_button);
         totalPrice = findViewById(R.id.total_price);
 
-        //Cargo los productos del carrito desde el back
         cargarProductosCarrito();
 
-        //Configuro el adaptador para mosrar los productos
         adapter = new ProductListAdapter(this, productNames, this);
         productList.setAdapter(adapter);
 
-        // Acción para confirmar la compra
         confirmButton.setOnClickListener(this::confirmarCompra);
 
         backButton.setOnClickListener(this::volverAtras);
@@ -102,10 +95,8 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
                         double total = 0.0;
 
-                        //Limpio la lista para evitar datos repetidos
                         productNames.clear();
 
-                        //Itero sobre el array de productos
                         for(int i = 0; i < response.length(); i++){
 
                             JSONObject productoCarrito = response.getJSONObject(i);
@@ -115,21 +106,16 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                             double precio = productoCarrito.getDouble("Precio");
                             int cantidad = productoCarrito.getInt("Cantidad");
 
-                            //Agrego el producto al carrito
                             cart.addProduct(new Product(id, nombreProducto, precio / cantidad, cantidad));
 
-                            //Actualizo la lista de nombres de productos
                             String elementoProducto = nombreProducto + " - $" + precio / cantidad + " x " + cantidad + " (Total: " + precio + ")";
                             productNames.add(elementoProducto);
 
-                            //Sumo el precio al total
                             total += precio;
                         }
 
-                        //Actualizo el adaptador para que se vean los productos en el ListView
                         adapter.notifyDataSetChanged();
 
-                        //Muestro el precio total en el textView
                         totalPrice.setText("Total: $" + total);
 
                     } catch (JSONException e){
@@ -138,7 +124,7 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                     }
                 },
                 error -> {
-                    //Log.d("CartAct", error.getMessage());
+
                     Toast.makeText(CartActivity.this, "Carrito vacío.", Toast.LENGTH_SHORT).show();
                 }
         ) {
@@ -147,13 +133,11 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
                 Map<String, String> headers = new HashMap<>();
 
-               //Agrego el token para la autorizacion del endpoint
                 headers.put("Authorization", "Bearer " + token);
                 return headers;
             }
         };
 
-        //Agrego la solicitud a la cola de Volley
         queue.add(request);
     }
 
