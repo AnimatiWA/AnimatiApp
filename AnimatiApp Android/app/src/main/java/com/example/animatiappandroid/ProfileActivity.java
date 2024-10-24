@@ -1,7 +1,10 @@
 package com.example.animatiappandroid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,14 +16,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ProfileActivity extends AppCompatActivity {
+    private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
     private ImageView profileImage;
     private TextView userName;
     private Button changeProfileImageButton, changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
@@ -78,23 +81,31 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getUserData() {
-        String url = "https://animatiapp.up.railway.app/api/usuarios";
+        // Obtener el ID del usuario desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("idUsuario", -1);
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+        if (userId == -1) {
+            Toast.makeText(this, "ID de usuario no encontrado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = "https://animatiapp.up.railway.app/api/perfilusuario/" + userId;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            // Suponiendo que el primer usuario es el que estamos interesados
-                            JSONObject user = response.getJSONObject(0);
-                            String firstName = user.getString("first_name");
-                            String lastName = user.getString("last_name");
-                            userName.setText("Bienvenido/a, " + firstName + " " + lastName);
+                            String firstName = response.getString("first_name");
+                            String lastName = response.getString("last_name");
+                            String welcomeMessage = getString(R.string.welcome_message, firstName, lastName);
+                            userName.setText(welcomeMessage);
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Log.e(TAG, "Error al procesar la respuesta JSON", e);  // Registro robusto del error
                             Toast.makeText(ProfileActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -102,12 +113,12 @@ public class ProfileActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Error en la solicitud GET", error);  // Registro robusto del error
                         Toast.makeText(ProfileActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
     }
 }
-
