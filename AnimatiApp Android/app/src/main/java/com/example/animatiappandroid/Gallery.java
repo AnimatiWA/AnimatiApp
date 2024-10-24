@@ -1,14 +1,31 @@
 package com.example.animatiappandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.util.Log;
+import android.view.View;
+import com.example.animatiappandroid.R;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.core.content.ContextCompat;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gallery extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private ProductAdapter productAdapter;
+    private List<Product> productList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +35,47 @@ public class Gallery extends AppCompatActivity {
 
         setContentView(R.layout.activity_gallery);
 
+        recyclerView=findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.item_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
+        cargarProductos();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void op_carrito(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    public void op_menu(View view) {
+        Intent intent = new Intent(this, MainMenuActivity.class);
+        startActivity(intent);
+    }
+
+    public void viewCart(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    public void cargarProductos(){
+
+
+        productList.add(new Product(nombre, precio, cantidad));
+        productList = new ArrayList<>();
+
+        productAdapter=new ProductAdapter(productList,this);
+        recyclerView.setAdapter(productAdapter);
+
+        productAdapter.notifyDataSetChanged();
     }
 }

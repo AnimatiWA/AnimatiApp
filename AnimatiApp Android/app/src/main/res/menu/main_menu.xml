@@ -3,22 +3,22 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/menu_op_1"
+            android:id="@+id/menu_inicio"
             android:checkable="false"
             android:title="@string/inicio"/>
 
         <item
-            android:id="@+id/menu_op_2"
+            android:id="@+id/menu_galeria"
             android:checkable="false"
             android:title="@string/galería" />
 
         <item
-            android:id="@+id/menu_op_3"
+            android:id="@+id/menu_nosotros"
             android:checkable="false"
             android:title="@string/nosotros" />
 
         <item
-            android:id="@+id/menu_op_4"
+            android:id="@+id/menu_contacto"
             android:checkable="false"
             android:title="@string/contacto" />
 
