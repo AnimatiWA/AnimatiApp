@@ -406,9 +406,11 @@ class EliminarItemEnCarrito(APIView):
     
 
 # Manejo de recuperación de pass.
-@csrf_exempt
-def password_recovery(request):
-    if request.method == 'POST':
+class PasswordRecoveryAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         email = data.get('email')
         try:
@@ -424,4 +426,3 @@ def password_recovery(request):
             return JsonResponse({'message': 'Correo de recuperación enviado.'}, status=200)
         except User.DoesNotExist:
             return JsonResponse({'error': 'Correo no encontrado.'}, status=404)
-    return JsonResponse({'error': 'Método no permitido.'}, status=405)
