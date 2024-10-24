@@ -13,8 +13,12 @@ public class Cart {
         products.add(product);
     }
 
-    public void removeProduct(Product product) {
-        products.remove(product);
+    public void removeProduct(int index) {
+
+        if(index >= 0 && index < products.size()){
+
+            products.remove(index);
+        }
     }
 
     public double getTotalPrice() {
@@ -23,6 +27,11 @@ public class Cart {
             total += product.getPrice() * product.getQuantity();
         }
         return total;
+    }
+
+    public int getCarritoSize(){
+
+        return products.size();
     }
 
     public ArrayList<Product> getProducts() {
