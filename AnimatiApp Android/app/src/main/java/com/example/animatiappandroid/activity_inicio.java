@@ -24,18 +24,21 @@ public class activity_inicio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
-        // Manejar el botón para ir al carrito
-        Button cartButton = findViewById(R.id.cart_button);
-        cartButton.setOnClickListener(view -> {
-            Intent intent = new Intent(activity_inicio.this, CartActivity.class);
+        Button buttonGaleria = findViewById(R.id.button1);
+        buttonGaleria.setOnClickListener(view -> {
+            Intent intent = new Intent(activity_inicio.this, Gallery.class);
             startActivity(intent);
         });
 
-        // Configurar RecyclerView
+        Button buttonContacto = findViewById(R.id.button2);
+        buttonContacto.setOnClickListener(view -> {
+            Intent intent = new Intent(activity_inicio.this, ContactoActivity.class);
+            startActivity(intent);
+        });
+
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));  // Grid de 2 columnas
 
-        // Crear lista de tarjetas de ejemplo
         List<Card> cardList = new ArrayList<>();
         cardList.add(new Card("Caja Anime", "Temáticas para guardar tus cosas", R.drawable.cajas));
         cardList.add(new Card("Colgantes ", "De tus personajes favoritos", R.drawable.colgantes));
@@ -44,12 +47,11 @@ public class activity_inicio extends AppCompatActivity {
         cardList.add(new Card("Cubecraft", "Llevate a tu muñeco preferido", R.drawable.cubecraft));
         cardList.add(new Card("Anotadores", "Con tu diseño favoritos", R.drawable.anotadores));
 
-        // Configurar adaptador
         CardAdapter cardAdapter = new CardAdapter(cardList);
         recyclerView.setAdapter(cardAdapter);
     }
 
-    // Modelo de la tarjeta
+
     class Card {
         String title;
         String description;
@@ -74,7 +76,7 @@ public class activity_inicio extends AppCompatActivity {
         }
     }
 
-    // Adaptador para las tarjetas
+
     class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
         private List<Card> cardList;
