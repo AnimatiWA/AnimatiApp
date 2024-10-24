@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("idUser", userId);
                         editor.apply();
 
-                        Toast.makeText(LoginActivity.this, "Sesion iniciada").show();
+                        Toast.makeText(LoginActivity.this, "Sesion iniciada", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, activity_inicio.class);
                         startActivity(intent);
                         finish();

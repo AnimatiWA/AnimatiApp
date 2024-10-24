@@ -48,9 +48,9 @@
     <string name="descripcion_prod_1">Anotadores personalizados con dibujos a pedido, ideales para expresar tu estilo único.</string>
     <string name="descripcion_prod_2">Señaladores personalizados con diseños únicos. Perfectos para agregar un toque.</string>
     <string name="descripcion_prod_3">Cubicraft personalizados con tus personajes favoritos. Arma y decora con figuras.</string>
-    <string name="precio_prod_1">1.000,00</string>
-    <string name="precio_prod_2">500,00</string>
-    <string name="precio_prod_3">1.500,00</string>
+    <string name="precio_prod_1">$1.000,00</string>
+    <string name="precio_prod_2">$  500,00</string>
+    <string name="precio_prod_3">$1.500,00</string>
 
     <!-- Activity_Profile -->
     <string name="change_profile_image">Cambiar Foto</string>
