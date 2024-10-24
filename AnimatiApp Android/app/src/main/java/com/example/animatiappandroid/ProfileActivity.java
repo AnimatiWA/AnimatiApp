@@ -82,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void getUserData() {
         // Obtener el ID del usuario desde SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("idUsuario", -1);
 
         if (userId == -1) {
