@@ -34,9 +34,6 @@
             android:name=".activity_inicio"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-        <activity
             android:name=".CartActivity"
             android:exported="true" />
         <activity
