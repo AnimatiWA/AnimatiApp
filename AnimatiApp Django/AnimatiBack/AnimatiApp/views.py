@@ -20,6 +20,8 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+from django.conf import settings
+
 from .models import *
 from .serializers import *
 # Create your views here.
@@ -445,7 +447,7 @@ class ContactMessageView(APIView):
 
                 subject='Confirmación de recepción de consulta',
                 message=f'Estimado {email_de_contacto.nombre}, nos ponemos en contacto con Ud. Para confirmar que recibimos el mensaje de contacto que nos envió a través de la aplicación movil de Animati. Nuestro equipo se pondrá en contacto con Ud. A la brevedad. \nDesde ya muchas gracias por su paciencia.',
-                from_email='@.com',
+                from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[email_de_contacto.email],
             )
 
