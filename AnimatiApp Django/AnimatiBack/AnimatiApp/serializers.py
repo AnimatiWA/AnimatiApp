@@ -95,3 +95,9 @@ class UsuarioListaSerializer(serializers.ModelSerializer):
             'username': instance['username'],
             'email': instance['email']
         }
+    
+class CorreoContactoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model =  CorreoContacto
+        fields = ('id', 'nombre', 'email', 'mensaje', 'creado')
