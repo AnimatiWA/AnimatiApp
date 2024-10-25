@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 response -> {
                     try {
                         String token = response.getString("token");
+                        int carritoId = response.getInt("carrito");
                         JSONObject userData = response.getJSONObject("user");
                         int userId = userData.getInt("id");
 
@@ -96,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", token);
                         editor.putInt("idUser", userId);
+                        editor.putInt("idCarrito", carritoId);
                         editor.apply();
 
                         Toast.makeText(LoginActivity.this, "Sesion iniciada", Toast.LENGTH_SHORT).show();
