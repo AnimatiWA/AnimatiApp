@@ -427,3 +427,27 @@ class PasswordRecoveryAPIView(APIView):
             return JsonResponse({'message': 'Correo de recuperación enviado.'}, status=200)
         except User.DoesNotExist:
             return JsonResponse({'error': 'Correo no encontrado.'}, status=404)
+
+class ContactMessageView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['post']
+
+    def post(self, request):
+
+        serializer = CorreoContactoSerializer(data=request.data)
+
+        if serializer.is_valid():
+
+            email_de_contacto = serializer.save()
+
+            send_mail(
+
+                subject='Confirmación de recepción de consulta',
+                message=f'Estimado {email_de_contacto.nombre}, nos ponemos en contacto con Ud. Para confirmar que recibimos el mensaje de contacto que nos envió a través de la aplicación movil de Animati. Nuestro equipo se pondrá en contacto con Ud. A la brevedad. \nDesde ya muchas gracias por su paciencia.',
+                from_email='@.com',
+                recipient_list=[email_de_contacto.email],
+            )
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
