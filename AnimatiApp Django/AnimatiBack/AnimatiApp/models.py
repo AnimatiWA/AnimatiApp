@@ -116,6 +116,7 @@ class ProductoCarrito(models.Model):
 
 
 class Cliente(models.Model):
+    
     DNI = models.IntegerField(primary_key=True)
     Nombre = models.CharField(max_length=100, blank=False)
     Apellido = models.CharField(max_length=100, blank=False)
@@ -133,3 +134,13 @@ class Cliente(models.Model):
         return self.Nombre
     def __str__(self):
         return self.Nombre
+     
+class CorreoContacto(models.Model):
+
+    nombre = models.CharField(max_length=100, blank=False)
+    email = models.EmailField()
+    mensaje = models.TextField()
+    creado = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Mensaje de {self.nombre}"
