@@ -20,6 +20,8 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+from django.db.models import Max
+
 from django.conf import settings
 
 from .models import *
@@ -65,12 +67,20 @@ class LoginAPIView(TokenObtainPairView):
 
         if user:
             login_serializer = self.serializer_class(data=request.data)
+
             if login_serializer.is_valid():
                 user_serializer = CustomUsuarioSerializer(user)
+                
+                active_cart_id = Carrito.objects.filter(Usuario=user).aggregate(Max('id'))['id__max']
+
+                if active_cart_id is None:
+                    active_cart_id = -1
+
                 return Response({
                     'token': login_serializer.validated_data.get('access'),
                     'refresh-token': login_serializer.validated_data.get('refresh'),
                     'user': user_serializer.data,
+                    'carrito': active_cart_id,
                     'message': 'Inicio de Sesion Existoso'
                 }, status=status.HTTP_200_OK)
             return Response({'error': 'Contraseña o nombre de usuario incorrectos'}, status=status.HTTP_400_BAD_REQUEST)
