@@ -20,6 +20,10 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+from django.db.models import Max
+
+from django.conf import settings
+
 from .models import *
 from .serializers import *
 # Create your views here.
@@ -63,12 +67,20 @@ class LoginAPIView(TokenObtainPairView):
 
         if user:
             login_serializer = self.serializer_class(data=request.data)
+
             if login_serializer.is_valid():
                 user_serializer = CustomUsuarioSerializer(user)
+                
+                active_cart_id = Carrito.objects.filter(Usuario=user).aggregate(Max('id'))['id__max']
+
+                if active_cart_id is None:
+                    active_cart_id = -1
+
                 return Response({
                     'token': login_serializer.validated_data.get('access'),
                     'refresh-token': login_serializer.validated_data.get('refresh'),
                     'user': user_serializer.data,
+                    'carrito': active_cart_id,
                     'message': 'Inicio de Sesion Existoso'
                 }, status=status.HTTP_200_OK)
             return Response({'error': 'Contraseña o nombre de usuario incorrectos'}, status=status.HTTP_400_BAD_REQUEST)
@@ -350,13 +362,31 @@ class CrearProductosCarrito(APIView):
     http_method_names = ['post']
 
     def post(self, request, format=None):
-        serializer = ProductoCarritoSerializer(data=request.data)
+        
+        codigo_producto = request.data.get('Codigo')
+        carrito_id = request.data.get('Carrito')
+        cantidad = request.data.get('Cantidad', 1)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            #Si ya existe un producto en carrito con este codigo, solo lo actualizo
+            producto_carrito = ProductoCarrito.objects.get(Codigo_id=codigo_producto, Carrito_id=carrito_id)
+
+            producto_carrito.Cantidad += cantidad
+            producto_carrito.save()
+            
+            serializer = ProductoCarritoSerializer(producto_carrito)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except ProductoCarrito.DoesNotExist:
+
+            serializer = ProductoCarritoSerializer(data=request.data)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
 
 class ActualizarProductoenCarrito(generics.UpdateAPIView):
@@ -445,7 +475,7 @@ class ContactMessageView(APIView):
 
                 subject='Confirmación de recepción de consulta',
                 message=f'Estimado {email_de_contacto.nombre}, nos ponemos en contacto con Ud. Para confirmar que recibimos el mensaje de contacto que nos envió a través de la aplicación movil de Animati. Nuestro equipo se pondrá en contacto con Ud. A la brevedad. \nDesde ya muchas gracias por su paciencia.',
-                from_email='@.com',
+                from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[email_de_contacto.email],
             )
 

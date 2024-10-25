@@ -26,10 +26,15 @@ class ProductoCarritoSerializer(serializers.ModelSerializer):
     
     Cantidad = serializers.IntegerField(required=False, default=1, min_value=1)
     Precio = serializers.ReadOnlyField()
+    nombre_producto = serializers.SerializerMethodField()
 
     class Meta:
         model = ProductoCarrito
-        fields = ["id", 'Codigo', 'Carrito', 'Cantidad', 'Precio']
+        fields = ["id", 'Codigo', 'Carrito', 'Cantidad', 'Precio', 'nombre_producto']
+
+    def get_nombre_producto(self, obj):
+
+        return obj.Codigo.Nombre_Producto
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     pass
