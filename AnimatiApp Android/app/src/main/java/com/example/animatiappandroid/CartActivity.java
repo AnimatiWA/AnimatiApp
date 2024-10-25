@@ -2,6 +2,7 @@ package com.example.animatiappandroid;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.animatiappandroid.ProductListAdapter;
 
+import android.content.Intent;
 import android.view.View;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,7 +34,10 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
     private RequestQueue queue;
     private TextView totalPrice;
     private int idCarrito;
+    private int idUser;
     private String token;
+    private double total;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,9 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
         cart = new Cart();
         productNames = new ArrayList<>();
 
-        SharedPreferences preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
+        preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
         idCarrito = preferences.getInt("idCarrito", -1);
+        idUser = preferences.getInt("idUser", -1);
         token = preferences.getString("token", "");
 
         if(idCarrito == -1){
@@ -81,7 +86,8 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
             totalPrice.setText("No se puede confirmar la compra.");
         } else{
 
-            totalPrice.setText("Compra confirmada por $" + cart.getTotalPrice());
+            totalPrice.setText("Procesando Compra...");
+            confirmarCompra();
         }
     }
 
@@ -93,7 +99,7 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
                     try{
 
-                        double total = 0.0;
+                        total = 0.0;
 
                         productNames.clear();
 
@@ -102,7 +108,8 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                             JSONObject productoCarrito = response.getJSONObject(i);
 
                             int id = productoCarrito.getInt("id");
-                            String nombreProducto = productoCarrito.getString("Codigo");
+                            int Codigo = productoCarrito.getInt("Codigo");
+                            String nombreProducto = productoCarrito.getString("nombre_producto");
                             double precio = productoCarrito.getDouble("Precio");
                             int cantidad = productoCarrito.getInt("Cantidad");
 
@@ -139,6 +146,67 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
         };
 
         queue.add(request);
+    }
+
+    private void confirmarCompra(){
+
+        String url = "https://animatiapp.up.railway.app/api/carrito/crear";
+
+        JSONObject jsonObject = new JSONObject();
+
+        try{
+            jsonObject.put("Usuario", idUser);
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                jsonObject,
+                response -> {
+
+                    try {
+
+                        int nuevoIdCarrito = response.getInt("id");
+
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt("idCarrito", nuevoIdCarrito);
+                        editor.apply();
+
+                        Toast.makeText(CartActivity.this, "Compra confirmada por $" + cart.getTotalPrice(), Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(CartActivity.this, activity_inicio.class);
+                        startActivity(intent);
+                        finish();
+
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+                        totalPrice.setText("Total: $" + total);
+                        Toast.makeText(CartActivity.this, "Error al confirmar la compra", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+                }, error -> {
+
+                    error.printStackTrace();
+                    totalPrice.setText("Total: $" + total);
+                    Toast.makeText(CartActivity.this, "Error al confirmar la compra", Toast.LENGTH_SHORT).show();
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders(){
+
+                Map<String, String> headers = new HashMap<>();
+
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        queue.add(jsonObjectRequest);
     }
 
     @Override
