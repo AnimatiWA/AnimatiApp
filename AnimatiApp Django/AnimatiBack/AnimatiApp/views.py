@@ -352,13 +352,31 @@ class CrearProductosCarrito(APIView):
     http_method_names = ['post']
 
     def post(self, request, format=None):
-        serializer = ProductoCarritoSerializer(data=request.data)
+        
+        codigo_producto = request.data.get('Codigo')
+        carrito_id = request.data.get('Carrito')
+        cantidad = request.data.get('Cantidad', 1)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            #Si ya existe un producto en carrito con este codigo, solo lo actualizo
+            producto_carrito = ProductoCarrito.objects.get(Codigo_id=codigo_producto, Carrito_id=carrito_id)
+
+            producto_carrito.Cantidad += cantidad
+            producto_carrito.save()
+            
+            serializer = ProductoCarritoSerializer(producto_carrito)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except ProductoCarrito.DoesNotExist:
+
+            serializer = ProductoCarritoSerializer(data=request.data)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
 
 class ActualizarProductoenCarrito(generics.UpdateAPIView):
