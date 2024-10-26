@@ -1,4 +1,6 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,7 +8,7 @@
     android:background="@color/light_blue"
     tools:context=".RegisterActivity">
 
-    <!-- Logo de la app -->
+
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="150dp"
@@ -18,7 +20,7 @@
         android:layout_marginTop="16dp"
         android:contentDescription="@string/app_logo" />
 
-    <!-- Título de la sección -->
+
     <TextView
         android:id="@+id/registerTitle"
         android:layout_width="wrap_content"
@@ -31,7 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Nombre de Usuario -->
     <LinearLayout
         android:id="@+id/usernameLayout"
         android:layout_width="0dp"
@@ -52,7 +53,7 @@
             android:src="@drawable/ic_username_icon"
             android:padding="8dp"
             android:contentDescription="Username Icon"
-            android:tint="@color/icon_color" />
+            app:tint="@color/icon_color" />
 
         <EditText
             android:id="@+id/usernameEditText"
@@ -65,7 +66,6 @@
             android:minHeight="48dp" />
     </LinearLayout>
 
-    <!-- Nombre -->
     <LinearLayout
         android:id="@+id/firstNameLayout"
         android:layout_width="0dp"
@@ -86,7 +86,7 @@
             android:src="@drawable/ic_firstname_icon"
             android:padding="8dp"
             android:contentDescription="First Name Icon"
-            android:tint="@color/icon_color" />
+            app:tint="@color/icon_color" />
 
         <EditText
             android:id="@+id/firstNameEditText"
@@ -99,7 +99,6 @@
             android:minHeight="48dp" />
     </LinearLayout>
 
-    <!-- Apellido -->
     <LinearLayout
         android:id="@+id/lastNameLayout"
         android:layout_width="0dp"
@@ -120,7 +119,7 @@
             android:src="@drawable/ic_lastname_icon"
             android:padding="8dp"
             android:contentDescription="Last Name Icon"
-            android:tint="@color/icon_color" />
+            app:tint="@color/icon_color" />
 
         <EditText
             android:id="@+id/lastNameEditText"
@@ -133,7 +132,6 @@
             android:minHeight="48dp" />
     </LinearLayout>
 
-    <!-- Correo Electrónico -->
     <LinearLayout
         android:id="@+id/emailLayout"
         android:layout_width="0dp"
@@ -154,7 +152,7 @@
             android:src="@drawable/ic_email_icon"
             android:padding="8dp"
             android:contentDescription="Email Icon"
-            android:tint="@color/icon_color" />
+            app:tint="@color/icon_color" />
 
         <EditText
             android:id="@+id/emailEditText"
@@ -168,7 +166,6 @@
             android:minHeight="48dp" />
     </LinearLayout>
 
-    <!-- Contraseña -->
     <LinearLayout
         android:id="@+id/passwordLayout"
         android:layout_width="0dp"
@@ -189,7 +186,7 @@
             android:src="@drawable/ic_password_icon"
             android:padding="8dp"
             android:contentDescription="Password Icon"
-            android:tint="@color/icon_color" />
+            app:tint="@color/icon_color" />
 
         <EditText
             android:id="@+id/passwordEditText"
@@ -203,7 +200,6 @@
             android:minHeight="48dp" />
     </LinearLayout>
 
-    <!-- Checkboxes -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -236,7 +232,5 @@
             android:text="Enviar"
             android:textColor="@color/button_text_color" />
     </LinearLayout>
-
-    <!-- Botón Enviar -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
