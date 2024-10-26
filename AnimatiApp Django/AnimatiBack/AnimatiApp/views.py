@@ -13,7 +13,16 @@ from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status, viewsets, generics
 
+# Importaciones ForgotPassword
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+import json
 
+from django.db.models import Max
+
+from django.conf import settings
 
 from .models import *
 from .serializers import *
@@ -58,12 +67,20 @@ class LoginAPIView(TokenObtainPairView):
 
         if user:
             login_serializer = self.serializer_class(data=request.data)
+
             if login_serializer.is_valid():
                 user_serializer = CustomUsuarioSerializer(user)
+                
+                active_cart_id = Carrito.objects.filter(Usuario=user).aggregate(Max('id'))['id__max']
+
+                if active_cart_id is None:
+                    active_cart_id = -1
+
                 return Response({
                     'token': login_serializer.validated_data.get('access'),
                     'refresh-token': login_serializer.validated_data.get('refresh'),
                     'user': user_serializer.data,
+                    'carrito': active_cart_id,
                     'message': 'Inicio de Sesion Existoso'
                 }, status=status.HTTP_200_OK)
             return Response({'error': 'Contraseña o nombre de usuario incorrectos'}, status=status.HTTP_400_BAD_REQUEST)
@@ -72,7 +89,8 @@ class LoginAPIView(TokenObtainPairView):
     
 
 class LogoutView(GenericAPIView):
-    permission_classes = [permissions.AllowAny] 
+    permission_classes = [permissions.IsAuthenticated]
+    
     def post(self, request):
         refresh_token = request.data.get('refresh_token')
 
@@ -92,10 +110,10 @@ class LogoutView(GenericAPIView):
 
 
 class ListaDeUsuarios(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UsuarioSerializer
     http_method_names = ['get', 'post']
-    permission_classes = [ permissions.AllowAny]
     
     def list(self, request):
         queryset = self.get_queryset()
@@ -110,7 +128,7 @@ class ListaDeUsuarios(generics.ListCreateAPIView):
         return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class PerfilView(GenericAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = UsuarioSerializer
     http_method_names = ['get', 'patch']
     
@@ -147,9 +165,10 @@ class PerfilView(GenericAPIView):
 #----------------------Vistas Categoria------------------------------------------------
 
 class CategoriaViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
+
     def get_object(self, request):
 
         queryset = self.get_queryset()
@@ -160,16 +179,9 @@ class CategoriaViewSet(viewsets.ModelViewSet):
 
 #--------------Vistas Productos------------
     
-    
-class ListaProductos(APIView):
-    permission_classes = [permissions.AllowAny]
-    http_method_names = [
-        'delete',
-        'get',]
-    def get(self, request, format=None):
-        productos = Producto.objects.all()
-        serializers = ProductosSerializer(productos, many=True)
-        return Response(serializers.data)
+class EliminarProductos(APIView):
+    permission_classes = [permissions.IsAdminUser]
+    http_method_names = ['delete']
     
     def delete(self, request, Codigo_Producto, format=None):
         producto = Producto.objects.filter(pk=Codigo_Producto).first()
@@ -178,11 +190,20 @@ class ListaProductos(APIView):
         
         producto.delete()
         return Response({'message':'Producto Eliminado'},status=status.HTTP_200_OK)
+
     
+class ListaProductos(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get']
+    
+    def get(self, request, format=None):
+        productos = Producto.objects.all()
+        serializers = ProductosSerializer(productos, many=True)
+        return Response(serializers.data)
 class ActualizarProductoApiView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAdminUser]
     serializer_class = ProductosSerializer
     queryset= Producto.objects.all()
-    permission_classes = [permissions.AllowAny]
     lookup_field = 'Codigo_Producto'
 
     def patch(self, request, Codigo_Producto):
@@ -215,7 +236,7 @@ class ActualizarProductoApiView(generics.UpdateAPIView):
 
 
 class anadirProducto(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAdminUser]
     http_method_names = ['post']
 
     def post(self, request, format=None):
@@ -227,7 +248,7 @@ class anadirProducto(APIView):
     
 
 class DetalleCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get']
     
     def get(self, request, id):
@@ -240,13 +261,13 @@ class DetalleCarrito(APIView):
 
 
 class ListaCarritos(generics.ListCreateAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = CarritoSerializer
     queryset = Carrito.objects.all()
 
 
 class CrearCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['post']
     
     def post(self, request, format=None):
@@ -259,7 +280,7 @@ class CrearCarrito(APIView):
 
 
 class ActualizarCarrito(generics.UpdateAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = CarritoSerializer
     queryset = Carrito.objects.all()
 
@@ -292,7 +313,7 @@ class ActualizarCarrito(generics.UpdateAPIView):
 
 
 class EliminarCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['delete']
 
     def delete(self, request, id, format=None):
@@ -305,7 +326,7 @@ class EliminarCarrito(APIView):
 
 
 class DetalleProductosCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get']
     
     def get(self, request, id):
@@ -318,12 +339,12 @@ class DetalleProductosCarrito(APIView):
 
 
 class ListarProductosEnCarrito(generics.ListCreateAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = ProductoCarrito.objects.all()
     serializer_class = ProductoCarritoSerializer
 
 class ListarProductosEnCarritoEspecifico(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['get']
 
     def get(self, request, carrito_id, format=None):
@@ -336,22 +357,40 @@ class ListarProductosEnCarritoEspecifico(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class CrearProductosCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     model = ProductoCarritoSerializer
     http_method_names = ['post']
 
     def post(self, request, format=None):
-        serializer = ProductoCarritoSerializer(data=request.data)
+        
+        codigo_producto = request.data.get('Codigo')
+        carrito_id = request.data.get('Carrito')
+        cantidad = request.data.get('Cantidad', 1)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            #Si ya existe un producto en carrito con este codigo, solo lo actualizo
+            producto_carrito = ProductoCarrito.objects.get(Codigo_id=codigo_producto, Carrito_id=carrito_id)
+
+            producto_carrito.Cantidad += cantidad
+            producto_carrito.save()
+            
+            serializer = ProductoCarritoSerializer(producto_carrito)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except ProductoCarrito.DoesNotExist:
+
+            serializer = ProductoCarritoSerializer(data=request.data)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
 
 class ActualizarProductoenCarrito(generics.UpdateAPIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProductoCarritoSerializer
     queryset = ProductoCarrito.objects.all()
 
@@ -384,7 +423,7 @@ class ActualizarProductoenCarrito(generics.UpdateAPIView):
 
 
 class EliminarItemEnCarrito(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     http_method_names = ['delete']
 
     def delete(self, request, id, format=None):
@@ -394,3 +433,51 @@ class EliminarItemEnCarrito(APIView):
         
         productoCarrito.delete()
         return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
+    
+
+# Manejo de recuperación de pass.
+class PasswordRecoveryAPIView(APIView):
+    permission_classes = [AllowAny]
+    http_method_names = ['post']
+
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        data = json.loads(request.body)
+        email = data.get('email')
+        try:
+            user = User.objects.get(email=email)
+            # Aquí deberíamos generar un token y enviar el correo con el enlace de recuperación
+            send_mail(
+                'Recuperación de contraseña',
+                'Aquí va el enlace para recuperar tu contraseña.',
+                'tu_correo@tu_dominio.com',
+                [email],
+                fail_silently=False,
+            )
+            return JsonResponse({'message': 'Correo de recuperación enviado.'}, status=200)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Correo no encontrado.'}, status=404)
+
+class ContactMessageView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['post']
+
+    def post(self, request):
+
+        serializer = CorreoContactoSerializer(data=request.data)
+
+        if serializer.is_valid():
+
+            email_de_contacto = serializer.save()
+
+            send_mail(
+
+                subject='Confirmación de recepción de consulta',
+                message=f'Estimado {email_de_contacto.nombre}, nos ponemos en contacto con Ud. Para confirmar que recibimos el mensaje de contacto que nos envió a través de la aplicación movil de Animati. Nuestro equipo se pondrá en contacto con Ud. A la brevedad. \nDesde ya muchas gracias por su paciencia.',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email_de_contacto.email],
+            )
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)

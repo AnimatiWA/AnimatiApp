@@ -13,6 +13,38 @@
         android:scaleType="centerCrop"
         android:src="@drawable/header_image" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Productos"
+            android:layout_marginEnd="80dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contacto" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="Categorías de nuestros productos"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <!-- RecyclerView para las tarjetas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -21,12 +53,5 @@
         android:layout_marginTop="16dp" />
 
     <!-- Botón para ir al carrito de compras -->
-    <Button
-        android:id="@+id/cart_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ir al Carrito"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp" />
 
 </LinearLayout>
