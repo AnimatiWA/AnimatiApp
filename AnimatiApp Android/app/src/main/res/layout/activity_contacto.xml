@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Header -->
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/navigation_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:headerLayout="@layout/header"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/contacto_fondotexto"
+                android:fontFamily="@font/roboto"
+                android:padding="10dp"
+                android:shadowColor="#FF4FA9"
+                android:shadowDx="10"
+                android:shadowDy="10"
+                android:shadowRadius="1"
+                android:text="Contacta con Animati "
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="34sp" />
+
+            <!-- Título Nombre -->
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/roboto"
+                android:includeFontPadding="true"
+                android:text="Escríbenos un mensaje para que entremos en contacto contigo."
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Nombre:"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <!-- Input Nombre -->
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/contacto_edittext_background"
+                android:hint="Ingresa tu nombre"
+                android:inputType="textPersonName"
+                android:padding="12dp" />
+
+            <!-- Título Correo Electrónico -->
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Correo Electrónico:"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <!-- Input Correo Electrónico -->
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/contacto_edittext_background"
+                android:hint="Ingresa tu correo electrónico"
+                android:inputType="textEmailAddress"
+                android:padding="12dp" />
+
+            <!-- Título Mensaje -->
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Mensaje:"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <!-- Input Mensaje -->
+            <EditText
+                android:id="@+id/et_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/contacto_edittext_background"
+                android:hint="Escribe tu mensaje"
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:padding="12dp" />
+
+            <!-- Botón Enviar -->
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@drawable/contacto_clickboton"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:text="Enviar"
+                android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Icono de Email -->
+                <ImageView
+                    android:id="@+id/icon_mail"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/contacto_fondotexto"
+                    android:padding="5dp"
+                    android:src="@drawable/contacto_baseline_alternate_email_24" />
+
+                <!-- Icono de teléfono -->
+                <ImageView
+                    android:id="@+id/icon_phone"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/contacto_fondotexto"
+                    android:padding="5dp"
+                    android:src="@drawable/contacto_baseline_phone_24" />
+
+                <!-- Icono de mensajes -->
+                <ImageView
+                    android:id="@+id/icon_msg"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/contacto_fondotexto"
+                    android:padding="5dp"
+                    android:src="@drawable/contacto_outline_forum_24" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="378dp"
+                android:layout_height="220dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/contacto_imagen2" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

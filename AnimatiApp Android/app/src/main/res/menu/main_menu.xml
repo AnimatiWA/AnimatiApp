@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_inicio"
+            android:checkable="false"
+            android:title="@string/inicio"/>
+
+        <item
+            android:id="@+id/menu_galeria"
+            android:checkable="false"
+            android:title="@string/galería" />
+
+        <item
+            android:id="@+id/menu_nosotros"
+            android:checkable="false"
+            android:title="@string/nosotros" />
+
+        <item
+            android:id="@+id/menu_contacto"
+            android:checkable="false"
+            android:title="@string/contacto" />
+
+    </group>
+
+</menu>
