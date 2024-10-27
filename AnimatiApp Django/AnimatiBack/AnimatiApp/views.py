@@ -455,6 +455,7 @@ class PasswordRecoveryAPIView(APIView):
                 )
                 return Response({'message': 'Correo de recuperación enviado.'}, status=status.HTTP_201_CREATED)
             except User.DoesNotExist:
+                print("El usuario ingresado no existe.")
                 return Response({'error': 'Correo no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
