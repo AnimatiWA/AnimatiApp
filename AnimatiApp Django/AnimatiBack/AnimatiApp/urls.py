@@ -38,6 +38,7 @@ urlpatterns = [
     path('carritoProductos/actualizar/<int:id>', ActualizarProductoenCarrito.as_view(), name='actualizarproductoencarrito'),
     path('carritoProductos/eliminar/<int:id>', EliminarItemEnCarrito.as_view(), name='eliminarproductodelcarrito'),
     path('password_recovery', PasswordRecoveryAPIView.as_view(), name='password_recovery'),
+    path('reset_password/', PasswordResetView.as_view(), name='reset_password'),
     path('contacto', ContactMessageView.as_view(), name='contacto'),
 
     path('', include(router.urls)),

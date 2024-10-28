@@ -20,6 +20,10 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+# Importaciones ResetPassword
+from django.contrib.auth.tokens import default_token_generator
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.db.models import Max
 
 from django.conf import settings
@@ -458,6 +462,27 @@ class PasswordRecoveryAPIView(APIView):
                 print("El usuario ingresado no existe.")
                 return Response({'error': 'Correo no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class PasswordResetView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = PasswordResetSerializer(data=request.data)
+        if serializer.is_valid():
+            token = serializer.validated_data['token']
+            new_password = serializer.validated_data['new_password']
+            user_id = serializer.validated_data['user_id']
+            try:
+                user = User.objects.get(pk=user_id)
+                if default_token_generator.check_token(user, token):
+                    user.set_password(new_password)
+                    user.save()
+                    return Response({'message': 'Contraseña actualizada con éxito'}, status=status.HTTP_200_OK)
+                else:
+                    return Response({'error': 'Token inválido'}, status=status.HTTP_400_BAD_REQUEST)
+            except ObjectDoesNotExist:
+                return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ContactMessageView(APIView):
