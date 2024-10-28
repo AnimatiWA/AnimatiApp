@@ -46,7 +46,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void sendPasswordRecoveryRequest(String email) {
-        String url = "https://animatiapp.up.railway.app/api/password_recovery/";  // REVISAR SI FUNCIONA
+        String url = "https://animatiapp.up.railway.app/api/password_recovery";
 
         JSONObject requestBody = new JSONObject();
         try {
@@ -68,7 +68,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ForgotPasswordActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this, "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
         );

@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Animati App Android</string>
     <string name="quienes_somos">Animati es una papelería dedicada a ofrecer una amplia gama de productos de alta calidad para satisfacer las necesidades de nuestros clientes. Desde nuestra fundación en 2021, nos hemos comprometido a proporcionar artículos de papelería y librería que inspiran la creatividad y la productividad en el día a día.
 </string>
@@ -62,5 +63,10 @@
     <string name="logo_description">personaje, fantasioso de colores naranja, violeta, amarillo y celeste que tiene el nombre de la app debajo</string>
     <string name="a_n_no_tienes_una_cuenta">¿Aún no tienes una cuenta?</string>
     <string name="welcome_message">Bienvenido/a, %1$s %2$s</string>
+
+    <!-- Activity_Recovery_Password -->
+    <string name="enter_new_password">Indique su nueva contraseña</string>
+    <string name="repeat_password">Repita la contraseña</string>
+    <string name="send_recovery_email">Enviar correo de recuperación</string>
 
 </resources>
