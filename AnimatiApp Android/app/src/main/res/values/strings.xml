@@ -65,6 +65,7 @@
     <string name="welcome_message">Bienvenido/a, %1$s %2$s</string>
 
     <!-- Activity_Recovery_Password -->
+    <string name="go_home">Volver al inicio</string>
     <string name="enter_new_password">Indique su nueva contraseña</string>
     <string name="repeat_password">Repita la contraseña</string>
     <string name="send_recovery_email">Confirmar cambios</string>

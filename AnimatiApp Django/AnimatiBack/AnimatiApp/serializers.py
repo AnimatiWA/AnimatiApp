@@ -109,8 +109,3 @@ class CorreoContactoSerializer(serializers.ModelSerializer):
 
 class PasswordRecoverySerializer(serializers.Serializer):
     email = serializers.EmailField()
-
-class PasswordResetSerializer(serializers.Serializer):
-    token = serializers.CharField()
-    new_password = serializers.CharField(min_length=8)
-    user_id = serializers.IntegerField()
