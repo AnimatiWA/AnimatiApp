@@ -106,3 +106,6 @@ class CorreoContactoSerializer(serializers.ModelSerializer):
     class Meta:
         model =  CorreoContacto
         fields = ('id', 'nombre', 'email', 'mensaje', 'creado')
+
+class PasswordRecoverySerializer(serializers.Serializer):
+    email = serializers.EmailField()

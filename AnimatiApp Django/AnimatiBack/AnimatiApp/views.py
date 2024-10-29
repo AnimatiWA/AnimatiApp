@@ -26,7 +26,8 @@ from django.conf import settings
 
 from .models import *
 from .serializers import *
-# Create your views here.
+
+# Listado de Views.
 
 class CreateUserAPI(CreateAPIView):
     queryset = User.objects.all()
@@ -440,23 +441,25 @@ class PasswordRecoveryAPIView(APIView):
     permission_classes = [AllowAny]
     http_method_names = ['post']
 
-    @csrf_exempt
-    def post(self, request, *args, **kwargs):
-        data = json.loads(request.body)
-        email = data.get('email')
-        try:
-            user = User.objects.get(email=email)
-            # Aquí deberíamos generar un token y enviar el correo con el enlace de recuperación
-            send_mail(
-                'Recuperación de contraseña',
-                'Aquí va el enlace para recuperar tu contraseña.',
-                'tu_correo@tu_dominio.com',
-                [email],
-                fail_silently=False,
-            )
-            return JsonResponse({'message': 'Correo de recuperación enviado.'}, status=200)
-        except User.DoesNotExist:
-            return JsonResponse({'error': 'Correo no encontrado.'}, status=404)
+    def post(self, request):
+        serializer = PasswordRecoverySerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data['email']
+
+            try:
+                user = User.objects.get(email=email)
+                send_mail(
+                    subject='Recuperación de contraseña',
+                    message='Aquí va el enlace para recuperar tu contraseña.',
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[email],
+                )
+                return Response({'message': 'Correo de recuperación enviado.'}, status=status.HTTP_201_CREATED)
+            except User.DoesNotExist:
+                print("El usuario ingresado no existe.")
+                return Response({'error': 'Correo no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ContactMessageView(APIView):
 
