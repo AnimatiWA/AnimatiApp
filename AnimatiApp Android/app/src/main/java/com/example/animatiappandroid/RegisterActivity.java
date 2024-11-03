@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText editTextUsername, editTextFirstName, editTextLastName, editTextEmail, editTextPassword;
+    private EditText editTextUsername, editTextFirstName, editTextLastName, editTextEmail, editTextPassword, editTextConfirmPassword;
     private CheckBox checkBoxTerms, checkBoxNewsletter;
     private Button registerButton;
 
@@ -36,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextLastName = findViewById(R.id.lastNameEditText);
         editTextEmail = findViewById(R.id.emailEditText);
         editTextPassword = findViewById(R.id.passwordEditText);
+        editTextConfirmPassword = findViewById(R.id.confirmPasswordEditText);
         checkBoxTerms = findViewById(R.id.termsCheckBox);
         checkBoxNewsletter = findViewById(R.id.newsletterCheckBox);
         registerButton = findViewById(R.id.registerButton);
@@ -58,8 +59,9 @@ public class RegisterActivity extends AppCompatActivity {
                 String lastName = editTextLastName.getText().toString();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
+                String confirmPassword = editTextConfirmPassword.getText().toString();
 
-                if (validateInput(username, firstName, lastName, email, password)) {
+                if (validateInput(username, firstName, lastName, email, password, confirmPassword)) {
                     new RegisterUserTask(username, firstName, lastName, email, password).execute();
                 }
             }
@@ -68,27 +70,27 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void disableRegisterButton() {
         registerButton.setEnabled(false);
-        registerButton.setBackgroundColor(ContextCompat.getColor(this, R.color.disabled_button)); // Usar un color que muestre el botón deshabilitado
+        registerButton.setBackgroundColor(ContextCompat.getColor(this, R.color.disabled_button));
     }
 
     private void enableRegisterButton() {
         registerButton.setEnabled(true);
-        registerButton.setBackgroundColor(ContextCompat.getColor(this, R.color.active_button)); // Resaltar el botón cuando está activo
+        registerButton.setBackgroundColor(ContextCompat.getColor(this, R.color.active_button));
     }
 
-    private boolean validateInput(String username, String firstName, String lastName, String email, String password) {
-        if (username.length() < 3) {
-            showAlertDialog("Error", "El nombre de usuario debe tener al menos 3 caracteres");
+    private boolean validateInput(String username, String firstName, String lastName, String email, String password, String confirmPassword) {
+        if (username.length() < 3 || username.length() > 20) {
+            showAlertDialog("Error", "El nombre de usuario debe tener entre 3 y 20 caracteres");
             return false;
         }
 
-        if (firstName.length() < 3) {
-            showAlertDialog("Error", "El nombre debe tener al menos 3 caracteres");
+        if (firstName.length() < 3 || firstName.length() > 20) {
+            showAlertDialog("Error", "El nombre debe tener entre 3 y 20 caracteres");
             return false;
         }
 
-        if (lastName.isEmpty()) {
-            showAlertDialog("Error", "El apellido no puede estar vacío");
+        if (lastName.length() < 3 || lastName.length() > 20) {
+            showAlertDialog("Error", "El apellido debe tener entre 3 y 20 caracteres");
             return false;
         }
 
@@ -102,6 +104,11 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
 
+        if (!password.equals(confirmPassword)) {
+            showAlertDialog("Error", "Las contraseñas no coinciden");
+            return false;
+        }
+
         return true;
     }
 
@@ -110,7 +117,6 @@ public class RegisterActivity extends AppCompatActivity {
         return passwordPattern.matcher(password).matches();
     }
 
-
     private void showAlertDialog(String title, String message) {
         new AlertDialog.Builder(this)
                 .setTitle(title)
@@ -118,7 +124,6 @@ public class RegisterActivity extends AppCompatActivity {
                 .setPositiveButton("Aceptar", null)
                 .show();
     }
-
 
     private class RegisterUserTask extends AsyncTask<Void, Void, String> {
 
@@ -135,15 +140,12 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                // Crear la URL
                 URL url = new URL("https://animatiapp.up.railway.app/api/registro");
-
 
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setDoOutput(true);
-
 
                 JSONObject jsonParam = new JSONObject();
                 jsonParam.put("username", username);
@@ -152,11 +154,9 @@ public class RegisterActivity extends AppCompatActivity {
                 jsonParam.put("first_name", firstName);
                 jsonParam.put("last_name", lastName);
 
-
                 OutputStream os = urlConnection.getOutputStream();
                 os.write(jsonParam.toString().getBytes("UTF-8"));
                 os.close();
-
 
                 int responseCode = urlConnection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_CREATED) {
@@ -175,22 +175,19 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-
             if (result.equals("Registro completado con éxito")) {
-                showSuccessDialog();
+                showSuccessDialog(username);
             } else {
                 showAlertDialog("Error", result);
             }
         }
 
-
-        private void showSuccessDialog() {
+        private void showSuccessDialog(String username) {
             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
             builder.setTitle("Éxito")
-                    .setMessage("Usuario ANIMATIAPP creado exitosamente.")
+                    .setMessage("Bienvenido a AnimatiApp " + username)
                     .setPositiveButton("Aceptar", (dialog, which) -> {
                         dialog.dismiss();
-
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();

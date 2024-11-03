@@ -21,4 +21,8 @@
     <color name="transp">#00FF0000</color>
     <color name="disabled_button">#B0B0B0</color>
     <color name="active_button">#FF4081</color>
+    <color name="enviar_button">#673AB7</color>
+    <color name="violet">#673AB7</color>
+    <color name="soft_cream">#FFF8E1</color>
+
 </resources>

@@ -1,16 +1,17 @@
 package com.example.animatiappandroid;
+import android.content.SharedPreferences; // Asegúrate de que esta importación esté presente
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri; // Asegúrate de que esta importación esté presente
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView; // Asegúrate de que esta importación esté presente
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.SharedPreferences;
-
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -24,8 +25,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ContactoActivity extends AppCompatActivity {
 
@@ -50,7 +51,7 @@ public class ContactoActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
         preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
-        token = preferences.getString("token", "");
+        token = preferences.getString("token", ""); // Verifica que esta línea esté correcta
 
         nameField = findViewById(R.id.et_name);
         emailField = findViewById(R.id.et_email);
@@ -68,6 +69,15 @@ public class ContactoActivity extends AppCompatActivity {
                 enviarSolicitudContacto(name, email, message);
             }
         });
+
+        // Configuración de los iconos
+        ImageView iconMail = findViewById(R.id.icon_mail);
+        ImageView iconPhone = findViewById(R.id.icon_phone);
+        ImageView iconMsg = findViewById(R.id.icon_msg);
+
+        iconMail.setOnClickListener(v -> enviarEmail("rocio_dutto@hotmail.com"));
+        iconPhone.setOnClickListener(v -> realizarLlamada("03521413315"));
+        iconMsg.setOnClickListener(v -> enviarMensaje("03521413315"));
     }
 
     public void op_carrito(View view) {
@@ -110,14 +120,30 @@ public class ContactoActivity extends AppCompatActivity {
         ) {
             @Override
             public Map<String, String> getHeaders(){
-
                 Map<String, String> headers = new HashMap<>();
-
                 headers.put("Authorization", "Bearer " + token);
                 return headers;
             }
         };
 
         queue.add(jsonObjectRequest);
-    }}
+    }
 
+    private void enviarEmail(String email) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:" + email)); // Solo se aceptan correos
+        startActivity(Intent.createChooser(intent, "Enviar correo..."));
+    }
+
+    private void realizarLlamada(String numero) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + numero)); // Solo marcar sin necesidad de permisos
+        startActivity(intent);
+    }
+
+    private void enviarMensaje(String numero) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:" + numero)); // Solo se aceptan mensajes
+        startActivity(intent);
+    }
+}
