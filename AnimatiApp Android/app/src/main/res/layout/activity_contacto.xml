@@ -141,14 +141,15 @@
             <!-- Botón Enviar -->
             <Button
                 android:id="@+id/btn_submit"
-                android:layout_width="wrap_content"
+                android:layout_width="121dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="@drawable/contacto_clickboton"
+                android:backgroundTint="#673AB7"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
                 android:text="Enviar"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:textColorLink="#3F51B5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -192,8 +193,8 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="378dp"
-                android:layout_height="220dp"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/contacto_imagen2" />
 
