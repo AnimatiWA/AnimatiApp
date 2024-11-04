@@ -366,7 +366,7 @@ class CrearProductosCarrito(APIView):
         
         codigo_producto = request.data.get('Codigo')
         carrito_id = request.data.get('Carrito')
-        cantidad = request.data.get('Cantidad', 1)
+        cantidad = request.data.get('Cantidad')
 
         try:
 
@@ -374,7 +374,8 @@ class CrearProductosCarrito(APIView):
         except Producto.DoesNotExist:
 
             return Response({"error": "Producto no encontrado."}, status=status.HTTP_404_NOT_FOUND)
-
+        print(cantidad)
+        print(producto.Stock)
         if(cantidad > producto.Stock):
 
             return Response({"error": "Stock insuficiente"}, status=status.HTTP_400_BAD_REQUEST)
