@@ -277,19 +277,45 @@ class CrearCarrito(APIView):
 
         carrito_activo = Carrito.objects.filter(Usuario=user, is_active=True).first()
 
+        productos_sin_stock = []
+
+        
         if(carrito_activo):
+
+            for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
+
+                if producto.Cantidad > producto.Codigo.Stock:
+
+                    productos_sin_stock.append(producto.Codigo.Nombre_Producto)
+
+            if(productos_sin_stock):
+
+                return Response({"error": f"Stock insuficiente para los productos: {', '.join(productos_sin_stock)}"}, status=status.HTTP_400_BAD_REQUEST)
 
             carrito_activo.is_active = False
             carrito_activo.save()
+
 
         datos = {
             'Usuario': user.id,
         }
 
         serializer = CarritoSerializer(data=datos)
+
         if serializer.is_valid():
+
             serializer.save()
+
+            if(carrito_activo):
+
+                for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
+
+                    productoOriginal = producto.Codigo
+                    productoOriginal.Stock -= producto.Cantidad
+                    productoOriginal.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
         return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
