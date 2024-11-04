@@ -107,7 +107,14 @@ public class ProfileActivity extends AppCompatActivity {
                             Log.d(TAG, "Respuesta JSON: " + response.toString());  // Log de la respuesta JSON
                             String firstName = response.getString("first_name");
                             String lastName = response.getString("last_name");
-                            String welcomeMessage = " " + firstName + " " + lastName;
+                            String welcomeMessage;
+                            // Verificar la última letra del firstName
+                            if (firstName.endsWith("a")) {
+                                welcomeMessage = "Bienvenida, " + firstName + " " + lastName;
+                            } else {
+                                welcomeMessage = "Bienvenido, " + firstName + " " + lastName;
+                            }
+
                             userName.setText(welcomeMessage);
                         } catch (JSONException e) {
                             Log.e(TAG, "Error al procesar la respuesta JSON", e);  // Registro robusto del error
