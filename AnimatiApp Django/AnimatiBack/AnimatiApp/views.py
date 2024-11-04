@@ -198,7 +198,7 @@ class ListaProductos(APIView):
     http_method_names = ['get']
     
     def get(self, request, format=None):
-        productos = Producto.objects.all()
+        productos = Producto.objects.filter(Stock__gt=0)
         serializers = ProductosSerializer(productos, many=True)
         return Response(serializers.data)
 class ActualizarProductoApiView(generics.UpdateAPIView):
