@@ -33,6 +33,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product product=productList.get(position);
         holder.productName.setText(product.getName());
         holder.productPrice.setText("$"+product.getPrice());
+        holder.productStock.setText("En stock: " + product.getStock());
+
         holder.addToCart.setOnClickListener(v -> {
 
             ((Gallery) context).agregarAlCarrito(product);
@@ -45,13 +47,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder{
-        TextView productName, productPrice;
+        TextView productName, productPrice, productStock;
         ImageButton addToCart;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
+            productStock = itemView.findViewById(R.id.product_stock);
             addToCart = itemView.findViewById(R.id.add_to_cart);
             Log.d("Gallery", "se crea elemento");
         }

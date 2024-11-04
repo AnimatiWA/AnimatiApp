@@ -115,9 +115,10 @@ public class Gallery extends AppCompatActivity {
                                 int id = productObject.getInt("Codigo_Producto");
                                 String nombre = productObject.getString("Nombre_Producto");
                                 double precio = productObject.getDouble("Precio");
+                                int stock = productObject.getInt("Stock");
                                 int cantidad = 1;
 
-                                productList.add(new Product(id, nombre, precio, cantidad));
+                                productList.add(new Product(id, nombre, precio, cantidad, stock));
                             }
 
                             productAdapter = new ProductAdapter(productList, Gallery.this);
@@ -163,20 +164,11 @@ public class Gallery extends AppCompatActivity {
 
     public void crearYAgregar(Product product) {
         String url = "https://animatiapp.up.railway.app/api/carrito/crear";
-        int idUsuario= sharedPreferences.getInt("idUser",-1);
-        JSONObject jsonObject= new JSONObject();
-        try{
-            jsonObject.put("Usuario",idUsuario);
-        }
-        catch(JSONException e){
-            e.printStackTrace();
-        }
 
-        Log.d("GalleryId", ""+idUsuario);
         JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(
                 Request.Method.POST,
                 url,
-                jsonObject,
+                null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -245,7 +237,23 @@ public class Gallery extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(Gallery.this, "Error, no se puedo agregar el producto al carrito.", Toast.LENGTH_SHORT).show();
+                        String mensajeError = "Error: No se pudo agregar al carrito";
+
+                        if (error.networkResponse != null && error.networkResponse.data != null) {
+                            try {
+
+                                String errorData = new String(error.networkResponse.data, "UTF-8");
+                                JSONObject errorObject = new JSONObject(errorData);
+
+                                if (errorObject.has("error")) {
+                                    mensajeError = errorObject.getString("error");
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        Toast.makeText(Gallery.this, mensajeError, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
