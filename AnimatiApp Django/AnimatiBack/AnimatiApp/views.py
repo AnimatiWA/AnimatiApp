@@ -278,7 +278,7 @@ class CrearCarrito(APIView):
         serializer = CarritoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"data":serializer.data, "user": user}, status=status.HTTP_201_CREATED)
+            return Response({"data":serializer.data, "idUser": user.id, "username": user.username, "email": user.email}, status=status.HTTP_201_CREATED)
         return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
