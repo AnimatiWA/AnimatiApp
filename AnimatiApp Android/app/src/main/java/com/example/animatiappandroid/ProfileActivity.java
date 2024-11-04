@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -26,8 +26,10 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
     private ImageView profileImage;
     private TextView userName;
-    private Button changeProfileImageButton, changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
+    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
     private RequestQueue requestQueue;
+    private SharedPreferences preferences;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +38,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileImage = findViewById(R.id.profile_image);
         userName = findViewById(R.id.user_name);
-        changeProfileImageButton = findViewById(R.id.change_profile_image_button);
         changeEmailButton = findViewById(R.id.change_email_button);
         changePasswordButton = findViewById(R.id.change_password_button);
         viewPurchaseHistoryButton = findViewById(R.id.view_purchase_history_button);
         viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
 
         requestQueue = Volley.newRequestQueue(this);
+        preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
+        token = preferences.getString("token", "");
 
         // Obtener datos del usuario de la base de datos y mostrar
         getUserData();
-
-        // Cambiar imagen de perfil
-        changeProfileImageButton.setOnClickListener(v -> {
-            // Lógica para cambiar la imagen de perfil
-            Toast.makeText(ProfileActivity.this, "Cambiar imagen de perfil", Toast.LENGTH_SHORT).show();
-        });
 
         // Cambiar email
         changeEmailButton.setOnClickListener(v -> {
@@ -61,8 +58,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Cambiar contraseña
         changePasswordButton.setOnClickListener(v -> {
-            // Lógica para cambiar la contraseña
-            Toast.makeText(ProfileActivity.this, "Cambiar contraseña", Toast.LENGTH_SHORT).show();
+            // Navegar a la actividad de recuperación de contraseña
+            Intent intent = new Intent(ProfileActivity.this, RecoveryPasswordActivity.class);
+            startActivity(intent);
         });
 
         // Ver historial de compras
@@ -102,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
                         try {
                             String firstName = response.getString("first_name");
                             String lastName = response.getString("last_name");
-                            String welcomeMessage = getString(R.string.welcome_message, firstName, lastName);
+                            String welcomeMessage = "Bienvenido, " + firstName + " " + lastName;
                             userName.setText(welcomeMessage);
                         } catch (JSONException e) {
                             Log.e(TAG, "Error al procesar la respuesta JSON", e);  // Registro robusto del error
@@ -121,4 +119,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         requestQueue.add(jsonObjectRequest);
     }
+
+    public void op_carrito(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    public void op_menu(View view) {
+        Intent intent = new Intent(this, activity_inicio.class);
+        startActivity(intent);
+    }
 }
+

@@ -55,8 +55,8 @@
     <string name="precio_prod_3">$1.500,00</string>
 
     <!-- Activity_Profile -->
-    <string name="change_profile_image">Cambiar Foto</string>
     <string name="profile_image_desc">Imagen de perfil</string>
+    <string name="bienvenido">Bienvenido, </string>
     <string name="change_email">Cambiar Email</string>
     <string name="change_password">Cambiar Contraseña</string>
     <string name="view_purchase_history">Ver historial de compras</string>
