@@ -283,7 +283,7 @@ class CrearCarrito(APIView):
             carrito_activo.save()
 
         datos = {
-            'Usuario': user,
+            'Usuario': user.id,
         }
 
         serializer = CarritoSerializer(data=datos)
