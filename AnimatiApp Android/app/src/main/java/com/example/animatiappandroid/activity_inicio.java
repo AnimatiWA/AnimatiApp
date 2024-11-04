@@ -30,6 +30,12 @@ public class activity_inicio extends AppCompatActivity {
             startActivity(intent);
         });
 
+        Button buttonMisDatos = findViewById(R.id.button3);
+        buttonMisDatos.setOnClickListener(view -> {
+            Intent intent = new Intent(activity_inicio.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
         Button buttonContacto = findViewById(R.id.button2);
         buttonContacto.setOnClickListener(view -> {
             Intent intent = new Intent(activity_inicio.this, ContactoActivity.class);
