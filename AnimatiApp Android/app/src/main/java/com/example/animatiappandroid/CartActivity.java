@@ -54,24 +54,24 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
         idUser = preferences.getInt("idUser", -1);
         token = preferences.getString("token", "");
 
-        if(idCarrito == -1){
-            Toast.makeText(this, "Error: carrito inexistente", Toast.LENGTH_LONG).show();
-            return;
-        }
-
         ListView productList = findViewById(R.id.product_list);
         Button confirmButton = findViewById(R.id.confirm_button);
         Button backButton = findViewById(R.id.back_button);
+
+        backButton.setOnClickListener(this::volverAtras);
+        confirmButton.setOnClickListener(this::confirmarCompra);
+
+        if(idCarrito == -1){
+            Toast.makeText(this, "Carrito vacio", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         totalPrice = findViewById(R.id.total_price);
 
         cargarProductosCarrito();
 
         adapter = new ProductListAdapter(this, productNames, this);
         productList.setAdapter(adapter);
-
-        confirmButton.setOnClickListener(this::confirmarCompra);
-
-        backButton.setOnClickListener(this::volverAtras);
     }
 
     public void volverAtras(View view){
@@ -80,6 +80,11 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
     }
 
     public void confirmarCompra(View view){
+
+        if(idCarrito == -1){
+            Toast.makeText(this, "Carrito vacio", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         if(cart.getTotalPrice() <= 0.0){
 
@@ -113,7 +118,7 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                             double precio = productoCarrito.getDouble("Precio");
                             int cantidad = productoCarrito.getInt("Cantidad");
 
-                            cart.addProduct(new Product(id, nombreProducto, precio / cantidad, cantidad));
+                            cart.addProduct(new Product(id, nombreProducto, precio / cantidad, cantidad, 0));
 
                             String elementoProducto = nombreProducto + " - $" + precio / cantidad + " x " + cantidad + " (Total: " + precio + ")";
                             productNames.add(elementoProducto);
@@ -152,18 +157,10 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
         String url = "https://animatiapp.up.railway.app/api/carrito/crear";
 
-        JSONObject jsonObject = new JSONObject();
-
-        try{
-            jsonObject.put("Usuario", idUser);
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
-                jsonObject,
+                null,
                 response -> {
 
                     try {

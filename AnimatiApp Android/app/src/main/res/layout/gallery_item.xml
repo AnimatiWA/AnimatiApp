@@ -20,7 +20,7 @@
         app:layout_constraintStart_toEndOf="@id/product_image"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Product Name"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/product_price"
@@ -29,6 +29,15 @@
         app:layout_constraintStart_toEndOf="@id/product_image"
         app:layout_constraintTop_toBottomOf="@id/product_name"
         android:text="Price"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/product_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/product_price"
+        app:layout_constraintTop_toBottomOf="@id/product_price"
+        android:text="En stock: "
         android:textSize="16sp" />
 
     <ImageButton
