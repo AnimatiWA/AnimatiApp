@@ -50,22 +50,30 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp" />
 
-                <!-- Bienvenido, Texto Fijo -->
-                <TextView
+                <!-- Contenedor para Bienvenido y el nombre completo del usuario -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bienvenido"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
 
-                <!-- Nombre y apellido del usuario con saludo -->
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    <!-- Bienvenido, Texto Fijo -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bienvenido"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <!-- Nombre y apellido del usuario -->
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <!-- Botón para cambiar email -->
@@ -127,6 +135,5 @@
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 

@@ -1,13 +1,18 @@
 package com.example.animatiappandroid;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.regex.Pattern;
+import org.json.JSONObject;
 
 public class RecoveryPasswordActivity extends AppCompatActivity {
     private Button goHomeButton, sendButton;
@@ -44,8 +49,8 @@ public class RecoveryPasswordActivity extends AppCompatActivity {
 
                 // Validar que las contraseñas coincidan y cumplan con los requisitos
                 if (validatePasswords(newPassword, repeatPassword)) {
-                    // Aquí puedes añadir la lógica de recuperación de contraseña
-                    showSuccessDialog();
+                    // Ejecutar la tarea de recuperación de contraseña
+                    new RecoverPasswordTask(newPassword).execute();
                 }
             }
         });
@@ -94,4 +99,57 @@ public class RecoveryPasswordActivity extends AppCompatActivity {
                 })
                 .show();
     }
+
+    private class RecoverPasswordTask extends AsyncTask<Void, Void, String> {
+        private String newPassword;
+
+        public RecoverPasswordTask(String newPassword) {
+            this.newPassword = newPassword;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                // Crear la URL para la solicitud al backend de Django
+                URL url = new URL("https://animatiapp.up.railway.app/api/password_recovery/");
+
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setDoOutput(true);
+
+                // Crear el objeto JSON con los datos de la contraseña
+                JSONObject jsonParam = new JSONObject();
+                jsonParam.put("password", newPassword);
+                jsonParam.put("password2", newPassword);  // Asegurarse de que ambas contraseñas se envíen
+
+                // Enviar los datos
+                OutputStream os = urlConnection.getOutputStream();
+                os.write(jsonParam.toString().getBytes("UTF-8"));
+                os.close();
+
+                // Obtener la respuesta del servidor
+                int responseCode = urlConnection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    return "Contraseña actualizada con éxito";
+                } else {
+                    return "Error en la actualización de la contraseña: " + responseCode;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "Error de conexión";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.equals("Contraseña actualizada con éxito")) {
+                showSuccessDialog();
+            } else {
+                showAlertDialog("Error", result);
+            }
+        }
+    }
 }
+

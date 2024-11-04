@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,6 +22,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
@@ -81,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void getUserData() {
         // Obtener el ID del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("idUsuario", -1);
+        int userId = sharedPreferences.getInt("idUser", -1);
 
         if (userId == -1) {
             Toast.makeText(this, "ID de usuario no encontrado", Toast.LENGTH_SHORT).show();
@@ -89,6 +93,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         String url = "https://animatiapp.up.railway.app/api/perfilusuario/" + userId;
+        Log.d(TAG, "URL de la solicitud: " + url);  // Log de la URL de la solicitud
+        Log.d(TAG, "Token: " + token);  // Log del token de autenticación
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -98,9 +104,10 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.d(TAG, "Respuesta JSON: " + response.toString());  // Log de la respuesta JSON
                             String firstName = response.getString("first_name");
                             String lastName = response.getString("last_name");
-                            String welcomeMessage = "Bienvenido, " + firstName + " " + lastName;
+                            String welcomeMessage = " " + firstName + " " + lastName;
                             userName.setText(welcomeMessage);
                         } catch (JSONException e) {
                             Log.e(TAG, "Error al procesar la respuesta JSON", e);  // Registro robusto del error
@@ -112,13 +119,22 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Error en la solicitud GET", error);  // Registro robusto del error
-                        Toast.makeText(ProfileActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "Error al obtener los datos: " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
-        );
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                Log.d(TAG, "Headers: " + headers.toString());  // Log de los headers de la solicitud
+                return headers;
+            }
+        };
 
         requestQueue.add(jsonObjectRequest);
     }
+
 
     public void op_carrito(View view) {
         Intent intent = new Intent(this, CartActivity.class);
@@ -130,4 +146,5 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
 
