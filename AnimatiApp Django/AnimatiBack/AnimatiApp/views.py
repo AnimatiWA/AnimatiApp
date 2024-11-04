@@ -369,6 +369,17 @@ class CrearProductosCarrito(APIView):
         cantidad = request.data.get('Cantidad', 1)
 
         try:
+
+            producto = Producto.objects.get(Codigo_Producto=codigo_producto)
+        except Producto.DoesNotExist:
+
+            return Response({"error": "Producto no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+        if(cantidad > producto.Stock):
+
+            return Response({"error": "Stock insuficiente"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
             #Si ya existe un producto en carrito con este codigo, solo lo actualizo
             producto_carrito = ProductoCarrito.objects.get(Codigo_id=codigo_producto, Carrito_id=carrito_id)
 
