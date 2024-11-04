@@ -188,9 +188,23 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
                 }, error -> {
 
-                    error.printStackTrace();
-                    totalPrice.setText("Total: $" + total);
-                    Toast.makeText(CartActivity.this, "Error al confirmar la compra", Toast.LENGTH_SHORT).show();
+                    String mensajeError = "Error al confirmar la compra";
+
+                    if (error.networkResponse != null && error.networkResponse.data != null) {
+                        try {
+
+                            String errorData = new String(error.networkResponse.data, "UTF-8");
+                            JSONObject errorObject = new JSONObject(errorData);
+
+                            if (errorObject.has("error")) {
+                                mensajeError = errorObject.getString("error");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                }
+            }
+
+            Toast.makeText(CartActivity.this, mensajeError, Toast.LENGTH_SHORT).show();
                 }
         ) {
             @Override
