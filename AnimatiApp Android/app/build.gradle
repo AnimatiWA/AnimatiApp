@@ -4,7 +4,7 @@ plugins {
 
 def loadEnv() {
     def props = new Properties()
-    file('.env').withInputStream { stream ->
+    file('..env').withInputStream { stream ->
         props.load(stream)
     }
     return props
