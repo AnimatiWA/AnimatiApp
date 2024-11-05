@@ -1,6 +1,8 @@
 package com.example.animatiappandroid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -110,12 +112,22 @@ public class RecoveryPasswordActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             try {
+                // Obtener el ID del usuario y el token desde SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
+                int userId = sharedPreferences.getInt("idUser", -1);
+                String token = sharedPreferences.getString("token", "");
+
+                if (userId == -1) {
+                    return "ID de usuario no encontrado";
+                }
+
                 // Crear la URL para la solicitud al backend de Django
-                URL url = new URL("https://animatiapp.up.railway.app/api/password_recovery/");
+                URL url = new URL("https://animatiapp.up.railway.app/api/passwordrecovery/" + userId);
 
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Authorization", "Bearer " + token);  // Enviar el token en el encabezado
                 urlConnection.setDoOutput(true);
 
                 // Crear el objeto JSON con los datos de la contraseña

@@ -494,7 +494,7 @@ class EliminarItemEnCarrito(APIView):
         return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
     
 
-# Manejo de recuperación de pass.
+# Manejo de mensaje de recuperación de pass.
 class PasswordRecoveryAPIView(APIView):
     permission_classes = [AllowAny]
     http_method_names = ['post']
@@ -521,16 +521,21 @@ class PasswordRecoveryAPIView(APIView):
     
 # Proceso del cambio de contraseña
 class PasswordResetView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, pk, *args, **kwargs):
         serializer = PasswordResetSerializer(data=request.data)
         if serializer.is_valid():
-            user = request.user
+            try:
+                user = User.objects.get(pk=pk)
+            except User.DoesNotExist:
+                return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
             user.password = make_password(serializer.validated_data['password'])
             user.save()
             return Response({"message": "Contraseña actualizada exitosamente."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ContactMessageView(APIView):
 
