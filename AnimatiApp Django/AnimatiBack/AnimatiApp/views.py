@@ -201,7 +201,7 @@ class ListaProductos(APIView):
     http_method_names = ['get']
     
     def get(self, request, format=None):
-        productos = Producto.objects.all()
+        productos = Producto.objects.filter(Stock__gt=0)
         serializers = ProductosSerializer(productos, many=True)
         return Response(serializers.data)
 class ActualizarProductoApiView(generics.UpdateAPIView):
@@ -275,10 +275,50 @@ class CrearCarrito(APIView):
     http_method_names = ['post']
     
     def post(self, request, format=None):
-        serializer = CarritoSerializer(data=request.data)
+
+        user = request.user
+
+        carrito_activo = Carrito.objects.filter(Usuario=user, is_active=True).first()
+
+        productos_sin_stock = []
+
+        
+        if(carrito_activo):
+
+            for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
+
+                if producto.Cantidad > producto.Codigo.Stock:
+
+                    productos_sin_stock.append(producto.Codigo.Nombre_Producto)
+
+            if(productos_sin_stock):
+
+                return Response({"error": f"Stock insuficiente para los productos: {', '.join(productos_sin_stock)}"}, status=status.HTTP_400_BAD_REQUEST)
+
+            carrito_activo.is_active = False
+            carrito_activo.save()
+
+
+        datos = {
+            'Usuario': user.id,
+        }
+
+        serializer = CarritoSerializer(data=datos)
+
         if serializer.is_valid():
+
             serializer.save()
+
+            if(carrito_activo):
+
+                for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
+
+                    productoOriginal = producto.Codigo
+                    productoOriginal.Stock -= producto.Cantidad
+                    productoOriginal.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
         return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -369,11 +409,22 @@ class CrearProductosCarrito(APIView):
         
         codigo_producto = request.data.get('Codigo')
         carrito_id = request.data.get('Carrito')
-        cantidad = request.data.get('Cantidad', 1)
+        cantidad = int(request.data.get('Cantidad', 1))
+
+        try:
+
+            producto = Producto.objects.get(Codigo_Producto=codigo_producto)
+        except Producto.DoesNotExist:
+
+            return Response({"error": "Producto no encontrado."}, status=status.HTTP_404_NOT_FOUND)
 
         try:
             #Si ya existe un producto en carrito con este codigo, solo lo actualizo
             producto_carrito = ProductoCarrito.objects.get(Codigo_id=codigo_producto, Carrito_id=carrito_id)
+
+            if(producto_carrito.Cantidad + cantidad > producto.Stock):
+
+                return Response({"error": "Stock insuficiente"}, status=status.HTTP_400_BAD_REQUEST)
 
             producto_carrito.Cantidad += cantidad
             producto_carrito.save()
@@ -384,6 +435,10 @@ class CrearProductosCarrito(APIView):
 
         except ProductoCarrito.DoesNotExist:
 
+            if(cantidad > producto.Stock):
+
+                return Response({"error": "Stock insuficiente"}, status=status.HTTP_400_BAD_REQUEST)
+            
             serializer = ProductoCarritoSerializer(data=request.data)
 
             if serializer.is_valid():
