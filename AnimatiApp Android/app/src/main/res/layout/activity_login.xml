@@ -72,7 +72,8 @@
                 android:background="@android:color/transparent"
                 android:text="@string/forgot_password_text"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/registerTextView"

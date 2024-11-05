@@ -72,7 +72,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="24dp" />
 
             <!-- Botón para cambiar contraseña -->
             <Button
@@ -85,7 +85,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="24dp" />
 
             <!-- Botón para ver el historial de compras -->
             <Button
@@ -99,7 +99,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="24dp" />
 
             <!-- Botón para ver el seguimiento de pedidos -->
             <Button
@@ -113,7 +113,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="32dp" />
         </LinearLayout>
     </ScrollView>
