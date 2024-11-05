@@ -70,5 +70,6 @@
     <string name="enter_new_password">Indique su nueva contraseña</string>
     <string name="repeat_password">Repita la contraseña</string>
     <string name="send_recovery_email">Confirmar cambios</string>
+    <string name="cantidadDefault">1</string>
 
 </resources>

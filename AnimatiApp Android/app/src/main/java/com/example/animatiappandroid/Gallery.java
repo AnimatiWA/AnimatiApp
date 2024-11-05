@@ -203,7 +203,7 @@ public class Gallery extends AppCompatActivity {
     public void agregar(Product product) {
         int idCarrito = sharedPreferences.getInt("idCarrito", -1);
         int codigoProducto = product.getId();
-        int cantidad = 1; // Cantidad por defecto
+        int cantidad = product.getQuantity();
 
 
         if (idCarrito == -1) {
