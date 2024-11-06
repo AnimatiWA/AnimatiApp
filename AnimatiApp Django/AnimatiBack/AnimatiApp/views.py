@@ -19,6 +19,9 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.utils.crypto import get_random_string
+from datetime import timedelta
+from django.utils import timezone
 
 # Importación RecoveryPassword
 from django.contrib.auth.hashers import make_password
@@ -495,7 +498,12 @@ class EliminarItemEnCarrito(APIView):
     
 
 # Manejo de mensaje de recuperación de pass.
-class PasswordRecoveryAPIView(APIView):
+from django.utils.crypto import get_random_string
+from datetime import timedelta
+from django.utils import timezone
+from .models import PasswordResetToken, User
+
+class PasswordRecoveryEmailAPIView(APIView):
     permission_classes = [AllowAny]
     http_method_names = ['post']
 
@@ -506,18 +514,50 @@ class PasswordRecoveryAPIView(APIView):
 
             try:
                 user = User.objects.get(email=email)
+                # Generar un token único
+                token = get_random_string(length=32)
+                # Crear un token de recuperación de contraseña
+                reset_token = PasswordResetToken.objects.create(
+                    user=user,
+                    token=token,
+                    expires_at=timezone.now() + timedelta(hours=1)  # El token expira en 1 hora
+                )
+
+                # Generar el enlace de restablecimiento de contraseña
+                reset_link = f"https://animatiapp.up.railway.app/reset-password/{reset_token.token}"
+                message = f"Aquí va el enlace para recuperar tu contraseña: {reset_link}"
                 send_mail(
                     subject='Recuperación de contraseña',
-                    message='Aquí va el enlace para recuperar tu contraseña.',
+                    message=message,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[email],
                 )
                 return Response({'message': 'Correo de recuperación enviado.'}, status=status.HTTP_201_CREATED)
             except User.DoesNotExist:
-                print("El usuario ingresado no existe.")
                 return Response({'error': 'Correo no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class EmailPasswordResetView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, token, *args, **kwargs):
+        try:
+            reset_token = PasswordResetToken.objects.get(token=token)
+            if reset_token.is_expired():
+                return Response({'error': 'Token expirado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            serializer = PasswordResetSerializer(data=request.data)
+            if serializer.is_valid():
+                user = reset_token.user
+                user.password = make_password(serializer.validated_data['password'])
+                user.save()
+                reset_token.delete()  # Eliminar el token después de usarlo
+                return Response({"message": "Contraseña actualizada exitosamente."}, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except PasswordResetToken.DoesNotExist:
+            return Response({'error': 'Token inválido.'}, status=status.HTTP_404_NOT_FOUND)
+
     
 # Proceso del cambio de contraseña
 class PasswordResetView(APIView):
