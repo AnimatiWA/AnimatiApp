@@ -76,5 +76,6 @@
     <string name="textoBotonDecrementoProducto">-</string>
     <string name="textoBotonIncrementoProducto">+</string>
     <string name="textoBotonConfirmarAgregarCarrito">Agregar</string>
+    <string name="textoBotonEliminarItemCarrito">X</string>
 
 </resources>
