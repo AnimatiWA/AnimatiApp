@@ -8,13 +8,27 @@
     android:background="@drawable/gradient_login"
     tools:context=".ForgotPassEmailActivity">
 
+    <!-- Botón de "Iniciar sesión" posicionado arriba a la derecha -->
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:backgroundTint="@color/pink"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
+
     <!-- Logo centrado en la parte superior -->
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/animati_logo"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
@@ -109,7 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="@color/pink"
+        android:background="@drawable/rounded_button_background"
         android:text="@string/send_recovery_email"
         android:textColor="@color/button_text_color"
         app:layout_constraintTop_toBottomOf="@id/repeatPasswordLayout"

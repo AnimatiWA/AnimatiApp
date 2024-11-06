@@ -18,6 +18,8 @@
     <string name="descripcion_logo">Logo de la aplicacion en el cual se puede ver un monigote que es la mascota y el nombre de la app Animati Web</string>
 
     <!-- Forgot_Password -->
+    <string name="login">Iniciar sesión</string>
+    <string name="logout">Cerrar sesión</string>
     <string name="forgot_password_text">¿Olvidaste tu contraseña?</string>
     <string name="change_password_title">Cambiar Contraseña</string>
     <string name="recover_password">Recuperar Contraseña</string>
