@@ -19,6 +19,8 @@
 
     <!-- Forgot_Password -->
     <string name="forgot_password_text">¿Olvidaste tu contraseña?</string>
+    <string name="change_password_title">Cambiar Contraseña</string>
+    <string name="recover_password">Recuperar Contraseña</string>
     <string name="forgot_password_title">Recuperar Contraseña</string>
     <string name="enter_email">Introduce tu correo electrónico</string>
     <string name="reset_password_button">Enviar enlace de recuperación</string>
@@ -55,8 +57,8 @@
     <string name="precio_prod_3">$1.500,00</string>
 
     <!-- Activity_Profile -->
-    <string name="change_profile_image">Cambiar Foto</string>
     <string name="profile_image_desc">Imagen de perfil</string>
+    <string name="bienvenido">Bienvenido, </string>
     <string name="change_email">Cambiar Email</string>
     <string name="change_password">Cambiar Contraseña</string>
     <string name="view_purchase_history">Ver historial de compras</string>
