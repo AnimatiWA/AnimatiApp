@@ -31,13 +31,25 @@ public class ProductListAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.cart_product_item_list, parent, false);
 
         TextView productName = rowView.findViewById(R.id.product_name);
+        TextView productPrice = rowView.findViewById(R.id.product_price);
+        TextView productTotal = rowView.findViewById(R.id.product_total);
         Button removeButton = rowView.findViewById(R.id.remove_button);
+        Button removeOneButton = rowView.findViewById(R.id.remove_one_button);
 
-        productName.setText(productos.get(position));
+        String[] productInfo = productos.get(position).split(",");
+
+        productName.setText(productInfo[0]);
+        productPrice.setText(productInfo[1]);
+        productTotal.setText(productInfo[2]);
 
         removeButton.setOnClickListener(v -> {
 
             removeClickListener.onRemoveClick(position);
+        });
+
+        removeOneButton.setOnClickListener(v -> {
+
+            removeClickListener.onRemoveOneClick(position);
         });
 
         return rowView;
@@ -46,5 +58,6 @@ public class ProductListAdapter extends ArrayAdapter<String> {
     public interface onRemoveClickListener {
 
         void onRemoveClick(int position);
+        void onRemoveOneClick(int position);
     }
 }
