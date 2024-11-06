@@ -521,7 +521,7 @@ class PasswordRecoveryAPIView(APIView):
     
 # Proceso del cambio de contraseña
 class PasswordResetView(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk, *args, **kwargs):
         serializer = PasswordResetSerializer(data=request.data)
