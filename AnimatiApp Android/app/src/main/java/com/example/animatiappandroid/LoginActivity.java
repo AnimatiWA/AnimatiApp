@@ -3,7 +3,6 @@ package com.example.animatiappandroid;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +21,8 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     private static final int MAX_ATTEMPTS = 5;
+    private static final long WAIT_TIME = 10000; // 10 segundos en milisegundos
+
     private static final String PREFERENCES_NAME = "AnimatiPreferencias";
     private static final String ATTEMPT_COUNT = "attemptCount";
     private static final String LAST_ATTEMPT_TIME = "lastAttemptTime";
@@ -49,10 +50,14 @@ public class LoginActivity extends AppCompatActivity {
         lastAttemptTime = sharedPreferences.getLong(LAST_ATTEMPT_TIME, 0);
 
         loginButton.setOnClickListener(v -> {
-            if (System.currentTimeMillis() - lastAttemptTime < getWaitTime()) {
-                long remainingTime = (getWaitTime() - (System.currentTimeMillis() - lastAttemptTime)) / 1000;
+            if (System.currentTimeMillis() - lastAttemptTime < WAIT_TIME && attemptCount >= MAX_ATTEMPTS) {
+                long remainingTime = (WAIT_TIME - (System.currentTimeMillis() - lastAttemptTime)) / 1000;
                 Toast.makeText(LoginActivity.this, "Por favor, espera " + remainingTime + " segundos antes de intentar nuevamente.", Toast.LENGTH_SHORT).show();
                 return;
+            }
+
+            if (System.currentTimeMillis() - lastAttemptTime >= WAIT_TIME && attemptCount >= MAX_ATTEMPTS) {
+                resetLoginAttempts();
             }
 
             String username = editTextUsername.getText().toString();
@@ -132,9 +137,10 @@ public class LoginActivity extends AppCompatActivity {
 
         if (attemptCount >= MAX_ATTEMPTS) {
             lastAttemptTime = currentTime;
-            Toast.makeText(LoginActivity.this, "Demasiados intentos fallidos. Por favor, espera " + getWaitTime() / 1000 + " segundos.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Demasiados intentos fallidos. Por favor, espera " + WAIT_TIME / 1000 + " segundos.", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(LoginActivity.this, "Credenciales incorrectas. Intento " + attemptCount + " de " + MAX_ATTEMPTS, Toast.LENGTH_SHORT).show();
+            int attemptsLeft = MAX_ATTEMPTS - attemptCount;
+            Toast.makeText(LoginActivity.this, "Credenciales incorrectas. Intento " + attemptCount + " de " + MAX_ATTEMPTS + ". Te quedan " + attemptsLeft + " intentos antes de que se bloquee por 10 segundos.", Toast.LENGTH_SHORT).show();
         }
 
         saveLoginAttempts();
@@ -152,9 +158,5 @@ public class LoginActivity extends AppCompatActivity {
         editor.putInt(ATTEMPT_COUNT, attemptCount);
         editor.putLong(LAST_ATTEMPT_TIME, lastAttemptTime);
         editor.apply();
-    }
-
-    private long getWaitTime() {
-        return 60000 + (attemptCount - MAX_ATTEMPTS) * 300000;
     }
 }
