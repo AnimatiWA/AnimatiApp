@@ -495,6 +495,29 @@ class EliminarItemEnCarrito(APIView):
         
         productoCarrito.delete()
         return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
+
+class EliminarUnidadItemEnCarrito(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ProductoCarritoSerializer
+    http_method_names = ['patch']
+
+    def patch(self, request, id, format=None):
+        productoCarrito = ProductoCarrito.objects.filter(id=id).first()
+
+        if productoCarrito is None:
+            return Response({'error': 'Producto en carrito no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        if(productoCarrito.Cantidad > 1):
+
+            productoCarrito.Cantidad -= 1
+            productoCarrito.save()
+
+            serializer = self.serializer_class(productoCarrito)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        productoCarrito.delete()
+        return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
     
 
 # Manejo de mensaje de recuperación de pass.

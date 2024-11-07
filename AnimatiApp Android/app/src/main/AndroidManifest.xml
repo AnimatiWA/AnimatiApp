@@ -41,7 +41,8 @@
             android:exported="true" />
         <activity
             android:name=".Gallery"
-            android:exported="true"></activity>
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ContactoActivity"
             android:exported="true"></activity>
