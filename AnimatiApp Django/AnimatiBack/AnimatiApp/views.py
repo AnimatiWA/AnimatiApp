@@ -541,7 +541,7 @@ class PasswordRecoveryEmailAPIView(APIView):
 class EmailPasswordResetView(APIView):
     permission_classes = [AllowAny]
 
-    def post(self, request, token, *args, **kwargs):
+    def get(self, request, token, *args, **kwargs):
         try:
             reset_token = PasswordResetToken.objects.get(token=token)
             if reset_token.is_expired():
