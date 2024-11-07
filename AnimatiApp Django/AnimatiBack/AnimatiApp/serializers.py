@@ -109,3 +109,24 @@ class CorreoContactoSerializer(serializers.ModelSerializer):
 
 class PasswordRecoverySerializer(serializers.Serializer):
     email = serializers.EmailField()
+
+# Aplica a RecoveryPasswordActivity
+class PasswordResetSerializer(serializers.ModelSerializer):
+    codigo = serializers.CharField(write_only=True, required=True)
+    password = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ('codigo', 'password', 'password2')
+
+    # La validación presente en el .java se repite para mayor robustez.
+    def validate(self, data):
+        if data['password'] != data['password2']:
+            raise serializers.ValidationError("Las contraseñas no coinciden.")
+        return data
+
+    def validate_password(self, value):
+        if len(value) < 6:
+            raise serializers.ValidationError("La contraseña debe tener al menos 6 caracteres.")
+        return value

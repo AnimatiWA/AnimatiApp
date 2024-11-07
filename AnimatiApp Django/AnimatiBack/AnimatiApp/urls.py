@@ -31,14 +31,17 @@ urlpatterns = [
     path('carrito/actualizar/<int:id>', ActualizarCarrito.as_view(), name='actualizarcarrito'),
     path('carrito/eliminar/<int:id>', EliminarCarrito.as_view(), name='eliminarcarrito'),
     path('carrito/lista', ListaCarritos.as_view(), name='listacarrito'),
+    path('carrito/historial', ListaCarritos.as_view(), name='historialcarrito'),
     path('carritoProductos/<int:id>', DetalleProductosCarrito.as_view(), name='detalleproductoencarrito'),
     path('carritoProductos/lista', ListarProductosEnCarrito.as_view(), name='listacarritoProductos'),
     path('carritoProductos/lista/carrito/<int:carrito_id>', ListarProductosEnCarritoEspecifico.as_view(), name='listacarritoEspecificoProductos'),
     path('carritoProductos/crear', CrearProductosCarrito.as_view(), name='crearproductoencarrito'),
     path('carritoProductos/actualizar/<int:id>', ActualizarProductoenCarrito.as_view(), name='actualizarproductoencarrito'),
     path('carritoProductos/eliminar/<int:id>', EliminarItemEnCarrito.as_view(), name='eliminarproductodelcarrito'),
-    path('password_recovery', PasswordRecoveryAPIView.as_view(), name='password_recovery'),
+    path('passwordrecovery/<int:pk>', PasswordResetView.as_view(), name='passwordrecovery'),
     path('contacto', ContactMessageView.as_view(), name='contacto'),
+    path('passwordRecovery', PasswordRecoveryEmailAPIView.as_view(), name='passwordrecoveryemail'),
+    path('resetPassword', EmailPasswordResetView.as_view(), name='passwordreset'), 
 
     path('', include(router.urls)),
 ]

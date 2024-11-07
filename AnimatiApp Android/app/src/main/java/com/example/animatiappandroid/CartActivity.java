@@ -118,10 +118,13 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                             double precio = productoCarrito.getDouble("Precio");
                             int cantidad = productoCarrito.getInt("Cantidad");
 
+                            double precioUnitario = precio / cantidad;
+                            String precioFormateado = "$" + precioUnitario + " x " + cantidad + " unidades";
+                            String precioTotal = "Total: $" + precio;
+
                             cart.addProduct(new Product(id, nombreProducto, precio / cantidad, cantidad, 0));
 
-                            String elementoProducto = nombreProducto + " - $" + precio / cantidad + " x " + cantidad + " (Total: " + precio + ")";
-                            productNames.add(elementoProducto);
+                            productNames.add(nombreProducto + "," + precioFormateado + "," + precioTotal);
 
                             total += precio;
                         }
@@ -281,6 +284,73 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
         };
 
         //Agrego la solicitud a la cola de Volley
+        queue.add(request);
+    }
+
+    @Override
+    public void onRemoveOneClick(int position) {
+
+        ArrayList<Product> products = cart.getProducts();
+        int idProducto = products.get(position).getId();
+
+
+        String url = "https://animatiapp.up.railway.app/api/carritoProductos/eliminarUnidad/" + idProducto;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, url, null, response -> {
+
+            try{
+
+                if(response.has("message")){
+
+                    productNames.remove(position);
+                    cart.removeProduct(position);
+
+                    adapter.notifyDataSetChanged();
+
+                    double total = cart.getTotalPrice();
+
+                    totalPrice.setText("Total: $" + total);
+                    Toast.makeText(CartActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                } else{
+
+                    String nombreProducto = response.getString("nombre_producto");
+                    double precio = response.getDouble("Precio");
+                    int cantidad = response.getInt("Cantidad");
+
+                    double precioUnitario = precio / cantidad;
+                    String precioFormateado = "$" + precioUnitario + " x " + cantidad + " unidades";
+                    String precioTotal = "Total: $" + precio;
+
+                    productNames.set(position, nombreProducto + "," + precioFormateado + "," + precioTotal);
+
+                    cart.getProducts().get(position).setQuantity(cantidad);
+                    cart.getProducts().get(position).setPrice(precioUnitario);
+
+                    adapter.notifyDataSetChanged();
+
+                    double total = cart.getTotalPrice();
+                    totalPrice.setText("Total: $" + total);
+                }
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+                Toast.makeText(CartActivity.this, "Error al actualizar el producto", Toast.LENGTH_SHORT).show();
+            }
+        }, error -> {
+
+            Toast.makeText(CartActivity.this, "Error al eliminar producto", Toast.LENGTH_SHORT).show();
+        }) {
+            @Override
+            public Map<String, String> getHeaders(){
+
+                Map<String, String> headers = new HashMap<>();
+
+                //Agrego el token para la autorizacion del endpoint
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
         queue.add(request);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.animatiappandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,14 +28,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        // Inicialización de las vistas
         emailEditText = findViewById(R.id.editTextEmail);
         resetPasswordButton = findViewById(R.id.buttonSend);
 
-        // Inicialización de la cola de solicitudes de Volley
         requestQueue = Volley.newRequestQueue(this);
 
-        // Listener para el botón de enviar
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,12 +46,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
     }
 
-    // Método para enviar la solicitud de recuperación de contraseña
     private void sendPasswordRecoveryRequest(String email) {
-        String url = "https://animatiapp.up.railway.app/api/password_recovery";
+        String url = "https://animatiapp.up.railway.app/api/passwordRecovery";
         JSONObject requestBody = new JSONObject();
         try {
-            requestBody.put("email", email);
+            requestBody.put("email", email); // El cuerpo solo incluye el email
         } catch (JSONException e) {
             Log.e(TAG, "JSONException: " + e.getMessage());
         }
@@ -65,7 +62,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        // Mostrar mensaje cuando se ha enviado el enlace
                         Toast.makeText(ForgotPasswordActivity.this, "Enlace de recuperación enviado a " + email, Toast.LENGTH_SHORT).show();
+
+                        // Redirigir a ForgotPassEmailActivity
+                        Intent intent = new Intent(ForgotPasswordActivity.this, ForgotPassEmailActivity.class);
+                        startActivity(intent);
+                        finish();  // Cerrar la actividad actual
                     }
                 },
                 new Response.ErrorListener() {
@@ -77,7 +80,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             try {
                                 body = new String(error.networkResponse.data, "UTF-8");
                                 Log.e(TAG, "Server Error: " + body);
-                                // Verificar si el mensaje de error contiene "Correo no encontrado"
+
                                 if (body.contains("Correo no encontrado")) {
                                     Toast.makeText(ForgotPasswordActivity.this, "Correo electrónico no registrado", Toast.LENGTH_SHORT).show();
                                 } else {
@@ -97,5 +100,4 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 }
-
 
