@@ -79,5 +79,7 @@
     <string name="textoBotonIncrementoProducto">+</string>
     <string name="textoBotonConfirmarAgregarCarrito">Agregar</string>
     <string name="textoBotonEliminarItemCarrito">X</string>
-
+    <string name="textoRevisarMail">Revise la cuenta de correo electrónico que ingresó anteriormente para obtener el código de seguridad.</string>
+    <string name="textoRevisarMailSpam">Si no encuentra el correo de recuperación de contraseña, revise la carpeta de spam o correo no deseado</string>
+    <string name="enter_code">XXXXXX</string>
 </resources>

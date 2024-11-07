@@ -112,12 +112,13 @@ class PasswordRecoverySerializer(serializers.Serializer):
 
 # Aplica a RecoveryPasswordActivity
 class PasswordResetSerializer(serializers.ModelSerializer):
+    codigo = serializers.CharField(write_only=True, required=True)
     password = serializers.CharField(write_only=True, required=True)
     password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ('password', 'password2')
+        fields = ('codigo', 'password', 'password2')
 
     # La validación presente en el .java se repite para mayor robustez.
     def validate(self, data):
