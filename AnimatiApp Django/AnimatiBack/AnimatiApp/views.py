@@ -495,6 +495,7 @@ class EliminarItemEnCarrito(APIView):
         
         productoCarrito.delete()
         return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
+<<<<<<< Updated upstream
 
 class EliminarUnidadItemEnCarrito(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -525,6 +526,8 @@ from django.utils.crypto import get_random_string
 from datetime import timedelta
 from django.utils import timezone
 from .models import PasswordResetToken, User
+=======
+>>>>>>> Stashed changes
 
 class PasswordRecoveryEmailAPIView(APIView):
     permission_classes = [AllowAny]
