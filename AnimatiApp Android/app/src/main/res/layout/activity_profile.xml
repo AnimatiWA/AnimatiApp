@@ -106,19 +106,55 @@
                 android:id="@+id/view_order_tracking_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:text="@string/view_order_tracking"
                 android:background="@drawable/rounded_button_background"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp" />
+                android:layout_marginTop="24dp" />
+
+            <!-- Detalles de la última compra -->
+            <LinearLayout
+                android:id="@+id/last_purchase_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <!-- Detalles de la última compra, ejemplo -->
+                <TextView
+                    android:id="@+id/purchase_item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Último ítem comprado: Producto X"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/purchase_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de compra: 01/01/2024"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/purchase_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estado: En camino"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 
