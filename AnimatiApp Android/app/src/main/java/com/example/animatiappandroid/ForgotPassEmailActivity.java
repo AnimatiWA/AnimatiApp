@@ -99,6 +99,7 @@ public class ForgotPassEmailActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Éxito")
                 .setMessage("Contraseña actualizada exitosamente.")
+
                 .setPositiveButton("Aceptar", null)
                 .show();
     }
@@ -157,6 +158,9 @@ public class ForgotPassEmailActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if (result.equals("Contraseña actualizada con éxito")) {
                 showSuccessDialog();
+                Intent intent = new Intent(ForgotPassEmailActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             } else {
 
                 if (result.contains("Código incorrecto")) {
