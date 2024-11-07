@@ -118,7 +118,7 @@ class PasswordResetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('password', 'password2')
+        fields = ('codigo', 'password')
 
     # La validación presente en el .java se repite para mayor robustez.
     def validate(self, data):
