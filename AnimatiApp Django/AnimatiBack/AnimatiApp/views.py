@@ -27,6 +27,7 @@ from django.utils import timezone
 from django.contrib.auth.hashers import make_password
 
 from django.db.models import Max
+from django.db.models import Sum
 
 from django.conf import settings
 
@@ -633,3 +634,42 @@ class ContactMessageView(APIView):
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    
+class HistorialCarritoView(APIView):
+
+
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+
+        user = request.user
+
+        carritos_inactivos = Carrito.objects.filter(Usuario=user, is_active=False).order_by('Creado')
+
+        if not carritos_inactivos:
+
+            return Response([], status=status.HTTP_204_NO_CONTENT)
+        
+        carrito_data = []
+
+        for i, carrito in enumerate(carritos_inactivos):
+
+            total_precio = ProductoCarrito.objects.filter(Carrito=carrito).aggregate(total=Sum('Precio'))['total'] or 0.0
+
+            if i + 1 < len(carritos_inactivos):
+
+                siguiente_carrito = carritos_inactivos[i + 1]
+                fecha_deshabilitacion = siguiente_carrito.Creado
+            else:
+
+                fecha_deshabilitacion = None
+
+            carrito_data.append({
+
+                'id': carrito.id,
+                'total': total_precio,
+                'fecha_compra': fecha_deshabilitacion,
+            })
+
+        return Response(carrito_data, status=status.HTTP_200_OK)
