@@ -518,21 +518,16 @@ class EliminarUnidadItemEnCarrito(APIView):
         
         productoCarrito.delete()
         return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
-    
-
-# Manejo de mensaje de recuperación de pass.
-from django.utils.crypto import get_random_string
-from datetime import timedelta
-from django.utils import timezone
-from .models import PasswordResetToken, User
 
 class PasswordRecoveryEmailAPIView(APIView):
+    
     permission_classes = [AllowAny]
+    serializer_class = PasswordRecoverySerializer
     http_method_names = ['post']
 
     def post(self, request):
 
-        serializer = PasswordRecoverySerializer(data=request.data)
+        serializer =  self.serializer_class(data=request.data)
 
         if serializer.is_valid():
 
@@ -549,7 +544,7 @@ class PasswordRecoveryEmailAPIView(APIView):
                     token=code,
                     expires_at=timezone.now() + timedelta(hours=1)
                 )
-                
+
                 send_mail(
                     subject='Recuperación de contraseña',
                     message=f"Tu codigo de cambio de contraseña para AnimatiApp es el siguiente: {code}",
@@ -564,23 +559,37 @@ class PasswordRecoveryEmailAPIView(APIView):
 
 class EmailPasswordResetView(APIView):
     permission_classes = [AllowAny]
+    serializer_class = PasswordResetSerializer
+    http_method_names = ["post"]
 
-    def get(self, request, token, *args, **kwargs):
-        try:
-            reset_token = PasswordResetToken.objects.get(token=token)
-            if reset_token.is_expired():
-                return Response({'error': 'Token expirado.'}, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
 
-            serializer = PasswordResetSerializer(data=request.data)
-            if serializer.is_valid():
+        serializer = self.serializer_class(data=request.data)
+
+        if(serializer.is_valid()):
+
+            code = serializer.validated_data['codigo']
+            password = serializer.validated_data['password']
+
+            try:
+
+                reset_token = PasswordResetToken.objects.get(token=code)
+                if reset_token.is_expired():
+                    return Response({'error': 'Codigo de verificación expirado.'}, status=status.HTTP_400_BAD_REQUEST)
+
                 user = reset_token.user
-                user.password = make_password(serializer.validated_data['password'])
+                user.password = make_password(password)
                 user.save()
-                reset_token.delete()  # Eliminar el token después de usarlo
+
+                reset_token.delete()
+
                 return Response({"message": "Contraseña actualizada exitosamente."}, status=status.HTTP_200_OK)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except PasswordResetToken.DoesNotExist:
-            return Response({'error': 'Token inválido.'}, status=status.HTTP_404_NOT_FOUND)
+                
+            except PasswordResetToken.DoesNotExist:
+
+                return Response({'error': 'Token inválido.'}, status=status.HTTP_404_NOT_FOUND)
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     
 # Proceso del cambio de contraseña

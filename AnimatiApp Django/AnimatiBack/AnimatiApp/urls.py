@@ -40,7 +40,7 @@ urlpatterns = [
     path('passwordrecovery/<int:pk>', PasswordResetView.as_view(), name='passwordrecovery'),
     path('contacto', ContactMessageView.as_view(), name='contacto'),
     path('passwordRecovery', PasswordRecoveryEmailAPIView.as_view(), name='passwordrecoveryemail'),
-    path('resetPassword/<str:token>', EmailPasswordResetView.as_view(), name='passwordreset'),
+    path('resetPassword', EmailPasswordResetView.as_view(), name='passwordreset'), 
 
     path('', include(router.urls)),
 ]
