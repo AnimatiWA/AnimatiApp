@@ -524,7 +524,7 @@ class PasswordRecoveryEmailAPIView(APIView):
                 )
 
                 # Generar el enlace de restablecimiento de contraseña
-                reset_link = f"https://animatiapp.up.railway.app/reset-password/{reset_token.token}"
+                reset_link = f"https://animatiapp.up.railway.app/api/resetPassword/{reset_token.token}"
                 message = f"Aquí va el enlace para recuperar tu contraseña: {reset_link}"
                 send_mail(
                     subject='Recuperación de contraseña',
