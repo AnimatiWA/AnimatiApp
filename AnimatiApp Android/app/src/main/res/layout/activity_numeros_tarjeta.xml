@@ -1,0 +1,204 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/inicio"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/gradient_pink"
+        android:alpha="0.4"/>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_datos"
+        android:background="@drawable/metodo_title"
+        android:textColor="#ffffff"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="48dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/colorBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="#FFFFFF"
+        app:cardCornerRadius="32dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/imageViewCardType"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/titulo_datos"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre_tarjeta"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/nombre_completo_tarjeta"
+                android:inputType="textPersonName"
+                android:textColor="#000000"
+                android:textSize="22dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edittext_border"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewSurname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/apellido_tarjeta"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextSurname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/apellido_completo_tarjeta"
+                android:inputType="textPersonName"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edittext_border"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewCardNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/numero_tarjeta"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/numero_tarjeta_hint"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="number"
+                android:paddingStart="18dp"
+                android:paddingEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewExpirationDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vencimiento"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextExpirationDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/vencimiento_hint"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:id="@+id/textViewSecurityCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/codigo_seguridad"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextSecurityCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/codigo_seguridad_hint"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                />
+            <Button
+                android:id="@+id/buttonSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/confirmar"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#00BCD4"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

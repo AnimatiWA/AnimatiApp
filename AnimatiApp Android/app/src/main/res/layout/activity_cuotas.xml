@@ -1,0 +1,324 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/gradient_pink"
+        android:alpha="0.4"/>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/metodo_title"
+        android:text="@string/cuotas"
+        android:contentDescription="@string/cuotas"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/colorBox"
+        android:layout_width="353dp"
+        android:layout_height="533dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="#F6F6F6"
+        app:cardCornerRadius="32dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewCuota1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/u_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/u_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <!-- Línea divisoria -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/d_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/d_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/t_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/t_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/c_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/c_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/C_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/C_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/s_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/S_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/S_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/o_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/o_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/n_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/n_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/D_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/D_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/O_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/O_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#B0B0B0"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewCuota12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dD_cuotas"
+                    android:textColor="#000000"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:padding="14dp"
+                    android:gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/dD_cuotas"
+                    android:onClick="navigateToNumerosTarjeta"
+                    android:drawableEnd="@drawable/flecha_correcta" />
+
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

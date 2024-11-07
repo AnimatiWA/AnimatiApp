@@ -74,6 +74,7 @@
     <string name="enter_new_password">Indique su nueva contraseña</string>
     <string name="repeat_password">Repita la contraseña</string>
     <string name="send_recovery_email">Confirmar cambios</string>
+<<<<<<< Updated upstream
     <string name="cantidadDefault">1</string>
     <string name="textoBotonDecrementoProducto">-</string>
     <string name="textoBotonIncrementoProducto">+</string>
@@ -82,4 +83,44 @@
     <string name="textoRevisarMail">Revise la cuenta de correo electrónico que ingresó anteriormente para obtener el código de seguridad.</string>
     <string name="textoRevisarMailSpam">Si no encuentra el correo de recuperación de contraseña, revise la carpeta de spam o correo no deseado</string>
     <string name="enter_code">XXXXXX</string>
+=======
+
+    <!-- Metodo de pago -->
+    <string name="select_payment_method">Selecciona el método de pago</string>
+    <string name="credit_card">Tarjeta de Crédito</string>
+    <string name="debit_card">Tarjeta de Débito</string>
+    <string name="titulo_datos">Ingrese sus datos</string>
+    <string name="nombre_tarjeta">Nombre</string>
+    <string name="nombre_completo_tarjeta">Nombre completo</string>
+    <string name="apellido_tarjeta">Apellido</string>
+    <string name="apellido_completo_tarjeta">Apellido completo</string>
+    <string name="numero_tarjeta">Numero de tarjeta</string>
+    <string name="numero_tarjeta_hint">XXXX XXXX XXXX XXXX</string>
+    <string name="vencimiento">Fecha de vencimiento</string>
+    <string name="vencimiento_hint">MM/AA</string>
+    <string name="codigo_seguridad">Código de seguridad</string>
+    <string name="codigo_seguridad_hint">XXX</string>
+    <string name="confirmar">Confirmar</string>
+
+    <!-- Activity_Cuotas -->
+    <string name="cuotas">Cuotas</string>
+    <string name="u_cuotas">1 Cuota</string>
+    <string name="d_cuotas">2 Cuotas</string>
+    <string name="t_cuotas">3 Cuotas</string>
+    <string name="c_cuotas">4 Cuotas</string>
+    <string name="C_cuotas">5 Cuotas</string>
+    <string name="s_cuotas">6 Cuotas</string>
+    <string name="S_cuotas">7 Cuotas</string>
+    <string name="o_cuotas">8 Cuotas</string>
+    <string name="n_cuotas">9 Cuotas</string>
+    <string name="D_cuotas">10 Cuotas</string>
+    <string name="O_cuotas">11 Cuotas</string>
+    <string name="dD_cuotas">12 Cuotas</string>
+
+
+
+
+
+
+>>>>>>> Stashed changes
 </resources>

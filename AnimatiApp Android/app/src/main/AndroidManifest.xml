@@ -41,22 +41,40 @@
             android:exported="true" />
         <activity
             android:name=".Gallery"
+<<<<<<< Updated upstream
             android:exported="true"
             android:windowSoftInputMode="adjustPan"/>
+=======
+            android:exported="true" />
+>>>>>>> Stashed changes
         <activity
             android:name=".ContactoActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ProfileActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
+<<<<<<< Updated upstream
             android:exported="true"></activity>
         <activity
             android:name=".ForgotPassEmailActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+=======
+            android:exported="true" />
+
+        <activity
+            android:name=".CuotasActivity"
+            android:exported="true" />
+        <activity
+            android:name=".NumerosTarjetaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PaymentMethodActivity"
+            android:exported="true" />
+>>>>>>> Stashed changes
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
