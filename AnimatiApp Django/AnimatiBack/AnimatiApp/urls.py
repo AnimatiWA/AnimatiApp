@@ -37,12 +37,10 @@ urlpatterns = [
     path('carritoProductos/crear', CrearProductosCarrito.as_view(), name='crearproductoencarrito'),
     path('carritoProductos/actualizar/<int:id>', ActualizarProductoenCarrito.as_view(), name='actualizarproductoencarrito'),
     path('carritoProductos/eliminar/<int:id>', EliminarItemEnCarrito.as_view(), name='eliminarproductodelcarrito'),
-    path('carritoProductos/eliminarUnidad/<int:id>', EliminarUnidadItemEnCarrito.as_view(), name='eliminarunidadproductodelcarrito'),
     path('passwordrecovery/<int:pk>', PasswordResetView.as_view(), name='passwordrecovery'),
     path('contacto', ContactMessageView.as_view(), name='contacto'),
-
-    path('passwordRecovery', PasswordRecoveryEmailAPIView.as_view(), name='password_recovery_email'),
-    path('resetPassword/<str:token>', EmailPasswordResetView.as_view(), name='password_reset'),
+    path('passwordRecovery', PasswordRecoveryEmailAPIView.as_view(), name='passwordrecoveryemail'),
+    path('resetPassword/<str:token>', EmailPasswordResetView.as_view(), name='passwordreset'),
 
     path('', include(router.urls)),
 ]

@@ -495,7 +495,6 @@ class EliminarItemEnCarrito(APIView):
         
         productoCarrito.delete()
         return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
-<<<<<<< Updated upstream
 
 class EliminarUnidadItemEnCarrito(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -526,35 +525,34 @@ from django.utils.crypto import get_random_string
 from datetime import timedelta
 from django.utils import timezone
 from .models import PasswordResetToken, User
-=======
->>>>>>> Stashed changes
 
 class PasswordRecoveryEmailAPIView(APIView):
     permission_classes = [AllowAny]
     http_method_names = ['post']
 
     def post(self, request):
+
         serializer = PasswordRecoverySerializer(data=request.data)
+
         if serializer.is_valid():
+
             email = serializer.validated_data['email']
 
             try:
-                user = User.objects.get(email=email)
-                # Generar un token único
-                token = get_random_string(length=32)
-                # Crear un token de recuperación de contraseña
-                reset_token = PasswordResetToken.objects.create(
-                    user=user,
-                    token=token,
-                    expires_at=timezone.now() + timedelta(hours=1)  # El token expira en 1 hora
-                )
 
-                # Generar el enlace de restablecimiento de contraseña
-                reset_link = f"https://animatiapp.up.railway.app/api/resetPassword/{reset_token.token}"
-                message = f"Aquí va el enlace para recuperar tu contraseña: {reset_link}"
+                user = User.objects.get(email=email)
+                
+                code = get_random_string(length=6, allowed_chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+                
+                reset_token = PasswordResetToken.objects.update_or_create(
+                    user=user,
+                    token=code,
+                    expires_at=timezone.now() + timedelta(hours=1)
+                )
+                
                 send_mail(
                     subject='Recuperación de contraseña',
-                    message=message,
+                    message=f"Tu codigo de cambio de contraseña para AnimatiApp es el siguiente: {code}",
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[email],
                 )
