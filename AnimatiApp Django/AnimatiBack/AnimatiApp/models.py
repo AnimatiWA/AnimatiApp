@@ -9,6 +9,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.contrib.auth import get_user_model
+from datetime import timedelta
 
 # Create your models here.
 
@@ -99,6 +100,7 @@ class Producto(models.Model):
 class Carrito(models.Model):
     Usuario = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     Creado = models.DateTimeField(default=timezone.now)
+    is_active = models.BooleanField(default = True)
 
 class ProductoCarrito(models.Model):
     Codigo = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -144,3 +146,17 @@ class CorreoContacto(models.Model):
 
     def __str__(self):
         return f"Mensaje de {self.nombre}"
+    
+class PasswordResetToken(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.CharField(max_length=255, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        if not self.expires_at:
+            self.expires_at = timezone.now() + timedelta(hours=1)  # El token expira en 1 hora
+        super().save(*args, **kwargs)
+
+    def is_expired(self):
+        return timezone.now() > self.expires_at

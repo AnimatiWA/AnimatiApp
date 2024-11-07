@@ -19,8 +19,15 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.utils.crypto import get_random_string
+from datetime import timedelta
+from django.utils import timezone
+
+# Importación RecoveryPassword
+from django.contrib.auth.hashers import make_password
 
 from django.db.models import Max
+from django.db.models import Sum
 
 from django.conf import settings
 
@@ -198,7 +205,7 @@ class ListaProductos(APIView):
     http_method_names = ['get']
     
     def get(self, request, format=None):
-        productos = Producto.objects.all()
+        productos = Producto.objects.filter(Stock__gt=0)
         serializers = ProductosSerializer(productos, many=True)
         return Response(serializers.data)
 class ActualizarProductoApiView(generics.UpdateAPIView):
@@ -272,10 +279,50 @@ class CrearCarrito(APIView):
     http_method_names = ['post']
     
     def post(self, request, format=None):
-        serializer = CarritoSerializer(data=request.data)
+
+        user = request.user
+
+        carrito_activo = Carrito.objects.filter(Usuario=user, is_active=True).first()
+
+        productos_sin_stock = []
+
+        
+        if(carrito_activo):
+
+            for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
+
+                if producto.Cantidad > producto.Codigo.Stock:
+
+                    productos_sin_stock.append(producto.Codigo.Nombre_Producto)
+
+            if(productos_sin_stock):
+
+                return Response({"error": f"Stock insuficiente para los productos: {', '.join(productos_sin_stock)}"}, status=status.HTTP_400_BAD_REQUEST)
+
+            carrito_activo.is_active = False
+            carrito_activo.save()
+
+
+        datos = {
+            'Usuario': user.id,
+        }
+
+        serializer = CarritoSerializer(data=datos)
+
         if serializer.is_valid():
+
             serializer.save()
+
+            if(carrito_activo):
+
+                for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
+
+                    productoOriginal = producto.Codigo
+                    productoOriginal.Stock -= producto.Cantidad
+                    productoOriginal.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
         return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -366,11 +413,22 @@ class CrearProductosCarrito(APIView):
         
         codigo_producto = request.data.get('Codigo')
         carrito_id = request.data.get('Carrito')
-        cantidad = request.data.get('Cantidad', 1)
+        cantidad = int(request.data.get('Cantidad', 1))
+
+        try:
+
+            producto = Producto.objects.get(Codigo_Producto=codigo_producto)
+        except Producto.DoesNotExist:
+
+            return Response({"error": "Producto no encontrado."}, status=status.HTTP_404_NOT_FOUND)
 
         try:
             #Si ya existe un producto en carrito con este codigo, solo lo actualizo
             producto_carrito = ProductoCarrito.objects.get(Codigo_id=codigo_producto, Carrito_id=carrito_id)
+
+            if(producto_carrito.Cantidad + cantidad > producto.Stock):
+
+                return Response({"error": "Stock insuficiente"}, status=status.HTTP_400_BAD_REQUEST)
 
             producto_carrito.Cantidad += cantidad
             producto_carrito.save()
@@ -381,6 +439,10 @@ class CrearProductosCarrito(APIView):
 
         except ProductoCarrito.DoesNotExist:
 
+            if(cantidad > producto.Stock):
+
+                return Response({"error": "Stock insuficiente"}, status=status.HTTP_400_BAD_REQUEST)
+            
             serializer = ProductoCarritoSerializer(data=request.data)
 
             if serializer.is_valid():
@@ -434,32 +496,120 @@ class EliminarItemEnCarrito(APIView):
         
         productoCarrito.delete()
         return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
-    
 
-# Manejo de recuperación de pass.
-class PasswordRecoveryAPIView(APIView):
+class EliminarUnidadItemEnCarrito(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ProductoCarritoSerializer
+    http_method_names = ['patch']
+
+    def patch(self, request, id, format=None):
+        productoCarrito = ProductoCarrito.objects.filter(id=id).first()
+
+        if productoCarrito is None:
+            return Response({'error': 'Producto en carrito no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        if(productoCarrito.Cantidad > 1):
+
+            productoCarrito.Cantidad -= 1
+            productoCarrito.save()
+
+            serializer = self.serializer_class(productoCarrito)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        productoCarrito.delete()
+        return Response({'message':'Producto en carrito Eliminado'},status=status.HTTP_200_OK)
+
+class PasswordRecoveryEmailAPIView(APIView):
+    
     permission_classes = [AllowAny]
+    serializer_class = PasswordRecoverySerializer
     http_method_names = ['post']
 
     def post(self, request):
-        serializer = PasswordRecoverySerializer(data=request.data)
+
+        serializer =  self.serializer_class(data=request.data)
+
         if serializer.is_valid():
+
             email = serializer.validated_data['email']
 
             try:
+
                 user = User.objects.get(email=email)
+                
+                code = get_random_string(length=6, allowed_chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+                
+                reset_token = PasswordResetToken.objects.update_or_create(
+                    user=user,
+                    token=code,
+                    expires_at=timezone.now() + timedelta(hours=1)
+                )
+
                 send_mail(
                     subject='Recuperación de contraseña',
-                    message='Aquí va el enlace para recuperar tu contraseña.',
+                    message=f"Tu codigo de cambio de contraseña para AnimatiApp es el siguiente: {code}",
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[email],
                 )
                 return Response({'message': 'Correo de recuperación enviado.'}, status=status.HTTP_201_CREATED)
             except User.DoesNotExist:
-                print("El usuario ingresado no existe.")
                 return Response({'error': 'Correo no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class EmailPasswordResetView(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = PasswordResetSerializer
+    http_method_names = ["post"]
+
+    def post(self, request, *args, **kwargs):
+
+        serializer = self.serializer_class(data=request.data)
+
+        if(serializer.is_valid()):
+
+            code = serializer.validated_data['codigo']
+            password = serializer.validated_data['password']
+
+            try:
+
+                reset_token = PasswordResetToken.objects.get(token=code)
+                if reset_token.is_expired():
+                    return Response({'error': 'Codigo de verificación expirado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+                user = reset_token.user
+                user.password = make_password(password)
+                user.save()
+
+                reset_token.delete()
+
+                return Response({"message": "Contraseña actualizada exitosamente."}, status=status.HTTP_200_OK)
+                
+            except PasswordResetToken.DoesNotExist:
+
+                return Response({'error': 'Token inválido.'}, status=status.HTTP_404_NOT_FOUND)
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+# Proceso del cambio de contraseña
+class PasswordResetView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk, *args, **kwargs):
+        serializer = PasswordResetSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                user = User.objects.get(pk=pk)
+            except User.DoesNotExist:
+                return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+            user.password = make_password(serializer.validated_data['password'])
+            user.save()
+            return Response({"message": "Contraseña actualizada exitosamente."}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ContactMessageView(APIView):
 
@@ -484,3 +634,42 @@ class ContactMessageView(APIView):
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    
+class HistorialCarritoView(APIView):
+
+
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+
+        user = request.user
+
+        carritos_inactivos = Carrito.objects.filter(Usuario=user, is_active=False).order_by('Creado')
+
+        if not carritos_inactivos:
+
+            return Response([], status=status.HTTP_204_NO_CONTENT)
+        
+        carrito_data = []
+
+        for i, carrito in enumerate(carritos_inactivos):
+
+            total_precio = ProductoCarrito.objects.filter(Carrito=carrito).aggregate(total=Sum('Precio'))['total'] or 0.0
+
+            if i + 1 < len(carritos_inactivos):
+
+                siguiente_carrito = carritos_inactivos[i + 1]
+                fecha_deshabilitacion = siguiente_carrito.Creado
+            else:
+
+                fecha_deshabilitacion = None
+
+            carrito_data.append({
+
+                'id': carrito.id,
+                'total': total_precio,
+                'fecha_compra': fecha_deshabilitacion,
+            })
+
+        return Response(carrito_data, status=status.HTTP_200_OK)

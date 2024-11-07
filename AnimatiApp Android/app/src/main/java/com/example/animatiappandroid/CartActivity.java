@@ -54,24 +54,24 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
         idUser = preferences.getInt("idUser", -1);
         token = preferences.getString("token", "");
 
-        if(idCarrito == -1){
-            Toast.makeText(this, "Error: carrito inexistente", Toast.LENGTH_LONG).show();
-            return;
-        }
-
         ListView productList = findViewById(R.id.product_list);
         Button confirmButton = findViewById(R.id.confirm_button);
         Button backButton = findViewById(R.id.back_button);
+
+        backButton.setOnClickListener(this::volverAtras);
+        confirmButton.setOnClickListener(this::confirmarCompra);
+
+        if(idCarrito == -1){
+            Toast.makeText(this, "Carrito vacio", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         totalPrice = findViewById(R.id.total_price);
 
         cargarProductosCarrito();
 
         adapter = new ProductListAdapter(this, productNames, this);
         productList.setAdapter(adapter);
-
-        confirmButton.setOnClickListener(this::confirmarCompra);
-
-        backButton.setOnClickListener(this::volverAtras);
     }
 
     public void volverAtras(View view){
@@ -80,6 +80,11 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
     }
 
     public void confirmarCompra(View view){
+
+        if(idCarrito == -1){
+            Toast.makeText(this, "Carrito vacio", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         if(cart.getTotalPrice() <= 0.0){
 
@@ -113,10 +118,13 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                             double precio = productoCarrito.getDouble("Precio");
                             int cantidad = productoCarrito.getInt("Cantidad");
 
-                            cart.addProduct(new Product(id, nombreProducto, precio / cantidad, cantidad));
+                            double precioUnitario = precio / cantidad;
+                            String precioFormateado = "$" + precioUnitario + " x " + cantidad + " unidades";
+                            String precioTotal = "Total: $" + precio;
 
-                            String elementoProducto = nombreProducto + " - $" + precio / cantidad + " x " + cantidad + " (Total: " + precio + ")";
-                            productNames.add(elementoProducto);
+                            cart.addProduct(new Product(id, nombreProducto, precio / cantidad, cantidad, 0));
+
+                            productNames.add(nombreProducto + "," + precioFormateado + "," + precioTotal);
 
                             total += precio;
                         }
@@ -152,18 +160,10 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
         String url = "https://animatiapp.up.railway.app/api/carrito/crear";
 
-        JSONObject jsonObject = new JSONObject();
-
-        try{
-            jsonObject.put("Usuario", idUser);
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
-                jsonObject,
+                null,
                 response -> {
 
                     try {
@@ -191,9 +191,23 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
                 }, error -> {
 
-                    error.printStackTrace();
-                    totalPrice.setText("Total: $" + total);
-                    Toast.makeText(CartActivity.this, "Error al confirmar la compra", Toast.LENGTH_SHORT).show();
+                    String mensajeError = "Error al confirmar la compra";
+
+                    if (error.networkResponse != null && error.networkResponse.data != null) {
+                        try {
+
+                            String errorData = new String(error.networkResponse.data, "UTF-8");
+                            JSONObject errorObject = new JSONObject(errorData);
+
+                            if (errorObject.has("error")) {
+                                mensajeError = errorObject.getString("error");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                }
+            }
+
+            Toast.makeText(CartActivity.this, mensajeError, Toast.LENGTH_SHORT).show();
                 }
         ) {
             @Override
@@ -270,6 +284,73 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
         };
 
         //Agrego la solicitud a la cola de Volley
+        queue.add(request);
+    }
+
+    @Override
+    public void onRemoveOneClick(int position) {
+
+        ArrayList<Product> products = cart.getProducts();
+        int idProducto = products.get(position).getId();
+
+
+        String url = "https://animatiapp.up.railway.app/api/carritoProductos/eliminarUnidad/" + idProducto;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, url, null, response -> {
+
+            try{
+
+                if(response.has("message")){
+
+                    productNames.remove(position);
+                    cart.removeProduct(position);
+
+                    adapter.notifyDataSetChanged();
+
+                    double total = cart.getTotalPrice();
+
+                    totalPrice.setText("Total: $" + total);
+                    Toast.makeText(CartActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                } else{
+
+                    String nombreProducto = response.getString("nombre_producto");
+                    double precio = response.getDouble("Precio");
+                    int cantidad = response.getInt("Cantidad");
+
+                    double precioUnitario = precio / cantidad;
+                    String precioFormateado = "$" + precioUnitario + " x " + cantidad + " unidades";
+                    String precioTotal = "Total: $" + precio;
+
+                    productNames.set(position, nombreProducto + "," + precioFormateado + "," + precioTotal);
+
+                    cart.getProducts().get(position).setQuantity(cantidad);
+                    cart.getProducts().get(position).setPrice(precioUnitario);
+
+                    adapter.notifyDataSetChanged();
+
+                    double total = cart.getTotalPrice();
+                    totalPrice.setText("Total: $" + total);
+                }
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+                Toast.makeText(CartActivity.this, "Error al actualizar el producto", Toast.LENGTH_SHORT).show();
+            }
+        }, error -> {
+
+            Toast.makeText(CartActivity.this, "Error al eliminar producto", Toast.LENGTH_SHORT).show();
+        }) {
+            @Override
+            public Map<String, String> getHeaders(){
+
+                Map<String, String> headers = new HashMap<>();
+
+                //Agrego el token para la autorizacion del endpoint
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
         queue.add(request);
     }
 }
