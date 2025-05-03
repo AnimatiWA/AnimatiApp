@@ -2,6 +2,16 @@ plugins {
     id 'com.android.application'
 }
 
+def loadEnv() {
+    def props = new Properties()
+    file('.env').withInputStream { stream ->
+        props.load(stream)
+    }
+    return props
+}
+
+def dotenv = loadEnv()
+
 android {
     namespace 'com.example.animatiappandroid'
     compileSdk 34
@@ -10,16 +20,28 @@ android {
         applicationId "com.example.animatiappandroid"
         minSdk 21
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs{
+
+        release{
+
+            storeFile file(dotenv.getProperty("RELEASE_STORE_FILE"))
+            storePassword dotenv.getProperty("RELEASE_PASSWORD")
+            keyAlias dotenv.getProperty("RELEASE_KEY_ALIAS")
+            keyPassword dotenv.getProperty("RELEASE_PASSWORD")
+        }
     }
 
     buildTypes {
         release {
             debuggable false
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -44,4 +66,3 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
-// cambio temporal

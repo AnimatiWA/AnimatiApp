@@ -14,24 +14,60 @@
         android:src="@drawable/header_image" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#FFFFFF">
 
+        <!-- Botón Productos -->
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rect_button_background"
             android:text="Productos"
-            android:layout_marginEnd="80dp" />
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:padding="10dp" />
 
+        <!-- Separador -->
+        <View
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF" />
+
+        <!-- Botón Mis datos -->
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rect_button_background"
+            android:text="@string/mis_datos"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:padding="10dp" />
+
+        <!-- Separador -->
+        <View
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF" />
+
+        <!-- Botón Contacto -->
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Contacto" />
+            android:layout_weight="1"
+            android:background="@drawable/rect_button_background"
+            android:text="Contacto"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:padding="10dp" />
     </LinearLayout>
 
     <TextView

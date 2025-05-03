@@ -1,7 +1,6 @@
 #built application files
-*.apk
-*.ap_
 *.aab
+*.jks
                             
 # files for the dex VM
 *.dex
@@ -35,3 +34,5 @@ obj/
 
 # Code editor
 .vscode
+
+*.env
