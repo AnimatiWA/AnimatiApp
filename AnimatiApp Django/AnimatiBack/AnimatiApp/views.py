@@ -142,22 +142,14 @@ class PerfilView(GenericAPIView):
     
     def get(self, request, *args, **kwargs):
 
-        pk = self.kwargs.get('pk')
-        try:
-            user = User.objects.get(pk = pk)
-        
-        except User.DoesNotExist:
-            return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-        
+        user = request.user
         serializer = self.get_serializer(user)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
         
     def patch(self, request, *args, **kwargs):
-        pk = self.kwargs.get('pk')
-        try:
-            user = User.objects.get(id=pk)
-        except User.DoesNotExist:
-            return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user = request.user
         
         if not request.data:
             return Response({'error': 'No se han proporcionado datos para actualizar'}, status=status.HTTP_400_BAD_REQUEST)
@@ -600,11 +592,7 @@ class PasswordResetView(APIView):
     def post(self, request, pk, *args, **kwargs):
         serializer = PasswordResetSerializer(data=request.data)
         if serializer.is_valid():
-            try:
-                user = User.objects.get(pk=pk)
-            except User.DoesNotExist:
-                return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-
+            user = request.user
             user.password = make_password(serializer.validated_data['password'])
             user.save()
             return Response({"message": "Contraseña actualizada exitosamente."}, status=status.HTTP_200_OK)
