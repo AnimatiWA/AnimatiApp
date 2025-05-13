@@ -193,7 +193,7 @@ class EliminarProductos(APIView):
 
     
 class ListaProductos(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     http_method_names = ['get']
     
     def get(self, request, format=None):
@@ -259,6 +259,21 @@ class DetalleCarrito(APIView):
         except Carrito.DoesNotExist:
             return Response({"error": "Carrito no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
+class DetalleCarritoUsuario(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = CarritoSerializer
+    http_method_names = ['get']
+    
+    def get(self, request):
+
+        usuario = request.user
+
+        try:
+            carrito = Carrito.objects.get(Usuario=usuario, is_active=True)
+            serializer = self.serializer_class(carrito)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Carrito.DoesNotExist:
+            return Response({"error": "No se encontró un carrito activo para el usuario."}, status=status.HTTP_404_NOT_FOUND)
 
 class ListaCarritos(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -328,8 +343,7 @@ class ActualizarCarrito(generics.UpdateAPIView):
         carrito = self.get_queryset().filter(id=id).first()
 
         if carrito:
-            carrito_serializer = self.serializer_class(carrito, data=request.data, 
-            partial=True)
+            carrito_serializer = self.serializer_class(carrito, data=request.data, partial=True)
 
             if carrito_serializer.is_valid():
 
@@ -404,8 +418,13 @@ class CrearProductosCarrito(APIView):
     def post(self, request, format=None):
         
         codigo_producto = request.data.get('Codigo')
-        carrito_id = request.data.get('Carrito')
         cantidad = int(request.data.get('Cantidad', 1))
+
+        try:
+            carrito = Carrito.objects.get(Usuario=request.user, is_active=True)
+            carrito_id = carrito.id
+        except Carrito.DoesNotExist:
+            return Response({"error": "No se encontró un carrito activo para el usuario."}, status=status.HTTP_404_NOT_FOUND)
 
         try:
 
