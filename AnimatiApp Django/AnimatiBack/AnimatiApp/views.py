@@ -454,10 +454,17 @@ class CrearProductosCarrito(APIView):
 
                 return Response({"error": "Stock insuficiente"}, status=status.HTTP_400_BAD_REQUEST)
             
-            serializer = ProductoCarritoSerializer(data=request.data)
+            data = {
+
+                "Codigo": codigo_producto,
+                "Cantidad": cantidad,
+                "Carrito": Carrito.id
+            }
+            
+            serializer = ProductoCarritoSerializer(data=data)
 
             if serializer.is_valid():
-                serializer.save(Carrito=carrito)
+                serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
                 return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
