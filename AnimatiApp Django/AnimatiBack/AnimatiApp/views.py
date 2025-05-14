@@ -457,7 +457,7 @@ class CrearProductosCarrito(APIView):
             serializer = ProductoCarritoSerializer(data=request.data)
 
             if serializer.is_valid():
-                serializer.save()
+                serializer.save(Carrito=carrito)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
                 return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
