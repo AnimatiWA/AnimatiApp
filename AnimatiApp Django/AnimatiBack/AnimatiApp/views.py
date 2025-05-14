@@ -458,7 +458,7 @@ class CrearProductosCarrito(APIView):
 
                 "Codigo": codigo_producto,
                 "Cantidad": cantidad,
-                "Carrito": Carrito.id
+                "Carrito": carrito.id
             }
             
             serializer = ProductoCarritoSerializer(data=data)
