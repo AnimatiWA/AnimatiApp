@@ -627,7 +627,8 @@ class PasswordResetView(APIView):
 
 class ContactMessageView(APIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = []  
+    permission_classes = [permissions.AllowAny]
     http_method_names = ['post']
 
     def post(self, request):
