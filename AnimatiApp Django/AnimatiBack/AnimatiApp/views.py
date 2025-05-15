@@ -402,7 +402,7 @@ class ListarProductosEnCarritoEspecifico(APIView):
     http_method_names = ['get']
 
     def get(self, request, carrito_id, format=None):
-        productosCarrito = ProductoCarrito.objects.filter(Carrito = carrito_id)
+        productosCarrito = ProductoCarrito.objects.select_related('Codigo').filter(Carrito = carrito_id)
 
         if not productosCarrito.exists():
             return Response({"error": "No hay productos en el carrito o el carrito no existe"}, status=status.HTTP_404_NOT_FOUND)
