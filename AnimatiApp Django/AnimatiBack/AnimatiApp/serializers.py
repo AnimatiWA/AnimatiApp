@@ -112,7 +112,7 @@ class CorreoContactoSerializer(serializers.ModelSerializer):
         model =  CorreoContacto
         fields = ('id', 'nombre', 'email', 'mensaje', 'creado')
 
-class PasswordRecoverySerializer(serializers.Serializer):
+class PasswordRecoveryEmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
 # Aplica a RecoveryPasswordActivity

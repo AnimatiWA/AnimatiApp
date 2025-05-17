@@ -541,7 +541,7 @@ class EliminarUnidadItemEnCarrito(APIView):
 class PasswordRecoveryEmailAPIView(APIView):
     
     permission_classes = [AllowAny]
-    serializer_class = PasswordRecoverySerializer
+    serializer_class = PasswordRecoveryEmailSerializer
     http_method_names = ['post']
 
     def post(self, request):
