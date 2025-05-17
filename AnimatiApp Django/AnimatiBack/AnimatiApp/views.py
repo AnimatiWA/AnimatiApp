@@ -615,7 +615,7 @@ class EmailPasswordResetView(APIView):
 class PasswordResetView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request, pk, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = PasswordResetSerializer(data=request.data)
         if serializer.is_valid():
             user = request.user
