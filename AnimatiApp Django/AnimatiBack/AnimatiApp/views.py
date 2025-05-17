@@ -578,7 +578,7 @@ class PasswordRecoveryEmailAPIView(APIView):
 
 class EmailPasswordResetView(APIView):
     permission_classes = [AllowAny]
-    serializer_class = PasswordResetSerializer
+    serializer_class = PasswordRecoverySerializer
     http_method_names = ["post"]
 
     def post(self, request, *args, **kwargs):
