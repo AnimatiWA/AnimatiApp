@@ -92,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        String url = "https://animatiapp.up.railway.app/api/perfilusuario/" + userId;
+        String url = "https://animatiapp.up.railway.app/api/perfilusuario";
         Log.d(TAG, "URL de la solicitud: " + url);  // Log de la URL de la solicitud
         Log.d(TAG, "Token: " + token);  // Log del token de autenticación
 
