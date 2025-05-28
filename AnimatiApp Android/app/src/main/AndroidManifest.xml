@@ -67,6 +67,7 @@
                     android:pathPrefix="/reset-password" />
             </intent-filter>
         </activity>
+        <activity android:name=".PurchaseHistoryActivity" />
     </application>
 
 </manifest>
