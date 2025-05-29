@@ -30,9 +30,9 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PurchaseItem item = purchaseList.get(position);
-        holder.productName.setText(item.getProductName());
-        holder.date.setText(item.getDate());
-        holder.price.setText(item.getPrice());
+        holder.date.setText("Fecha de compra: " + item.getDate().replace("-", "/"));
+        holder.quantity.setText("Cantidad de articulos: " + String.valueOf(item.getQuantity()));
+        holder.price.setText("Precio total: $" + String.valueOf(item.getPrice()));
     }
 
     @Override
@@ -41,12 +41,12 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, date, price;
+        TextView date, quantity, price;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            productName = itemView.findViewById(R.id.productNameTextView);
             date = itemView.findViewById(R.id.dateTextView);
+            quantity = itemView.findViewById(R.id.quantityTextView);
             price = itemView.findViewById(R.id.priceTextView);
         }
     }

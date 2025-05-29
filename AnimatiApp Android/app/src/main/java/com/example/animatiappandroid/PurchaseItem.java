@@ -1,26 +1,24 @@
 package com.example.animatiappandroid;
 
 public class PurchaseItem {
-    private String productName;
     private String date;
-    private String price;
+    private int quantity;
+    private int price;
 
-    public PurchaseItem(String productName, String date, String price) {
-        this.productName = productName;
+    public PurchaseItem(String date, int quantity, int price) {
         this.date = date;
+        this.quantity = quantity;
         this.price = price;
     }
 
-    public String getProductName() {
-        return productName;
-    }
 
     public String getDate() {
         return date;
     }
 
-    public String getPrice() {
-        return price;
-    }
+    public int getPrice() { return price; }
+
+    public int getQuantity() { return quantity; }
+
 }
 

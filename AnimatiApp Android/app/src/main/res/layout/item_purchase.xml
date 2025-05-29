@@ -15,19 +15,19 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/productNameTextView"
+            android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del producto"
+            android:text="Fecha"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#000000"/>
 
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/quantityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha"
+            android:text="Cantidad"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginTop="4dp"/>
