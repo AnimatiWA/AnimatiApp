@@ -668,6 +668,8 @@ class HistorialCarritoView(APIView):
         
         historial = []
 
+        carrito_activo = Carrito.objects.filter(Usuario=user, is_active=True).first()
+
         for i, carrito in enumerate(carritos_inactivos):
 
             productos = ProductoCarrito.objects.filter(Carrito=carrito)
@@ -677,7 +679,9 @@ class HistorialCarritoView(APIView):
 
             if i + 1 < len(carritos_inactivos):
                 siguiente_carrito = carritos_inactivos[i + 1]
-                fecha_deshabilitacion = siguiente_carrito.Creado
+                fecha_deshabilitacion = siguiente_carrito.Creado.date().isoformat()
+            elif carrito_activo:
+                fecha_deshabilitacion = carrito_activo.Creado.date().isoformat()
             else:
                 fecha_deshabilitacion = None
 
