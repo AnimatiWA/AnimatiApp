@@ -666,25 +666,26 @@ class HistorialCarritoView(APIView):
 
             return Response([], status=status.HTTP_204_NO_CONTENT)
         
-        carrito_data = []
+        historial = []
 
         for i, carrito in enumerate(carritos_inactivos):
 
-            total_precio = ProductoCarrito.objects.filter(Carrito=carrito).aggregate(total=Sum('Precio'))['total'] or 0.0
+            productos = ProductoCarrito.objects.filter(Carrito=carrito)
+
+            total_precio = productos.aggregate(total=Sum('Precio'))['total'] or 0.0
+            total_cantidad = productos.aggregate(total=Sum('Cantidad'))['total'] or 0
 
             if i + 1 < len(carritos_inactivos):
-
                 siguiente_carrito = carritos_inactivos[i + 1]
                 fecha_deshabilitacion = siguiente_carrito.Creado
             else:
-
                 fecha_deshabilitacion = None
 
-            carrito_data.append({
+            historial.append({
 
-                'id': carrito.id,
-                'total': total_precio,
-                'fecha_compra': fecha_deshabilitacion,
+                'Fecha': fecha_deshabilitacion,
+                'Cantidad': total_cantidad,
+                'Precio': total_precio,
             })
 
-        return Response(carrito_data, status=status.HTTP_200_OK)
+        return Response(historial, status=status.HTTP_200_OK)
