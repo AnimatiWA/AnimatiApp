@@ -1,9 +1,12 @@
 package com.example.animatiappandroid;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.animatiappandroid.R;
@@ -14,8 +17,11 @@ import java.util.List;
 public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHolder> {
 
     private List<PurchaseItem> purchaseList;
+    private Context context;
 
-    public PurchaseAdapter(List<PurchaseItem> purchaseList) {
+    public PurchaseAdapter(Context context, List<PurchaseItem> purchaseList) {
+
+        this.context = context;
         this.purchaseList = purchaseList;
     }
 
@@ -33,6 +39,13 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
         holder.date.setText("Fecha de compra: " + item.getDate().replace("-", "/"));
         holder.quantity.setText("Cantidad de articulos: " + String.valueOf(item.getQuantity()));
         holder.price.setText("Precio total: $" + String.valueOf(item.getPrice()));
+
+        holder.regret_button.setOnClickListener(v -> {
+
+            Intent intent = new Intent(context, PurchaseRegretActivity.class);
+            intent.putExtra("purchaseItem", item);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -42,12 +55,14 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView date, quantity, price;
+        ImageButton regret_button;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.dateTextView);
             quantity = itemView.findViewById(R.id.quantityTextView);
             price = itemView.findViewById(R.id.priceTextView);
+            regret_button = itemView.findViewById(R.id.regret_button);
         }
     }
 }

@@ -1,11 +1,13 @@
 package com.example.animatiappandroid;
 
-public class PurchaseItem {
+import java.io.Serializable;
+
+public class PurchaseItem implements Serializable {
     private String date;
     private int quantity;
-    private int price;
+    private double price;
 
-    public PurchaseItem(String date, int quantity, int price) {
+    public PurchaseItem(String date, int quantity, double price) {
         this.date = date;
         this.quantity = quantity;
         this.price = price;
@@ -16,9 +18,9 @@ public class PurchaseItem {
         return date;
     }
 
-    public int getPrice() { return price; }
-
     public int getQuantity() { return quantity; }
+
+    public double getPrice() { return price; }
 
 }
 
