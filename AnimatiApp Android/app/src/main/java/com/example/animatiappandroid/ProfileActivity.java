@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
     private ImageView profileImage;
     private TextView userName;
-    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
+    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton, modifyProfileButton;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
     private String token;
@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         changePasswordButton = findViewById(R.id.change_password_button);
         viewPurchaseHistoryButton = findViewById(R.id.view_purchase_history_button);
         viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
+        modifyProfileButton = findViewById(R.id.modify_profile_button);
 
         requestQueue = Volley.newRequestQueue(this);
         preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
@@ -78,6 +79,13 @@ public class ProfileActivity extends AppCompatActivity {
         viewOrderTrackingButton.setOnClickListener(v -> {
             // Navegar a la actividad de seguimiento de pedidos
             Intent intent = new Intent(ProfileActivity.this, OrderTrackingActivity.class);
+            startActivity(intent);
+        });
+
+        // Modificar perfil de usuario
+        modifyProfileButton.setOnClickListener(v -> {
+            // Navegar a la actividad de modificacion perfil
+            Intent intent = new Intent(ProfileActivity.this, ModifyProfileActivity.class);
             startActivity(intent);
         });
     }
