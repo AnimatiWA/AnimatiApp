@@ -307,6 +307,7 @@ class CrearCarrito(APIView):
                 return Response({"error": f"Stock insuficiente para los productos: {', '.join(productos_sin_stock)}"}, status=status.HTTP_400_BAD_REQUEST)
 
             carrito_activo.is_active = False
+            carrito_activo.Deshabilitado = timezone.now()
             carrito_activo.save()
 
 
@@ -668,26 +669,18 @@ class HistorialCarritoView(APIView):
         
         historial = []
 
-        carrito_activo = Carrito.objects.filter(Usuario=user, is_active=True).first()
-
-        for i, carrito in enumerate(carritos_inactivos):
+        for carrito in carritos_inactivos:
 
             productos = ProductoCarrito.objects.filter(Carrito=carrito)
 
             total_precio = productos.aggregate(total=Sum('Precio'))['total'] or 0.0
             total_cantidad = productos.aggregate(total=Sum('Cantidad'))['total'] or 0
 
-            if i + 1 < len(carritos_inactivos):
-                siguiente_carrito = carritos_inactivos[i + 1]
-                fecha_deshabilitacion = siguiente_carrito.Creado.date().isoformat()
-            elif carrito_activo:
-                fecha_deshabilitacion = carrito_activo.Creado.date().isoformat()
-            else:
-                fecha_deshabilitacion = None
 
             historial.append({
 
-                'Fecha': fecha_deshabilitacion,
+                'Id': carrito.id,
+                'Fecha': carrito.Deshabilitado.date().isoformat() if carrito.Deshabilitado else None,
                 'Cantidad': total_cantidad,
                 'Precio': total_precio,
             })
