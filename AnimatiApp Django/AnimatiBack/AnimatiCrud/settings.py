@@ -31,11 +31,13 @@ SECRET_KEY = 'django-insecure-1b-!64*93by4c36iaw^5h0hjvvngpbf+)n&@af=-+tjoyvxirq
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'animatiapp.up.railway.app'
+    'animatiapp.up.railway.app',
+    'animatiapp-beta.up.railway.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://animatiapp.up.railway.app',
+    'https://animatiapp-beta.up.railway.app',
 ]
 
 

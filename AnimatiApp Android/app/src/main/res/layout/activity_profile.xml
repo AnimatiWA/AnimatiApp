@@ -92,7 +92,6 @@
                 android:id="@+id/view_purchase_history_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:text="@string/view_purchase_history"
                 android:background="@drawable/rounded_button_background"
                 android:textColor="#FFFFFF"

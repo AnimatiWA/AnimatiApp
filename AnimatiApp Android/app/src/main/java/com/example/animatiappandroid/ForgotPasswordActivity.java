@@ -47,7 +47,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void sendPasswordRecoveryRequest(String email) {
-        String url = "https://animatiapp.up.railway.app/api/passwordRecovery";
+        String url = "https://animatiapp.up.railway.app/api/passwordRecoveryEmail";
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put("email", email); // El cuerpo solo incluye el email
