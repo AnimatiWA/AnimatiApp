@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,12 +23,17 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
     private ImageView profileImage;
     private TextView userName;
-    private Button changeProfileImageButton, changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
+    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
     private RequestQueue requestQueue;
+    private SharedPreferences preferences;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +42,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileImage = findViewById(R.id.profile_image);
         userName = findViewById(R.id.user_name);
-        changeProfileImageButton = findViewById(R.id.change_profile_image_button);
         changeEmailButton = findViewById(R.id.change_email_button);
         changePasswordButton = findViewById(R.id.change_password_button);
         viewPurchaseHistoryButton = findViewById(R.id.view_purchase_history_button);
         viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
 
         requestQueue = Volley.newRequestQueue(this);
+        preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
+        token = preferences.getString("token", "");
 
         // Obtener datos del usuario de la base de datos y mostrar
         getUserData();
-
-        // Cambiar imagen de perfil
-        changeProfileImageButton.setOnClickListener(v -> {
-            // Lógica para cambiar la imagen de perfil
-            Toast.makeText(ProfileActivity.this, "Cambiar imagen de perfil", Toast.LENGTH_SHORT).show();
-        });
 
         // Cambiar email
         changeEmailButton.setOnClickListener(v -> {
@@ -61,8 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Cambiar contraseña
         changePasswordButton.setOnClickListener(v -> {
-            // Lógica para cambiar la contraseña
-            Toast.makeText(ProfileActivity.this, "Cambiar contraseña", Toast.LENGTH_SHORT).show();
+            // Navegar a la actividad de recuperación de contraseña
+            Intent intent = new Intent(ProfileActivity.this, RecoveryPasswordActivity.class);
+            startActivity(intent);
         });
 
         // Ver historial de compras
@@ -83,14 +85,16 @@ public class ProfileActivity extends AppCompatActivity {
     private void getUserData() {
         // Obtener el ID del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("idUsuario", -1);
+        int userId = sharedPreferences.getInt("idUser", -1);
 
         if (userId == -1) {
             Toast.makeText(this, "ID de usuario no encontrado", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String url = "https://animatiapp.up.railway.app/api/perfilusuario/" + userId;
+        String url = "https://animatiapp.up.railway.app/api/perfilusuario";
+        Log.d(TAG, "URL de la solicitud: " + url);  // Log de la URL de la solicitud
+        Log.d(TAG, "Token: " + token);  // Log del token de autenticación
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -100,9 +104,17 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.d(TAG, "Respuesta JSON: " + response.toString());  // Log de la respuesta JSON
                             String firstName = response.getString("first_name");
                             String lastName = response.getString("last_name");
-                            String welcomeMessage = getString(R.string.welcome_message, firstName, lastName);
+                            String welcomeMessage;
+                            // Verificar la última letra del firstName
+                            if (firstName.endsWith("a")) {
+                                welcomeMessage = "Bienvenida, " + firstName + " " + lastName;
+                            } else {
+                                welcomeMessage = "Bienvenido, " + firstName + " " + lastName;
+                            }
+
                             userName.setText(welcomeMessage);
                         } catch (JSONException e) {
                             Log.e(TAG, "Error al procesar la respuesta JSON", e);  // Registro robusto del error
@@ -114,11 +126,32 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Error en la solicitud GET", error);  // Registro robusto del error
-                        Toast.makeText(ProfileActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "Error al obtener los datos: " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
-        );
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                Log.d(TAG, "Headers: " + headers.toString());  // Log de los headers de la solicitud
+                return headers;
+            }
+        };
 
         requestQueue.add(jsonObjectRequest);
     }
+
+
+    public void op_carrito(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    public void op_menu(View view) {
+        Intent intent = new Intent(this, activity_inicio.class);
+        startActivity(intent);
+    }
 }
+
+

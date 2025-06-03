@@ -18,7 +18,11 @@
     <string name="descripcion_logo">Logo de la aplicacion en el cual se puede ver un monigote que es la mascota y el nombre de la app Animati Web</string>
 
     <!-- Forgot_Password -->
+    <string name="login">Iniciar sesión</string>
+    <string name="logout">Cerrar sesión</string>
     <string name="forgot_password_text">¿Olvidaste tu contraseña?</string>
+    <string name="change_password_title">Cambiar Contraseña</string>
+    <string name="recover_password">Recuperar Contraseña</string>
     <string name="forgot_password_title">Recuperar Contraseña</string>
     <string name="enter_email">Introduce tu correo electrónico</string>
     <string name="reset_password_button">Enviar enlace de recuperación</string>
@@ -39,6 +43,7 @@
     <string name="inicio">Inicio</string>
     <string name="galería">Galería</string>
     <string name="nosotros">Nosotros</string>
+    <string name="mis_datos">Mis datos</string>
     <string name="contacto">Contacto</string>
     <string name="carrito_de_compras">Carrito de compras</string>
     <string name="carrito">carrito</string>
@@ -54,8 +59,8 @@
     <string name="precio_prod_3">$1.500,00</string>
 
     <!-- Activity_Profile -->
-    <string name="change_profile_image">Cambiar Foto</string>
     <string name="profile_image_desc">Imagen de perfil</string>
+    <string name="bienvenido">Bienvenido, </string>
     <string name="change_email">Cambiar Email</string>
     <string name="change_password">Cambiar Contraseña</string>
     <string name="view_purchase_history">Ver historial de compras</string>
@@ -69,5 +74,12 @@
     <string name="enter_new_password">Indique su nueva contraseña</string>
     <string name="repeat_password">Repita la contraseña</string>
     <string name="send_recovery_email">Confirmar cambios</string>
-
+    <string name="cantidadDefault">1</string>
+    <string name="textoBotonDecrementoProducto">-</string>
+    <string name="textoBotonIncrementoProducto">+</string>
+    <string name="textoBotonConfirmarAgregarCarrito">Agregar</string>
+    <string name="textoBotonEliminarItemCarrito">X</string>
+    <string name="textoRevisarMail">Revise la cuenta de correo electrónico que ingresó anteriormente para obtener el código de seguridad.</string>
+    <string name="textoRevisarMailSpam">Si no encuentra el correo de recuperación de contraseña, revise la carpeta de spam o correo no deseado</string>
+    <string name="enter_code">XXXXXX</string>
 </resources>

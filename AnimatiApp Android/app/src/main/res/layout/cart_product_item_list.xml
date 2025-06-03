@@ -1,25 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/product_name"
+    <!-- Textos en columna -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Nombre del Producto"
-        android:textSize="16sp" />
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/remove_button"
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Producto"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/darkest_gray" />
+
+        <TextView
+            android:id="@+id/product_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:textSize="16sp"
+            android:textColor="@color/darkest_gray" />
+    </LinearLayout>
+
+    <!-- Botones alineados a la derecha y uno al lado del otro -->
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X"
-        android:background="@android:color/transparent"
-        android:textColor="@android:color/black"
-        android:layout_marginStart="8dp"
-        android:contentDescription="Eliminar producto" />
+        android:gravity="end"
+        android:layout_marginStart="8dp">
+
+        <Button
+            android:id="@+id/remove_one_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/rect_button_background"
+            android:contentDescription="Eliminar un producto"
+            android:padding="0dp"
+            android:text="-1"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/remove_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/rect_button_background"
+            android:contentDescription="Eliminar producto"
+            android:padding="0dp"
+            android:text="@string/textoBotonEliminarItemCarrito"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
 </LinearLayout>
