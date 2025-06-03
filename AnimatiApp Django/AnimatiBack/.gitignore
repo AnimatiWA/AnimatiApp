@@ -9,6 +9,8 @@ env/
 *.egg
 *.whl
 
+AnimatiApp/management/
+
 .env
 
 /media/
