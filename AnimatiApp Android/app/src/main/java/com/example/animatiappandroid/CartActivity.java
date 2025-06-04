@@ -90,9 +90,9 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
             totalPrice.setText("No se puede confirmar la compra.");
         } else{
-            
-            totalPrice.setText(Procesando Compra...");
+
             confirmarCompra();
+            finish();
 
             Intent intent = new Intent(this, PagoProvisionalActivity.class);
 
