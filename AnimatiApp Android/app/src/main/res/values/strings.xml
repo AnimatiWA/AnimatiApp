@@ -82,4 +82,12 @@
     <string name="textoRevisarMail">Revise la cuenta de correo electrónico que ingresó anteriormente para obtener el código de seguridad.</string>
     <string name="textoRevisarMailSpam">Si no encuentra el correo de recuperación de contraseña, revise la carpeta de spam o correo no deseado</string>
     <string name="enter_code">XXXXXX</string>
+
+    <!-- Activity_Modify_Profile -->
+    <string name="modify_profile_image">Imagen de perfil</string>
+    <string name="modify_profile_username">Nombre de Usuario</string>
+    <string name="modify_profile_title">Modificar perfil</string>
+    <string name="modify_profile_button_accept">Guardar cambios</string>
+    <string name="modify_profile_button_cancel">Cancelar</string>
+
 </resources>
