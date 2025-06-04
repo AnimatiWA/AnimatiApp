@@ -117,10 +117,8 @@ public class Gallery extends AppCompatActivity {
                                 double precio = productObject.getDouble("Precio");
                                 int stock = productObject.getInt("Stock");
                                 int cantidad = 1;
-                                String imagen = productObject.getString("Imagen");
-                                int idCategoria = productObject.getInt("idCategoria"); // ajusta el nombre del campo
 
-                                productList.add(new Product(id, nombre, precio, cantidad, idCategoria, stock, imagen));
+                                productList.add(new Product(id, nombre, precio, cantidad, stock));
                             }
 
 

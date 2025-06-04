@@ -23,12 +23,12 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
         void onEditClick(int position);
     }
 
-    private final List<Product> productList;
+    private final List<ProductAdmin> productList;  // Cambiado a ProductAdmin
     private final Context context;
     private final RequestQueue requestQueue;
     private final OnItemClickListener listener;
 
-    public AdminProductAdapter(Context context, List<Product> productList, RequestQueue requestQueue, OnItemClickListener listener) {
+    public AdminProductAdapter(Context context, List<ProductAdmin> productList, RequestQueue requestQueue, OnItemClickListener listener) {
         this.context = context;
         this.productList = productList;
         this.requestQueue = requestQueue;
@@ -44,7 +44,7 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product = productList.get(position);
+        ProductAdmin product = productList.get(position);  // Cambiado a ProductAdmin
 
         holder.nameText.setText("Nombre: " + product.getName());
         holder.priceText.setText("Precio: $" + product.getPrice());

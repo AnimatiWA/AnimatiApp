@@ -34,7 +34,7 @@ public class AdminActivity extends AppCompatActivity {
 
     public RecyclerView adminRecyclerView;
     public AdminProductAdapter adapter;
-    public List<Product> productList;
+    public List<ProductAdmin> productList;
     public RequestQueue requestQueue;
     public String token;
     public Button addProductButton;
@@ -61,13 +61,13 @@ public class AdminActivity extends AppCompatActivity {
         adapter = new AdminProductAdapter(this, productList, requestQueue, new AdminProductAdapter.OnItemClickListener() {
             @Override
             public void onEditClick(int position) {
-                Product producto = productList.get(position);
+                ProductAdmin  producto = productList.get(position);
                 mostrarDialogoEditarProducto(producto, position);
             }
 
              @Override
              public void onDeleteClick(int position) {
-                Product productToDelete = productList.get(position);
+                 ProductAdmin  productToDelete = productList.get(position);
                 int idProducto = productToDelete.getId();
 
                 eliminarProducto(idProducto, position);
@@ -161,11 +161,13 @@ public class AdminActivity extends AppCompatActivity {
                             int stock = producto.getInt("Stock");
                             String imagen = producto.getString("Imagen");
 
-                            // 👇 Esta es la línea nueva importante
+
                             int idCategoria = producto.getInt("Id_Categoria");
 
                             // Suponiendo que tu constructor tiene ese orden de parámetros
-                            Product p = new Product(id, nombre, precio, 1, idCategoria, stock, imagen);
+                            int Id_Categoria = idCategoria;
+                            ProductAdmin p = new ProductAdmin(id, nombre, precio, 1, Id_Categoria, stock, imagen);
+
 
                             productList.add(p);
                         } catch (JSONException e) {
@@ -293,7 +295,7 @@ public class AdminActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void mostrarDialogoEditarProducto(Product producto, int position) {
+    private void mostrarDialogoEditarProducto(ProductAdmin  producto, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Editar producto");
 
@@ -396,13 +398,15 @@ public class AdminActivity extends AppCompatActivity {
                     Toast.makeText(this, "Producto editado con éxito", Toast.LENGTH_SHORT).show();
 
 
-                    Product productoEditado = productList.get(position);
+                    ProductAdmin  productoEditado = productList.get(position);
 
 
                     productoEditado.setName(nombre);
                     productoEditado.setPrice(precio);
                     productoEditado.setStock(stock);
-                    productoEditado.setImagen(imagen);
+                    productoEditado.setCategoria(categoria);
+
+
                     adapter.notifyItemChanged(position);
                 },
                 error -> {

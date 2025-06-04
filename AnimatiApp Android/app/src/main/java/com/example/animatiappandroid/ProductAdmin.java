@@ -58,6 +58,10 @@ public class ProductAdmin {
         this.price = price;
     }
 
+    public void setCategoria(int Id_Categoria) {
+        this.Id_Categoria = Id_Categoria;
+    }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -66,9 +70,7 @@ public class ProductAdmin {
         this.stock = stock;
     }
 
-    public void setId_Categoria(int id_Categoria) {
-        this.Id_Categoria = id_Categoria;
-    }
+
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
