@@ -174,11 +174,9 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                         editor.putInt("idCarrito", nuevoIdCarrito);
                         editor.apply();
 
-                        Toast.makeText(CartActivity.this, "Compra confirmada por $" + cart.getTotalPrice(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CartActivity.this, "Procesando compra por $" + cart.getTotalPrice(), Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(CartActivity.this, activity_inicio.class);
-                        startActivity(intent);
-                        finish();
+                
 
                     } catch (JSONException e) {
 
