@@ -70,6 +70,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".PurchaseHistoryActivity" />
+        <activity android:name=".ModifyProfileActivity" />
+
     </application>
 
 </manifest>

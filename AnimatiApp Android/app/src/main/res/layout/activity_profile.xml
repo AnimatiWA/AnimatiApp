@@ -60,6 +60,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+
             <!-- Botón para cambiar email -->
             <Button
                 android:id="@+id/change_email_button"

@@ -112,20 +112,20 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Log.d(TAG, "Respuesta JSON: " + response.toString());  // Log de la respuesta JSON
+                            Log.d(TAG, "Respuesta JSON: " + response.toString());
                             String firstName = response.getString("first_name");
-                            String lastName = response.getString("last_name");
+                            //String lastName = response.getString("last_name");
                             String welcomeMessage;
                             // Verificar la última letra del firstName
                             if (firstName.endsWith("a")) {
-                                welcomeMessage = "Bienvenida, " + firstName + " " + lastName;
+                                welcomeMessage = "Bienvenida, " + firstName;
                             } else {
-                                welcomeMessage = "Bienvenido, " + firstName + " " + lastName;
+                                welcomeMessage = "Bienvenido, " + firstName;
                             }
 
                             userName.setText(welcomeMessage);
                         } catch (JSONException e) {
-                            Log.e(TAG, "Error al procesar la respuesta JSON", e);  // Registro robusto del error
+                            Log.e(TAG, "Error al procesar la respuesta JSON", e);
                             Toast.makeText(ProfileActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -133,7 +133,7 @@ public class ProfileActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Error en la solicitud GET", error);  // Registro robusto del error
+                        Log.e(TAG, "Error en la solicitud GET", error);
                         Toast.makeText(ProfileActivity.this, "Error al obtener los datos: " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
