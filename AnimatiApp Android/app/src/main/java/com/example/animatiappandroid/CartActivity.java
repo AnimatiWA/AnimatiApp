@@ -102,42 +102,42 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
 
-                    try{
+            try{
 
-                        total = 0.0;
+                total = 0.0;
 
-                        productNames.clear();
+                productNames.clear();
 
-                        for(int i = 0; i < response.length(); i++){
+                for(int i = 0; i < response.length(); i++){
 
-                            JSONObject productoCarrito = response.getJSONObject(i);
+                    JSONObject productoCarrito = response.getJSONObject(i);
 
-                            int id = productoCarrito.getInt("id");
-                            int Codigo = productoCarrito.getInt("Codigo");
-                            String nombreProducto = productoCarrito.getString("nombre_producto");
-                            double precio = productoCarrito.getDouble("Precio");
-                            int cantidad = productoCarrito.getInt("Cantidad");
+                    int id = productoCarrito.getInt("id");
+                    int Codigo = productoCarrito.getInt("Codigo");
+                    String nombreProducto = productoCarrito.getString("nombre_producto");
+                    double precio = productoCarrito.getDouble("Precio");
+                    int cantidad = productoCarrito.getInt("Cantidad");
 
-                            double precioUnitario = precio / cantidad;
-                            String precioFormateado = "$" + precioUnitario + " x " + cantidad + " unidades";
-                            String precioTotal = "Total: $" + precio;
+                    double precioUnitario = precio / cantidad;
+                    String precioFormateado = "$" + precioUnitario + " x " + cantidad + " unidades";
+                    String precioTotal = "Total: $" + precio;
 
-                            cart.addProduct(new Product(id, nombreProducto, precio / cantidad, cantidad, 0));
+                    cart.addProduct(new Product(id, nombreProducto, precio / cantidad, cantidad, 0));
 
-                            productNames.add(nombreProducto + "," + precioFormateado + "," + precioTotal);
+                    productNames.add(nombreProducto + "," + precioFormateado + "," + precioTotal);
 
-                            total += precio;
-                        }
+                    total += precio;
+                }
 
-                        adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
 
-                        totalPrice.setText("Total: $" + total);
+                totalPrice.setText("Total: $" + total);
 
-                    } catch (JSONException e){
+            } catch (JSONException e){
 
-                        e.printStackTrace();
-                    }
-                },
+                e.printStackTrace();
+            }
+        },
                 error -> {
 
                     Toast.makeText(CartActivity.this, "Carrito vacío.", Toast.LENGTH_SHORT).show();
@@ -191,24 +191,24 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
                 }, error -> {
 
-                    String mensajeError = "Error al confirmar la compra";
+            String mensajeError = "Error al confirmar la compra";
 
-                    if (error.networkResponse != null && error.networkResponse.data != null) {
-                        try {
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
 
-                            String errorData = new String(error.networkResponse.data, "UTF-8");
-                            JSONObject errorObject = new JSONObject(errorData);
+                    String errorData = new String(error.networkResponse.data, "UTF-8");
+                    JSONObject errorObject = new JSONObject(errorData);
 
-                            if (errorObject.has("error")) {
-                                mensajeError = errorObject.getString("error");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                    if (errorObject.has("error")) {
+                        mensajeError = errorObject.getString("error");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
             Toast.makeText(CartActivity.this, mensajeError, Toast.LENGTH_SHORT).show();
-                }
+        }
         ) {
             @Override
             public Map<String, String> getHeaders(){

@@ -121,6 +121,7 @@ public class Gallery extends AppCompatActivity {
                                 productList.add(new Product(id, nombre, precio, cantidad, stock));
                             }
 
+
                             productAdapter = new ProductAdapter(productList, Gallery.this);
                             recyclerView.setAdapter(productAdapter);
                             productAdapter.notifyDataSetChanged();

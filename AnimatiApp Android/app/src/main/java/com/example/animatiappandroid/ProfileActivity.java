@@ -82,10 +82,17 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+ 
+        Button adminButton = findViewById(R.id.admin_button);
+        adminButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, AdminActivity.class);
+            startActivity(intent);
+        });
         // Modificar perfil de usuario
         modifyProfileButton.setOnClickListener(v -> {
             // Navegar a la actividad de modificacion perfil
             Intent intent = new Intent(ProfileActivity.this, ModifyProfileActivity.class);
+
             startActivity(intent);
         });
     }
