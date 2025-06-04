@@ -114,6 +114,18 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="32dp" />
+            <Button
+                android:id="@+id/admin_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Panel de Admin"
+                android:background="@drawable/rounded_button_background"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp" />
+
         </LinearLayout>
     </ScrollView>
 

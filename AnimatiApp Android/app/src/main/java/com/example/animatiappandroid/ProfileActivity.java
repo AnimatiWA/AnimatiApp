@@ -80,6 +80,12 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(ProfileActivity.this, OrderTrackingActivity.class);
             startActivity(intent);
         });
+
+        Button adminButton = findViewById(R.id.admin_button);
+        adminButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, AdminActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void getUserData() {
