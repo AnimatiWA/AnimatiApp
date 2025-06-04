@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.widget.Button;
+import android.content.Intent;
+import android.net.Uri;
 import java.util.ArrayList;
 import java.util.List;
 // Importaciones para CartActivity
@@ -40,6 +43,12 @@ public class activity_inicio extends AppCompatActivity {
         buttonContacto.setOnClickListener(view -> {
             Intent intent = new Intent(activity_inicio.this, ContactoActivity.class);
             startActivity(intent);
+        });
+
+        Button redirectButton = findViewById(R.id.button_redirect_website);
+        redirectButton.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.animati.com.ar"));
+            startActivity(browserIntent);
         });
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
