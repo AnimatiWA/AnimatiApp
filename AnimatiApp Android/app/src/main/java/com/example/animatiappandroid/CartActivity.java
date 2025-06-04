@@ -179,7 +179,6 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
                         Toast.makeText(CartActivity.this, "Procesando compra por $" + cart.getTotalPrice(), Toast.LENGTH_LONG).show();
 
-                    
 
                     } catch (JSONException e) {
 
