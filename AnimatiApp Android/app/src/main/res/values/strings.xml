@@ -64,7 +64,7 @@
     <string name="change_email">Cambiar Email</string>
     <string name="change_password">Cambiar Contraseña</string>
     <string name="view_purchase_history">Ver historial de compras</string>
-    <string name="view_order_tracking">Seguimiento de pedidos</string>
+    <string name="view_order_tracking">Ver mi última compra</string>
     <string name="logo_description">personaje, fantasioso de colores naranja, violeta, amarillo y celeste que tiene el nombre de la app debajo</string>
     <string name="a_n_no_tienes_una_cuenta">¿Aún no tienes una cuenta?</string>
     <string name="welcome_message">Bienvenido/a, %1$s %2$s</string>

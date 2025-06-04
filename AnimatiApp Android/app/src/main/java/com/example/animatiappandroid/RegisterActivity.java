@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,7 +101,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (!validatePassword(password)) {
-            showAlertDialog("Error", "La contraseña debe tener al menos 6 caracteres, una letra mayúscula, una letra minúscula y un número.");
+            showAlertDialog("Error", "La contraseña debe cumplir los siguientes requisitos:\n" +
+                    "• Al menos 8 caracteres\n" +
+                    "• Una letra mayúscula\n" +
+                    "• Una letra minúscula\n" +
+                    "• Un número\n" +
+                    "• No contener espacios\n" +
+                    "• No tener caracteres repetidos consecutivos");
             return false;
         }
 
@@ -113,16 +120,79 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword(String password) {
-        Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$");
-        return passwordPattern.matcher(password).matches();
+        // Validaciones:
+        // 1. Mínimo 8 caracteres
+        // 2. Una letra mayúscula
+        // 3. Una letra minúscula
+        // 4. Un número
+        // 5. No espacios
+        // 6. No caracteres repetidos consecutivos
+        
+        if (password.length() < 8) {
+            showAlertDialog("Error", "La contraseña debe tener al menos 8 caracteres");
+            return false;
+        }
+
+        if (!password.matches(".*[A-Z].*")) {
+            showAlertDialog("Error", "La contraseña debe contener al menos una letra mayúscula");
+            return false;
+        }
+
+        if (!password.matches(".*[a-z].*")) {
+            showAlertDialog("Error", "La contraseña debe contener al menos una letra minúscula");
+            return false;
+        }
+
+        if (!password.matches(".*\\d.*")) {
+            showAlertDialog("Error", "La contraseña debe contener al menos un número");
+            return false;
+        }
+
+        if (password.contains(" ")) {
+            showAlertDialog("Error", "La contraseña no debe contener espacios");
+            return false;
+        }
+
+        // Verificar caracteres repetidos consecutivos
+        for (int i = 0; i < password.length() - 1; i++) {
+            if (password.charAt(i) == password.charAt(i + 1)) {
+                showAlertDialog("Error", "La contraseña no debe contener caracteres repetidos consecutivos");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void showAlertDialog(String title, String message) {
-        new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("Aceptar", null)
-                .show();
+        // Inflar el layout personalizado
+        View customView = getLayoutInflater().inflate(R.layout.custom_alert_dialog, null);
+        
+        // Configurar los elementos del diálogo
+        TextView titleTextView = customView.findViewById(R.id.dialogTitle);
+        TextView messageTextView = customView.findViewById(R.id.dialogMessage);
+        Button button = customView.findViewById(R.id.dialogButton);
+        
+        titleTextView.setText(title);
+        messageTextView.setText(message);
+        
+        // Crear el diálogo
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(customView);
+        
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        
+        // Configurar el botón
+        button.setOnClickListener(v -> {
+            dialog.dismiss();
+            // Limpiar los campos de contraseña
+            editTextPassword.setText("");
+            editTextConfirmPassword.setText("");
+        });
+        
+        // Añadir animación al mostrar el diálogo
+        dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
     }
 
     private class RegisterUserTask extends AsyncTask<Void, Void, String> {

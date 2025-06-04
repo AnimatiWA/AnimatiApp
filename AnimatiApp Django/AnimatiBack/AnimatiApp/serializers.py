@@ -27,14 +27,19 @@ class ProductoCarritoSerializer(serializers.ModelSerializer):
     Cantidad = serializers.IntegerField(required=False, default=1, min_value=1)
     Precio = serializers.ReadOnlyField()
     nombre_producto = serializers.SerializerMethodField()
+    imagen_producto = serializers.SerializerMethodField()
 
     class Meta:
         model = ProductoCarrito
-        fields = ["id", 'Codigo', 'Carrito', 'Cantidad', 'Precio', 'nombre_producto']
+        fields = ["id", 'Codigo', 'Carrito', 'Cantidad', 'Precio', 'nombre_producto', 'imagen_producto']
 
     def get_nombre_producto(self, obj):
 
         return obj.Codigo.Nombre_Producto
+    
+    def get_imagen_producto(self, obj):
+
+        return obj.Codigo.Imagen
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     pass
@@ -107,11 +112,11 @@ class CorreoContactoSerializer(serializers.ModelSerializer):
         model =  CorreoContacto
         fields = ('id', 'nombre', 'email', 'mensaje', 'creado')
 
-class PasswordRecoverySerializer(serializers.Serializer):
+class PasswordRecoveryEmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
 # Aplica a RecoveryPasswordActivity
-class PasswordResetSerializer(serializers.ModelSerializer):
+class PasswordRecoverySerializer(serializers.ModelSerializer):
     codigo = serializers.CharField(write_only=True, required=True)
     password = serializers.CharField(write_only=True, required=True)
     password2 = serializers.CharField(write_only=True, required=True)
@@ -119,6 +124,25 @@ class PasswordResetSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('codigo', 'password', 'password2')
+
+    # La validación presente en el .java se repite para mayor robustez.
+    def validate(self, data):
+        if data['password'] != data['password2']:
+            raise serializers.ValidationError("Las contraseñas no coinciden.")
+        return data
+
+    def validate_password(self, value):
+        if len(value) < 6:
+            raise serializers.ValidationError("La contraseña debe tener al menos 6 caracteres.")
+        return value
+    
+class PasswordResetSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ('password', 'password2')
 
     # La validación presente en el .java se repite para mayor robustez.
     def validate(self, data):

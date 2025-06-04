@@ -27,10 +27,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
-    private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
+    private static final String TAG = "ProfileActivity";
     private ImageView profileImage;
     private TextView userName;
-    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
+    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, logoutButton;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
     private String token;
@@ -45,45 +45,32 @@ public class ProfileActivity extends AppCompatActivity {
         changeEmailButton = findViewById(R.id.change_email_button);
         changePasswordButton = findViewById(R.id.change_password_button);
         viewPurchaseHistoryButton = findViewById(R.id.view_purchase_history_button);
-        viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
+        logoutButton = findViewById(R.id.logout_button);
 
         requestQueue = Volley.newRequestQueue(this);
         preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
 
-        // Obtener datos del usuario de la base de datos y mostrar
+        // Obtener datos del usuario
         getUserData();
 
-        // Cambiar email
-        changeEmailButton.setOnClickListener(v -> {
-            // Lógica para cambiar el email
-            Toast.makeText(ProfileActivity.this, "Cambiar email", Toast.LENGTH_SHORT).show();
-        });
+        // Acción al presionar "Cerrar Sesión"
+        logoutButton.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear(); // Eliminar datos almacenados
+            editor.apply();
 
-        // Cambiar contraseña
-        changePasswordButton.setOnClickListener(v -> {
-            // Navegar a la actividad de recuperación de contraseña
-            Intent intent = new Intent(ProfileActivity.this, RecoveryPasswordActivity.class);
-            startActivity(intent);
-        });
+            // Mostrar mensaje de confirmación antes de redirigir
+            Toast.makeText(ProfileActivity.this, "Cierre de sesión exitoso", Toast.LENGTH_SHORT).show();
 
-        // Ver historial de compras
-        viewPurchaseHistoryButton.setOnClickListener(v -> {
-            // Navegar a la actividad de historial de compras
-            Intent intent = new Intent(ProfileActivity.this, PurchaseHistoryActivity.class);
+            // Redirigir a la pantalla de inicio o login
+            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
             startActivity(intent);
-        });
-
-        // Ver seguimiento de pedidos
-        viewOrderTrackingButton.setOnClickListener(v -> {
-            // Navegar a la actividad de seguimiento de pedidos
-            Intent intent = new Intent(ProfileActivity.this, OrderTrackingActivity.class);
-            startActivity(intent);
+            finish(); // Cierra la actividad actual
         });
     }
 
     private void getUserData() {
-        // Obtener el ID del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("idUser", -1);
 
@@ -92,9 +79,8 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        String url = "https://animatiapp.up.railway.app/api/perfilusuario/" + userId;
-        Log.d(TAG, "URL de la solicitud: " + url);  // Log de la URL de la solicitud
-        Log.d(TAG, "Token: " + token);  // Log del token de autenticación
+        String url = "https://animatiapp.up.railway.app/api/perfilusuario";
+        Log.d(TAG, "URL de la solicitud: " + url);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -104,20 +90,12 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Log.d(TAG, "Respuesta JSON: " + response.toString());  // Log de la respuesta JSON
                             String firstName = response.getString("first_name");
                             String lastName = response.getString("last_name");
-                            String welcomeMessage;
-                            // Verificar la última letra del firstName
-                            if (firstName.endsWith("a")) {
-                                welcomeMessage = "Bienvenida, " + firstName + " " + lastName;
-                            } else {
-                                welcomeMessage = "Bienvenido, " + firstName + " " + lastName;
-                            }
+                            String welcomeMessage = "Bienvenido/a, " + firstName + " " + lastName;
 
                             userName.setText(welcomeMessage);
                         } catch (JSONException e) {
-                            Log.e(TAG, "Error al procesar la respuesta JSON", e);  // Registro robusto del error
                             Toast.makeText(ProfileActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -125,8 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Error en la solicitud GET", error);  // Registro robusto del error
-                        Toast.makeText(ProfileActivity.this, "Error al obtener los datos: " + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -134,24 +111,10 @@ public class ProfileActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + token);
-                Log.d(TAG, "Headers: " + headers.toString());  // Log de los headers de la solicitud
                 return headers;
             }
         };
 
         requestQueue.add(jsonObjectRequest);
     }
-
-
-    public void op_carrito(View view) {
-        Intent intent = new Intent(this, CartActivity.class);
-        startActivity(intent);
-    }
-
-    public void op_menu(View view) {
-        Intent intent = new Intent(this, activity_inicio.class);
-        startActivity(intent);
-    }
 }
-
-

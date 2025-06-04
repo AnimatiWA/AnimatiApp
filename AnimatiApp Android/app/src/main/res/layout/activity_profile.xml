@@ -65,7 +65,6 @@
                 android:id="@+id/change_email_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:text="@string/change_email"
                 android:background="@drawable/rounded_button_background"
                 android:textColor="#FFFFFF"
@@ -92,7 +91,6 @@
                 android:id="@+id/view_purchase_history_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:text="@string/view_purchase_history"
                 android:background="@drawable/rounded_button_background"
                 android:textColor="#FFFFFF"
@@ -101,24 +99,24 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp" />
 
-            <!-- Botón para ver el seguimiento de pedidos -->
+            <!-- Botón para cerrar sesión -->
             <Button
-                android:id="@+id/view_order_tracking_button"
-                android:layout_width="match_parent"
+                android:id="@+id/logout_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="@string/view_order_tracking"
+                android:text="CERRAR SESIÓN"
                 android:background="@drawable/rounded_button_background"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp" />
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center" />
         </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
