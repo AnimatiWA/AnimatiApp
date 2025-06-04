@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- Menu -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:headerLayout="@layout/header"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Contenedor principal con ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigation_view">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <!-- Imagen de perfil -->
+                <ImageView
+                    android:id="@+id/modify_profile_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:contentDescription="@string/modify_profile_image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_profile"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp" />
+
+                <!-- Nombre y apellido del usuario -->
+                <TextView
+                    android:id="@+id/modify_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/modify_profile_username"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/modify_profile_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/modify_profile_title"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp" />
+
+                <LinearLayout
+                    android:id="@+id/modify_profile_usernameLayout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_background"
+                    android:minHeight="48dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_username_icon"
+                        android:padding="8dp"
+                        android:contentDescription="Username Icon"
+                        app:tint="@color/icon_color" />
+
+                    <EditText
+                        android:id="@+id/modify_profile_usernameEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="Nombre de Usuario"
+                        android:padding="8dp"
+                        android:background="@android:color/transparent"
+                        android:minHeight="48dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/modify_profile_firstNameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_background"
+                    android:minHeight="48dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_firstname_icon"
+                        android:padding="8dp"
+                        android:contentDescription="First Name Icon"
+                        app:tint="@color/icon_color" />
+
+                    <EditText
+                        android:id="@+id/modify_profile_firstNameEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="Nombre"
+                        android:padding="8dp"
+                        android:background="@android:color/transparent"
+                        android:minHeight="48dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/modify_profile_lastNameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_background"
+                    android:minHeight="48dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_lastname_icon"
+                        android:padding="8dp"
+                        android:contentDescription="Last Name Icon"
+                        app:tint="@color/icon_color" />
+
+                    <EditText
+                        android:id="@+id/modify_profile_lastNameEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="Apellido"
+                        android:padding="8dp"
+                        android:background="@android:color/transparent"
+                        android:minHeight="48dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/modify_profile_emailLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_background"
+                    android:minHeight="48dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_email_icon"
+                        android:padding="8dp"
+                        android:contentDescription="Email Icon"
+                        app:tint="@color/icon_color" />
+
+                    <EditText
+                        android:id="@+id/modify_profile_emailEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="Correo Electrónico"
+                        android:padding="8dp"
+                        android:background="@android:color/transparent"
+                        android:inputType="textEmailAddress"
+                        android:minHeight="48dp" />
+                </LinearLayout>
+
+                <!-- Botón para guardar cambios -->
+                <Button
+                    android:id="@+id/modify_profile_button_accept"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/modify_profile_button_accept"
+                    android:background="@drawable/rounded_button_background"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="24dp" />
+
+
+                <!-- Botón para cancelar cambios -->
+                <Button
+                    android:id="@+id/modify_profile_button_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/modify_profile_button_cancel"
+                    android:background="@drawable/rounded_button_background"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="24dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

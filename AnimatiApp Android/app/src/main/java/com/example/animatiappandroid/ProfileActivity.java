@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
     private ImageView profileImage;
     private TextView userName;
-    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton;
+    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton, modifyProfileButton;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
     private String token;
@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         changePasswordButton = findViewById(R.id.change_password_button);
         viewPurchaseHistoryButton = findViewById(R.id.view_purchase_history_button);
         viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
+        modifyProfileButton = findViewById(R.id.modify_profile_button);
 
         requestQueue = Volley.newRequestQueue(this);
         preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
@@ -80,6 +81,13 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(ProfileActivity.this, OrderTrackingActivity.class);
             startActivity(intent);
         });
+
+        // Modificar perfil de usuario
+        modifyProfileButton.setOnClickListener(v -> {
+            // Navegar a la actividad de modificacion perfil
+            Intent intent = new Intent(ProfileActivity.this, ModifyProfileActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void getUserData() {
@@ -92,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        String url = "https://animatiapp.up.railway.app/api/perfilusuario/" + userId;
+        String url = "https://animatiapp.up.railway.app/api/perfilusuario";
         Log.d(TAG, "URL de la solicitud: " + url);  // Log de la URL de la solicitud
         Log.d(TAG, "Token: " + token);  // Log del token de autenticación
 
@@ -104,20 +112,20 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Log.d(TAG, "Respuesta JSON: " + response.toString());  // Log de la respuesta JSON
+                            Log.d(TAG, "Respuesta JSON: " + response.toString());
                             String firstName = response.getString("first_name");
-                            String lastName = response.getString("last_name");
+                            //String lastName = response.getString("last_name");
                             String welcomeMessage;
                             // Verificar la última letra del firstName
                             if (firstName.endsWith("a")) {
-                                welcomeMessage = "Bienvenida, " + firstName + " " + lastName;
+                                welcomeMessage = "Bienvenida, " + firstName;
                             } else {
-                                welcomeMessage = "Bienvenido, " + firstName + " " + lastName;
+                                welcomeMessage = "Bienvenido, " + firstName;
                             }
 
                             userName.setText(welcomeMessage);
                         } catch (JSONException e) {
-                            Log.e(TAG, "Error al procesar la respuesta JSON", e);  // Registro robusto del error
+                            Log.e(TAG, "Error al procesar la respuesta JSON", e);
                             Toast.makeText(ProfileActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -125,7 +133,7 @@ public class ProfileActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Error en la solicitud GET", error);  // Registro robusto del error
+                        Log.e(TAG, "Error en la solicitud GET", error);
                         Toast.makeText(ProfileActivity.this, "Error al obtener los datos: " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }

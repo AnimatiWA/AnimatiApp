@@ -122,7 +122,7 @@ public class RecoveryPasswordActivity extends AppCompatActivity {
                 }
 
                 // Crear la URL para la solicitud al backend de Django
-                URL url = new URL("https://animatiapp.up.railway.app/api/passwordrecovery/" + userId);
+                URL url = new URL("https://animatiapp.up.railway.app/api/passwordRecovery");
 
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
