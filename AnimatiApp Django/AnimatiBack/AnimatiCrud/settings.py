@@ -199,3 +199,6 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'animati.app.wa@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+#Mercado Pago Token
+MP_ACCESS_TOKEN = config('MP_ACCESS_TOKEN')

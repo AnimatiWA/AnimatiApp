@@ -1,3 +1,4 @@
+import mercadopago
 from django.http import Http404
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout
@@ -688,3 +689,78 @@ class HistorialCarritoView(APIView):
             })
 
         return Response(carrito_data, status=status.HTTP_200_OK)
+
+
+class create_mercadopago_preference(APIView):
+    http_method_names = ['POST']
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        try:
+            user = request.user
+
+            try:
+                active_cart = Carrito.objects.get(Usuario=user, is_active=True)
+            except Carrito.DoesNotExist:
+                return Response({"error": "No se encontró un carrito activo para el usuario."}, status=status.HTTP_404_NOT_FOUND)
+
+            cart_items_queryset = ProductoCarrito.objects.select_related('Codigo').filter(Carrito=active_cart)
+
+            if not cart_items_queryset.exists():
+                return Response({"error": "El carrito activo está vacío."}, status=status.HTTP_400_BAD_REQUEST)
+
+            preference_items = []
+            for item_in_cart in cart_items_queryset:
+                producto = item_in_cart.Codigo
+                preference_items.append({
+                    "id": str(producto.Codigo_Producto),
+                    "title": producto.Nombre_Producto,
+                    "quantity": item_in_cart.Cantidad,
+                    "currency_id": "ARS",
+                    "unit_price": float(producto.Precio_Producto)
+                })
+
+            sdk = mercadopago.SDK(settings.MP_ACCESS_TOKEN)
+
+            domain = request.build_absolute_uri('/')[:-1]
+            notification_url_val = f"{domain}/api/mp_notification/"
+
+            preference_data = {
+                "items": preference_items,
+                "payer": {
+                    "email": user.email if user.email else f"guest_{user.id}@example.com"
+                },
+                "back_urls": {
+                    "success": "myapp://checkout/success",
+                    "failure": "myapp://checkout/failure",
+                    "pending": "myapp://checkout/pending"
+                },
+                "auto_return": "approved",
+                "notification_url": notification_url_val,
+                "external_reference": str(active_cart.id)
+            }
+
+            preference_response = sdk.preference().create(preference_data)
+            preference = preference_response["response"]
+
+            return Response({
+                "preference_id": preference["id"],
+                "init_point": preference["init_point"]
+            }, status=status.HTTP_201_CREATED)
+
+        except Carrito.DoesNotExist:
+            return Response({"error": "No hay un carrito activo para este usuario."}, status=status.HTTP_404_NOT_FOUND)
+        except Producto.DoesNotExist:
+            return Response({"error": "Uno de los productos en el carrito ya no existe."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": f"Error al crear la preferencia de pago: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class mp_notification(APIView):
+    permission_classes = [permissions.AllowAny]
+    http_method_names = ['post']
+    def post(self, request, *args, **kwargs):
+
+        print("Notificación Mercado Pago recibida:", request.data)
+
+
+        return Response({"message": "Notificación recibida"}, status=status.HTTP_200_OK)

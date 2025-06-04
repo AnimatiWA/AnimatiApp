@@ -9,6 +9,8 @@ from .views import *
 router=routers.DefaultRouter()
 router.register(r'Categoria', views.CategoriaViewSet)
 
+from django.urls import path
+from .views import create_mercadopago_preference, mp_notification
 
 
 
@@ -46,6 +48,8 @@ urlpatterns = [
     path('resetPassword', EmailPasswordResetView.as_view(), name='passwordreset'), 
 
     path('', include(router.urls)),
+    path('create_mercadopago_preference', create_mercadopago_preference.as_view(), name='create_mp_preference'),
+    path('mp_notification', mp_notification.as_view(), name='mp_notification'),
 ]
 """
     fuera de uso
