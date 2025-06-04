@@ -90,9 +90,15 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
             totalPrice.setText("No se puede confirmar la compra.");
         } else{
-
-            totalPrice.setText("Procesando Compra...");
+            
+            totalPrice.setText(Procesando Compra...");
             confirmarCompra();
+
+            Intent intent = new Intent(this, PagoProvisionalActivity.class);
+
+            intent.putExtra("total", cart.getTotalPrice());
+
+            startActivity(intent);
         }
     }
 
@@ -174,11 +180,8 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                         editor.putInt("idCarrito", nuevoIdCarrito);
                         editor.apply();
 
-                        Toast.makeText(CartActivity.this, "Compra confirmada por $" + cart.getTotalPrice(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CartActivity.this, "Procesando compra por $" + cart.getTotalPrice(), Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(CartActivity.this, activity_inicio.class);
-                        startActivity(intent);
-                        finish();
 
                     } catch (JSONException e) {
 
