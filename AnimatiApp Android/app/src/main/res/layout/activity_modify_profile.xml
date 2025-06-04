@@ -58,6 +58,131 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <!-- Sección para elegir avatar -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elige tu Avatar"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="8dp">
+
+                <!-- Primera fila de avatares -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/avatar_select1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar1"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 1"/>
+
+                    <ImageView
+                        android:id="@+id/avatar_select2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar2"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 2"/>
+
+                    <ImageView
+                        android:id="@+id/avatar_select3"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar3"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 3"/>
+
+                    <ImageView
+                        android:id="@+id/avatar_select4"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar4"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 4"/>
+
+                    <ImageView
+                        android:id="@+id/avatar_select5"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar5"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 5"/>
+                </LinearLayout>
+
+                <!-- Segunda fila de avatares -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp">
+
+                    <ImageView
+                        android:id="@+id/avatar_select6"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar6"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 6"/>
+
+                    <ImageView
+                        android:id="@+id/avatar_select7"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar7"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 7"/>
+
+                    <ImageView
+                        android:id="@+id/avatar_select8"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar8"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 8"/>
+
+                    <ImageView
+                        android:id="@+id/avatar_select9"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar9"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Avatar 9"/>
+                </LinearLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

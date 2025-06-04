@@ -55,6 +55,8 @@ public class ProfileActivity extends AppCompatActivity {
         // Obtener datos del usuario de la base de datos y mostrar
         getUserData();
 
+        loadSelectedAvatar();
+
         // Cambiar email
         changeEmailButton.setOnClickListener(v -> {
             // Lógica para cambiar el email
@@ -166,6 +168,31 @@ public class ProfileActivity extends AppCompatActivity {
     public void op_menu(View view) {
         Intent intent = new Intent(this, activity_inicio.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadSelectedAvatar();
+        getUserData();
+    }
+
+    private void loadSelectedAvatar() {
+        if (preferences == null) {
+            preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
+        }
+        String savedAvatarResourceName = preferences.getString("selected_avatar_resource_name", null);
+        if (savedAvatarResourceName != null) {
+            int avatarResId = getResources().getIdentifier(savedAvatarResourceName, "drawable", getPackageName());
+            if (avatarResId != 0) {
+                profileImage.setImageResource(avatarResId);
+            } else {
+                profileImage.setImageResource(R.drawable.default_profile);
+                Log.w(TAG, "Saved avatar resource not found: " + savedAvatarResourceName + ". Using default.");
+            }
+        } else {
+            profileImage.setImageResource(R.drawable.default_profile);
+        }
     }
 }
 
