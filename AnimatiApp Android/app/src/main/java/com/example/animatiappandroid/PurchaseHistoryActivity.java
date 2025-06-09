@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +38,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private RequestQueue requestQueue;
     private String token;
+    private ActivityResultLauncher<Intent> launcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +48,27 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Simulamos datos
-        purchaseList = new ArrayList<>();
-        purchaseList.add(new PurchaseItem("2024-05-23",6, 1500));
-        purchaseList.add(new PurchaseItem("2024-05-15",5,  2500));
-        purchaseList.add(new PurchaseItem("2024-05-02",4,  1100));
-
         requestQueue = Volley.newRequestQueue(this);
 
         sharedPreferences = getSharedPreferences("AnimatiPreferencias", MODE_PRIVATE);
 
         token = sharedPreferences.getString("token", "");
+
+        launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+
+                    if(result.getResultCode() == RESULT_OK) {
+
+                        boolean refresh = result.getData().getBooleanExtra("refresh", false);
+
+                        if(refresh) {
+                            purchaseList = new ArrayList<>();
+                            cargarCompras();
+                        }
+                    }
+                }
+        );
 
         cargarCompras();
 
@@ -84,16 +97,25 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                             for (int i = 0; i < response.length(); i++) {
 
                                 JSONObject purchaseObject = response.getJSONObject(i);
+                                int id = purchaseObject.getInt("Id");
                                 String fecha = purchaseObject.getString("Fecha");
                                 int cantidad = purchaseObject.getInt("Cantidad");
                                 double precio = purchaseObject.getDouble("Precio");
 
-                                purchaseList.add(new PurchaseItem(fecha, cantidad, precio));
+                                purchaseList.add(new PurchaseItem(id, fecha, cantidad, precio));
                             }
 
                             Collections.reverse(purchaseList);
 
-                            purchaseAdapter = new PurchaseAdapter(PurchaseHistoryActivity.this, purchaseList);
+                            purchaseAdapter = new PurchaseAdapter(
+                                    PurchaseHistoryActivity.this,
+                                    purchaseList,
+                                    item -> {
+                                        Intent intent = new Intent(PurchaseHistoryActivity.this, PurchaseRegretActivity.class);
+                                        intent.putExtra("purchaseItem", item);
+                                        launcher.launch(intent);
+                                    });
+
                             recyclerView.setAdapter(purchaseAdapter);
                             purchaseAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -109,7 +131,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(PurchaseHistoryActivity.this, "Error en la petición: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PurchaseHistoryActivity.this, "Error en la peticiÃ³n: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         Log.d("PurchaseHistoryActivity", "Cargar compras fallo");
                     }
                 }
