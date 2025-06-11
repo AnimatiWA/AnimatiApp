@@ -27,6 +27,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AdminActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".RecoveryPasswordActivity"
             android:exported="true" />
         <activity
@@ -70,6 +74,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".PurchaseHistoryActivity" />
+        <activity android:name=".ModifyProfileActivity" />
+        <activity android:name=".PagoProvisionalActivity" />
+
     </application>
 
 </manifest>

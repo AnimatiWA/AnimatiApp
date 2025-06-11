@@ -60,6 +60,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+
             <!-- Botón para cambiar email -->
             <Button
                 android:id="@+id/change_email_button"
@@ -67,6 +68,19 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:text="@string/change_email"
+                android:background="@drawable/rounded_button_background"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp" />
+
+            <!-- Botón para modificar perfil -->
+            <Button
+                android:id="@+id/modify_profile_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/modify_profile_title"
                 android:background="@drawable/rounded_button_background"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
@@ -114,7 +128,21 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="32dp" />
-
+          
+            <!-- Botón para el panel de admin -->
+            <Button
+                android:id="@+id/admin_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Panel de Admin"
+                android:background="@drawable/rounded_button_background"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp" />
+          
+            <!-- Botón para ver el cierre de sesion -->
             <Button
                 android:id="@+id/logout_button"
                 android:layout_width="wrap_content"
@@ -132,6 +160,7 @@
                 android:layout_marginBottom="30dp"
                 android:gravity="center"
                 android:contentDescription="@string/logout_button_text" />
+
         </LinearLayout>
     </ScrollView>
 

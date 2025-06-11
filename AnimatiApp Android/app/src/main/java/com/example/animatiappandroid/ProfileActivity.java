@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
     private ImageView profileImage;
     private TextView userName;
-    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton, logoutButton;
+    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton, modifyProfileButton, logoutButton;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
     private String token;
@@ -47,13 +47,11 @@ public class ProfileActivity extends AppCompatActivity {
         viewPurchaseHistoryButton = findViewById(R.id.view_purchase_history_button);
         viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
         logoutButton = findViewById(R.id.logout_button);
+        modifyProfileButton = findViewById(R.id.modify_profile_button);
 
         requestQueue = Volley.newRequestQueue(this);
         preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
-
-        // Obtener datos del usuario
-        getUserData();
 
         // Acción al presionar "Cerrar Sesión"
         logoutButton.setOnClickListener(v -> {
@@ -70,7 +68,12 @@ public class ProfileActivity extends AppCompatActivity {
             finish(); // Cierra la actividad actual
         });
 
-        // Botón para cambiar email
+        // Obtener datos del usuario
+        getUserData();
+      
+        loadSelectedAvatar();
+
+        // Cambiar email
         changeEmailButton.setOnClickListener(v -> {
             Toast.makeText(ProfileActivity.this, "Cambiar email", Toast.LENGTH_SHORT).show();
         });
@@ -90,6 +93,20 @@ public class ProfileActivity extends AppCompatActivity {
         // Botón para ver seguimiento de pedidos
         viewOrderTrackingButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, OrderTrackingActivity.class);
+            startActivity(intent);
+        });
+
+ 
+        Button adminButton = findViewById(R.id.admin_button);
+        adminButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, AdminActivity.class);
+            startActivity(intent);
+        });
+        // Modificar perfil de usuario
+        modifyProfileButton.setOnClickListener(v -> {
+            // Navegar a la actividad de modificacion perfil
+            Intent intent = new Intent(ProfileActivity.this, ModifyProfileActivity.class);
+
             startActivity(intent);
         });
     }
@@ -117,13 +134,13 @@ public class ProfileActivity extends AppCompatActivity {
                         try {
                             Log.d(TAG, "Respuesta JSON: " + response.toString());
                             String firstName = response.getString("first_name");
-                            String lastName = response.getString("last_name");
+                            //String lastName = response.getString("last_name");
                             String welcomeMessage;
 
                             if (firstName.endsWith("a")) {
-                                welcomeMessage = "Bienvenida, " + firstName + " " + lastName;
+                                welcomeMessage = "Bienvenida, " + firstName;
                             } else {
-                                welcomeMessage = "Bienvenido, " + firstName + " " + lastName;
+                                welcomeMessage = "Bienvenido, " + firstName;
                             }
 
                             userName.setText(welcomeMessage);
@@ -161,5 +178,30 @@ public class ProfileActivity extends AppCompatActivity {
     public void op_menu(View view) {
         Intent intent = new Intent(this, activity_inicio.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadSelectedAvatar();
+        getUserData();
+    }
+
+    private void loadSelectedAvatar() {
+        if (preferences == null) {
+            preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
+        }
+        String savedAvatarResourceName = preferences.getString("selected_avatar_resource_name", null);
+        if (savedAvatarResourceName != null) {
+            int avatarResId = getResources().getIdentifier(savedAvatarResourceName, "drawable", getPackageName());
+            if (avatarResId != 0) {
+                profileImage.setImageResource(avatarResId);
+            } else {
+                profileImage.setImageResource(R.drawable.default_profile);
+                Log.w(TAG, "Saved avatar resource not found: " + savedAvatarResourceName + ". Using default.");
+            }
+        } else {
+            profileImage.setImageResource(R.drawable.default_profile);
+        }
     }
 }

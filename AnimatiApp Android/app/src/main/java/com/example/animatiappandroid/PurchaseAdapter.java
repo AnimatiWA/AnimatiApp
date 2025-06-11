@@ -18,11 +18,18 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
 
     private List<PurchaseItem> purchaseList;
     private Context context;
+    private OnRegretClickListener regretClickListener;
 
-    public PurchaseAdapter(Context context, List<PurchaseItem> purchaseList) {
+    public interface OnRegretClickListener {
+
+        void onRregretClick(PurchaseItem item);
+    }
+
+    public PurchaseAdapter(Context context, List<PurchaseItem> purchaseList, OnRegretClickListener regretClickListener) {
 
         this.context = context;
         this.purchaseList = purchaseList;
+        this.regretClickListener = regretClickListener;
     }
 
     @NonNull
@@ -42,9 +49,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
 
         holder.regret_button.setOnClickListener(v -> {
 
-            Intent intent = new Intent(context, PurchaseRegretActivity.class);
-            intent.putExtra("purchaseItem", item);
-            context.startActivity(intent);
+            regretClickListener.onRregretClick(item);
         });
     }
 
