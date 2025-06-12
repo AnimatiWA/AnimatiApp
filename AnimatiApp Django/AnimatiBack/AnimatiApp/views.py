@@ -683,6 +683,7 @@ class HistorialCarritoView(APIView):
                 'Fecha': carrito.Deshabilitado.date().isoformat() if carrito.Deshabilitado else None,
                 'Cantidad': total_cantidad,
                 'Precio': total_precio,
+                'Confirmado': carrito.confirmado,
             })
 
         return Response(historial, status=status.HTTP_200_OK)
