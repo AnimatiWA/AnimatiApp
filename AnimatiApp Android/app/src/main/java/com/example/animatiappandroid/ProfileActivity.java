@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
     private ImageView profileImage;
     private TextView userName;
-    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton, modifyProfileButton;
+    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton, modifyProfileButton, logoutButton;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
     private String token;
@@ -46,40 +46,52 @@ public class ProfileActivity extends AppCompatActivity {
         changePasswordButton = findViewById(R.id.change_password_button);
         viewPurchaseHistoryButton = findViewById(R.id.view_purchase_history_button);
         viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
+        logoutButton = findViewById(R.id.logout_button);
         modifyProfileButton = findViewById(R.id.modify_profile_button);
 
         requestQueue = Volley.newRequestQueue(this);
         preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
 
-        // Obtener datos del usuario de la base de datos y mostrar
-        getUserData();
+        // Acción al presionar "Cerrar Sesión"
+        logoutButton.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear(); // Eliminar datos almacenados
+            editor.apply();
 
+            // Mostrar mensaje de confirmación antes de redirigir
+            Toast.makeText(ProfileActivity.this, "Cierre de sesión exitoso", Toast.LENGTH_SHORT).show();
+
+            // Redirigir a la pantalla de inicio de sesión
+            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // Cierra la actividad actual
+        });
+
+        // Obtener datos del usuario
+        getUserData();
+      
         loadSelectedAvatar();
 
         // Cambiar email
         changeEmailButton.setOnClickListener(v -> {
-            // Lógica para cambiar el email
             Toast.makeText(ProfileActivity.this, "Cambiar email", Toast.LENGTH_SHORT).show();
         });
 
-        // Cambiar contraseña
+        // Botón para cambiar contraseña
         changePasswordButton.setOnClickListener(v -> {
-            // Navegar a la actividad de recuperación de contraseña
             Intent intent = new Intent(ProfileActivity.this, RecoveryPasswordActivity.class);
             startActivity(intent);
         });
 
-        // Ver historial de compras
+        // Botón para ver historial de compras
         viewPurchaseHistoryButton.setOnClickListener(v -> {
-            // Navegar a la actividad de historial de compras
             Intent intent = new Intent(ProfileActivity.this, PurchaseHistoryActivity.class);
             startActivity(intent);
         });
 
-        // Ver seguimiento de pedidos
+        // Botón para ver seguimiento de pedidos
         viewOrderTrackingButton.setOnClickListener(v -> {
-            // Navegar a la actividad de seguimiento de pedidos
             Intent intent = new Intent(ProfileActivity.this, OrderTrackingActivity.class);
             startActivity(intent);
         });
@@ -100,7 +112,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getUserData() {
-        // Obtener el ID del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
         int userId = sharedPreferences.getInt("idUser", -1);
 
@@ -110,8 +121,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         String url = "https://animatiapp.up.railway.app/api/perfilusuario";
-        Log.d(TAG, "URL de la solicitud: " + url);  // Log de la URL de la solicitud
-        Log.d(TAG, "Token: " + token);  // Log del token de autenticación
+        Log.d(TAG, "URL de la solicitud: " + url);
+        Log.d(TAG, "Token: " + token);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -125,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity {
                             String firstName = response.getString("first_name");
                             //String lastName = response.getString("last_name");
                             String welcomeMessage;
-                            // Verificar la última letra del firstName
+
                             if (firstName.endsWith("a")) {
                                 welcomeMessage = "Bienvenida, " + firstName;
                             } else {
@@ -151,14 +162,13 @@ public class ProfileActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + token);
-                Log.d(TAG, "Headers: " + headers.toString());  // Log de los headers de la solicitud
+                Log.d(TAG, "Headers: " + headers.toString());
                 return headers;
             }
         };
 
         requestQueue.add(jsonObjectRequest);
     }
-
 
     public void op_carrito(View view) {
         Intent intent = new Intent(this, CartActivity.class);
@@ -195,5 +205,3 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 }
-
-
