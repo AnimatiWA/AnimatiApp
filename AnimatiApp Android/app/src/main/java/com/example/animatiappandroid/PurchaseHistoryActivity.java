@@ -101,8 +101,9 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                                 String fecha = purchaseObject.getString("Fecha");
                                 int cantidad = purchaseObject.getInt("Cantidad");
                                 double precio = purchaseObject.getDouble("Precio");
+                                boolean confirmado = purchaseObject.getBoolean("Confirmado");
 
-                                purchaseList.add(new PurchaseItem(id, fecha, cantidad, precio));
+                                purchaseList.add(new PurchaseItem(id, fecha, cantidad, precio, confirmado));
                             }
 
                             Collections.reverse(purchaseList);
@@ -131,7 +132,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(PurchaseHistoryActivity.this, "Error en la peticiÃ³n: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PurchaseHistoryActivity.this, "Error en la petición: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         Log.d("PurchaseHistoryActivity", "Cargar compras fallo");
                     }
                 }
