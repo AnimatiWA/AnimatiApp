@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";  // Definimos una etiqueta para el registro
     private ImageView profileImage;
     private TextView userName;
-    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton, modifyProfileButton, logoutButton;
+    private Button changeEmailButton, changePasswordButton, viewPurchaseHistoryButton, viewOrderTrackingButton, modifyProfileButton, logoutButton, adminButton;
     private RequestQueue requestQueue;
     private SharedPreferences preferences;
     private String token;
@@ -48,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         viewOrderTrackingButton = findViewById(R.id.view_order_tracking_button);
         logoutButton = findViewById(R.id.logout_button);
         modifyProfileButton = findViewById(R.id.modify_profile_button);
+        adminButton = findViewById(R.id.admin_button);
 
         requestQueue = Volley.newRequestQueue(this);
         preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
@@ -96,8 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
- 
-        Button adminButton = findViewById(R.id.admin_button);
+
         adminButton.setOnClickListener(view -> {
             Intent intent = new Intent(ProfileActivity.this, AdminActivity.class);
             startActivity(intent);
@@ -134,6 +134,7 @@ public class ProfileActivity extends AppCompatActivity {
                         try {
                             Log.d(TAG, "Respuesta JSON: " + response.toString());
                             String firstName = response.getString("first_name");
+                            Boolean admin = response.getBoolean("is_staff");
                             //String lastName = response.getString("last_name");
                             String welcomeMessage;
 
@@ -143,10 +144,19 @@ public class ProfileActivity extends AppCompatActivity {
                                 welcomeMessage = "Bienvenido, " + firstName;
                             }
 
+                            if(admin){
+
+                                adminButton.setVisibility(View.VISIBLE);
+                            } else { // Convengamos que esto no debería ser necesario, pero lo dejo por las dudas :P
+
+                                adminButton.setVisibility(View.GONE);
+                            }
+
                             userName.setText(welcomeMessage);
                         } catch (JSONException e) {
                             Log.e(TAG, "Error al procesar la respuesta JSON", e);
                             Toast.makeText(ProfileActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
+                            adminButton.setVisibility(View.GONE); //Esto tampoco es estrictamente necesario pero por las dudas
                         }
                     }
                 },
@@ -155,6 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Error en la solicitud GET", error);
                         Toast.makeText(ProfileActivity.this, "Error al obtener los datos: " + error.toString(), Toast.LENGTH_SHORT).show();
+                        adminButton.setVisibility(View.GONE); //Esto tampoco es estrictamente necesario pero por las dudas
                     }
                 }
         ) {
