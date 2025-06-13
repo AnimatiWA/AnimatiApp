@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -12,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="12dp">
         <LinearLayout
             android:id="@+id/text_container"
             android:layout_width="0dp"
@@ -48,6 +49,16 @@
                 android:text="Precio"
                 android:textSize="16sp"
                 android:textColor="#1E88E5"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:id="@+id/confirmTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pago pendiente"
+                android:textSize="16sp"
+                android:textColor="@color/red"
+                android:visibility="gone"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 

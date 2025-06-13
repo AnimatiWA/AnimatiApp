@@ -15,6 +15,9 @@
         android:theme="@style/Theme.AnimatiAppAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".PurchaseDetail"
+            android:exported="false" />
+        <activity
             android:name=".PurchaseRegretActivity"
             android:exported="false" />
         <activity
@@ -29,7 +32,6 @@
         <activity
             android:name=".AdminActivity"
             android:exported="true" />
-
         <activity
             android:name=".RecoveryPasswordActivity"
             android:exported="true" />
@@ -76,7 +78,6 @@
         <activity android:name=".PurchaseHistoryActivity" />
         <activity android:name=".ModifyProfileActivity" />
         <activity android:name=".PagoProvisionalActivity" />
-
     </application>
 
 </manifest>
