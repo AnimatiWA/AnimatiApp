@@ -66,6 +66,13 @@
 
                 regretClickListener.onRregretClick(item);
             });
+
+            holder.cardContainer.setOnClickListener(v -> {
+
+                Intent intent = new Intent(this.context, PurchaseDetail.class);
+                intent.putExtra("purchaseItem", item);
+                this.context.startActivity(intent);
+            });
         }
 
         @Override
