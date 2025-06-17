@@ -7,19 +7,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
-    private List<Product> productList;
+    private List<ProductAdmin> productList;
     private Context context;
     private int posicionBotonSeleccionado = -1;
 
-    public ProductAdapter (List<Product> productList,Context context){
+    public ProductAdapter (List<ProductAdmin> productList,Context context){
         this.productList=productList;
         this.context=context;
     }
@@ -33,11 +37,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder,int position){
-        Product product=productList.get(position);
+        ProductAdmin product=productList.get(position);
 
         holder.productName.setText(product.getName());
         holder.productPrice.setText("$"+product.getPrice());
         holder.productStock.setText("En stock: " + product.getStock());
+
+        Glide.with(context)
+                .load(product.getImagen())
+                .placeholder(R.drawable.imagen_placeholder)
+                .error(R.drawable.imagen_error)
+                .into(holder.productImage);
 
         if(posicionBotonSeleccionado == position){
 
@@ -108,6 +118,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         ImageButton addToCart;
         EditText productQuantity;
         Button confirmAddToCart, decrementQuantity, incrementQuantity;
+        ImageView productImage;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -119,6 +130,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             confirmAddToCart = itemView.findViewById(R.id.confirm_add_to_cart);
             decrementQuantity = itemView.findViewById(R.id.decrement_quantity);
             incrementQuantity = itemView.findViewById(R.id.increment_quantity);
+            productImage = itemView.findViewById(R.id.product_image);
         }
     }
 }
