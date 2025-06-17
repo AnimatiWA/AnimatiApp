@@ -50,7 +50,7 @@ public class Gallery extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
-    private List<Product> productList;
+    private List<ProductAdmin> productList;
     private SharedPreferences sharedPreferences;
     private RequestQueue requestQueue;
     private String token;
@@ -116,9 +116,11 @@ public class Gallery extends AppCompatActivity {
                                 String nombre = productObject.getString("Nombre_Producto");
                                 double precio = productObject.getDouble("Precio");
                                 int stock = productObject.getInt("Stock");
+                                int idCategoria = productObject.getInt("Id_Categoria");
+                                String imagen = productObject.getString("Imagen");
                                 int cantidad = 1;
 
-                                productList.add(new Product(id, nombre, precio, cantidad, stock));
+                                productList.add(new ProductAdmin(id, nombre, precio, cantidad, idCategoria, stock, imagen));
                             }
 
 
@@ -151,7 +153,7 @@ public class Gallery extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
-    public void agregarAlCarrito(Product product) {
+    public void agregarAlCarrito(ProductAdmin product) {
 
         int idCarrito = sharedPreferences.getInt("idCarrito", -1);
 
@@ -163,7 +165,7 @@ public class Gallery extends AppCompatActivity {
         }
     }
 
-    public void crearYAgregar(Product product) {
+    public void crearYAgregar(ProductAdmin product) {
         String url = "https://animatiapp.up.railway.app/api/carrito/crear";
 
         JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(
@@ -201,7 +203,7 @@ public class Gallery extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void agregar(Product product) {
+    public void agregar(ProductAdmin product) {
         int idCarrito = sharedPreferences.getInt("idCarrito", -1);
         int codigoProducto = product.getId();
         int cantidad = product.getQuantity();
