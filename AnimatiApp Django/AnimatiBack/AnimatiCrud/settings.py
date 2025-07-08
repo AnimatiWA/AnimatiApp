@@ -15,6 +15,7 @@ from datetime import timedelta
 from pathlib import Path
 import os
 import pymysql
+import mercadopago
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -199,3 +200,6 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'animati.app.wa@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Mercadopago
+SDK = mercadopago.SDK(os.getenv("MP_PROD_ACCESS_TOKEN"))
