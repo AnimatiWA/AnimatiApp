@@ -34,6 +34,10 @@ from django.conf import settings
 from .models import *
 from .serializers import *
 
+# Importacion MercadoPago
+
+import mercadopago
+
 # Listado de Views.
 
 class CreateUserAPI(CreateAPIView):
@@ -687,3 +691,82 @@ class HistorialCarritoView(APIView):
             })
 
         return Response(historial, status=status.HTTP_200_OK)
+    
+    # MercadoPago
+
+class CreatePreferenceView(APIView):
+    
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['post']
+
+    def post(self, request):
+
+        productos = request.data.get('items', [])
+
+        success_url = request.data.get('success', '')
+        failure_url = request.data.get('failure', '')
+        pending_url = request.data.get('pending', '')
+
+        if not productos:
+            
+            return Response({"message": "No se enviaron productos"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        preference_data = {
+
+            "items": productos,
+            "back_urls": {
+
+                # Esto no se usa en mobile, qudan vacios ahí porque estoy usando webhooks.
+                # (Era esto o hacer vistas separadas para web y app, no da la verdad)
+
+                "success": success_url,
+                "failure": failure_url,
+                "pending": pending_url
+            },
+            "auto_return": "approved"
+        }
+
+        try:
+
+            sdk = mercadopago.SDK(settings.SDK)
+            preference_response = sdk.preference().create(preference_data)
+
+            init_point = preference_response["response"].get("init_point")
+
+            return Response({"init_point": init_point}, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class MercadopagoWebhook(APIView):
+
+    permission_classes = [permissions.AllowAny]
+    http_method_names = ['post']
+
+    def post(self, request):
+
+        try:
+
+            topic = request.query_params.get('topic') or request.data.get('topic')
+            payment_id = request.query_params.get('id') or request.data.get('id')
+
+            if topic != "payment":
+                return Response({"error": f"Tópico '{topic}' no soportado, solo se aceptan pagos"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            if not payment_id:
+                return Response({"error": "No se recibió id de pago"}, status=status.HTTP_400_BAD_REQUEST)
+
+            sdk = mercadopago.SDK(settings.SDK)
+            payment_info = sdk.payment().get(payment_id)
+            payment_data = payment_info["response"]
+                
+            # Aca voy a hacer la integración con la BD, primero quiero probar que todo este OK
+
+            print("Pago recibido:", payment_data)
+
+            return Response({"message": "Pago recibido"}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
