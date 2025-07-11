@@ -162,3 +162,9 @@ class PasswordResetToken(models.Model):
 
     def is_expired(self):
         return timezone.now() > self.expires_at
+
+class Pedido(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=20, default='pendiente')
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    creado = models.DateTimeField(auto_now_add=True)

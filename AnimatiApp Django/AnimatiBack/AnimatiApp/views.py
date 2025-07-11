@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.http import Http404
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout
@@ -298,7 +299,7 @@ class CrearCarrito(APIView):
         productos_sin_stock = []
 
         
-        if(carrito_activo):
+        if(carrito_activo): #Hay que eliminar esto, la logica para cerrar carritos va a otro lado
 
             for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
 
@@ -325,7 +326,7 @@ class CrearCarrito(APIView):
 
             serializer.save()
 
-            if(carrito_activo):
+            if(carrito_activo): #Hay que eliminar esto, la logica para actualizar los productos va para otro lado
 
                 for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
 
@@ -711,29 +712,42 @@ class CreatePreferenceView(APIView):
             
             return Response({"message": "No se enviaron productos"}, status=status.HTTP_400_BAD_REQUEST)
         
-        preference_data = {
-
-            "items": productos,
-            "back_urls": {
-
-                # Esto no se usa en mobile, qudan vacios ahí porque estoy usando webhooks.
-                # (Era esto o hacer vistas separadas para web y app, no da la verdad)
-
-                "success": success_url,
-                "failure": failure_url,
-                "pending": pending_url
-            },
-            "auto_return": "approved"
-        }
 
         try:
+
+            total = sum(Decimal(productos['unit_price']) * productos['quantity'] for producto in productos)
+
+            pedido = Pedido.objects.create(
+                user=request.user,
+                estado='pendiente',
+                total=total
+            )
+
+            preference_data = {
+
+                "items": productos,
+                "external_reference": str(pedido.id),
+                "back_urls": {
+
+                    # Esto no se usa en mobile, qudan vacios ahí porque estoy usando webhooks.
+                    # (Era esto o hacer vistas separadas para web y app, no da la verdad)
+
+                    "success": success_url,
+                    "failure": failure_url,
+                    "pending": pending_url
+                },
+                "auto_return": "approved"
+            }
 
             sdk = mercadopago.SDK(settings.SDK)
             preference_response = sdk.preference().create(preference_data)
 
             init_point = preference_response["response"].get("init_point")
 
-            return Response({"init_point": init_point}, status=status.HTTP_200_OK)
+            return Response({
+                "init_point": init_point,
+                "pedido_id": pedido.id
+                }, status=status.HTTP_200_OK)
             
         except Exception as e:
 
@@ -763,10 +777,46 @@ class MercadopagoWebhook(APIView):
                 
             # Aca voy a hacer la integración con la BD, primero quiero probar que todo este OK
 
-            print("Pago recibido:", payment_data)
+            if payment_data["status"] == "approved":
+
+                pedido_id = payment_data.get("external_reference")
+
+                try:
+
+                    pedido = Pedido.objects.get(id=pedido_id)
+                    pedido.estado = "aprobado"
+                    pedido.save()
+                    print("Pago recibido:", payment_data)
+                
+                except Pedido.DoesNotExist:
+
+                    return Response({"error": "Pedido no econtrado"}, status=status.HTTP_404_NOT_FOUND)
 
             return Response({"message": "Pago recibido"}, status=status.HTTP_200_OK)
 
         except Exception as e:
 
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class EstadoPagoView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get']
+
+    def get(self, request):
+        
+        pedido_id = request.query_params.get("pedido_id")
+
+        if not pedido_id:
+
+            return Response({"error": "Falta el ID del pedido"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+
+            pedido = Pedido.objects.get(id=pedido_id, user=request.user)
+            
+            return Response({"message": "Pedido aprobado"}, status=status.HTTP_200_OK)
+
+        except Pedido.DoesNotExist:
+
+            return Response({"error": "Pedido no encontrado"}, status=status.HTTP_404_NOT_FOUND)
