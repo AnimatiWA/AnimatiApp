@@ -296,25 +296,9 @@ class CrearCarrito(APIView):
 
         carrito_activo = Carrito.objects.filter(Usuario=user, is_active=True).first()
 
-        productos_sin_stock = []
+        if(carrito_activo): #Esto se deja pero ahora no cierra automaticament el carrito sino que indica que ya hay uno activo.
 
-        
-        if(carrito_activo): #Hay que eliminar esto, la logica para cerrar carritos va a otro lado
-
-            for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
-
-                if producto.Cantidad > producto.Codigo.Stock:
-
-                    productos_sin_stock.append(producto.Codigo.Nombre_Producto)
-
-            if(productos_sin_stock):
-
-                return Response({"error": f"Stock insuficiente para los productos: {', '.join(productos_sin_stock)}"}, status=status.HTTP_400_BAD_REQUEST)
-
-            carrito_activo.is_active = False
-            carrito_activo.Deshabilitado = timezone.now()
-            carrito_activo.save()
-
+            return Response({"error": "ya existe un carrito activo para este usuario"}, status=status.HTTP_409_CONFLICT)
 
         datos = {
             'Usuario': user.id,
@@ -325,14 +309,6 @@ class CrearCarrito(APIView):
         if serializer.is_valid():
 
             serializer.save()
-
-            if(carrito_activo): #Hay que eliminar esto, la logica para actualizar los productos va para otro lado
-
-                for producto in ProductoCarrito.objects.filter(Carrito=carrito_activo):
-
-                    productoOriginal = producto.Codigo
-                    productoOriginal.Stock -= producto.Cantidad
-                    productoOriginal.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
@@ -666,17 +642,19 @@ class HistorialCarritoView(APIView):
 
         user = request.user
 
-        carritos_inactivos = Carrito.objects.filter(Usuario=user, is_active=False).order_by('Creado')
+        pedidos = Pedido.objects.filter(user=user).order_by('-creado')
 
-        if not carritos_inactivos:
+        if not pedidos.exists():
 
             return Response([], status=status.HTTP_204_NO_CONTENT)
         
         historial = []
 
-        for carrito in carritos_inactivos:
+        for pedido in pedidos:
 
-            productos = ProductoCarrito.objects.filter(Carrito=carrito)
+            carrito = pedido.carrito
+
+            productos = ProductoCarrito.objects.filter(Carrito=carrito) if carrito else []
 
             total_precio = productos.aggregate(total=Sum('Precio'))['total'] or 0.0
             total_cantidad = productos.aggregate(total=Sum('Cantidad'))['total'] or 0
@@ -684,11 +662,12 @@ class HistorialCarritoView(APIView):
 
             historial.append({
 
-                'Id': carrito.id,
-                'Fecha': carrito.Deshabilitado.date().isoformat() if carrito.Deshabilitado else None,
+                'Id': pedido.id,
+                'CarritoId': carrito.id if carrito else None,
+                'Fecha': pedido.creado.date().isoformat() if carrito.Deshabilitado else None,
                 'Cantidad': total_cantidad,
-                'Precio': total_precio,
-                'Confirmado': carrito.confirmado,
+                'Precio': float(total_precio),
+                'Confirmado': pedido.estado,
             })
 
         return Response(historial, status=status.HTTP_200_OK)
@@ -702,30 +681,64 @@ class CreatePreferenceView(APIView):
 
     def post(self, request):
 
-        productos = request.data.get('items', [])
+        user = request.user
 
         success_url = request.data.get('success', '')
         failure_url = request.data.get('failure', '')
         pending_url = request.data.get('pending', '')
 
-        if not productos:
-            
-            return Response({"message": "No se enviaron productos"}, status=status.HTTP_400_BAD_REQUEST)
-        
+        carrito_activo = Carrito.objects.filter(Usuario=user, is_active=True).first()
 
+
+        if not carrito_activo:
+
+            return Response({"error":"No hay un carrito activo"}, status=status.HTTP_404_NOT_FOUND)
+
+        productos_carrito = ProductoCarrito.objects.filter(Carrito=carrito_activo)
+
+        if not productos_carrito:
+
+            return Response({"error":"El carrito está vacío"}, status=status.HTTP_400_BAD_REQUEST)
+
+        productos_sin_stock = []
+
+        for producto in productos_carrito:
+
+            if producto.Cantidad > producto.Codigo.Stock:
+
+                productos_sin_stock.append(producto.Codigo.Nombre_Producto)
+
+        if productos_sin_stock:
+
+            return Response({"error": f"Stock insuficiente para los productos: {', '.join(productos_sin_stock)}"}, status=status.HTTP_400_BAD_REQUEST)
+        
         try:
 
-            total = sum(Decimal(productos['unit_price']) * productos['quantity'] for producto in productos)
+            items = []
+            total = 0
+
+            for producto in productos_carrito:
+
+                items.append({
+
+                    "title": producto.Codigo.Nombre_Producto,
+                    "quantity": producto.Cantidad,
+                    "unit_price": float(producto.Codigo.Precio),
+                    "currency_id": "ARS",
+                })
+
+                total += producto.Codigo.Precio * producto.Cantidad
 
             pedido = Pedido.objects.create(
                 user=request.user,
+                carrito=carrito_activo,
                 estado='pendiente',
                 total=total
             )
 
             preference_data = {
 
-                "items": productos,
+                "items": items,
                 "external_reference": str(pedido.id),
                 "back_urls": {
 
@@ -787,6 +800,25 @@ class MercadopagoWebhook(APIView):
                     pedido.estado = "aprobado"
                     pedido.save()
                     print("Pago recibido:", payment_data)
+
+                    user = pedido.user
+
+                    carrito = Carrito.objects.filter(Usuario=user, is_active=True).first()
+
+                    if(carrito):
+
+                        carrito.is_active = False
+                        carrito.confirmado = True
+                        carrito.Deshabilitado = timezone.now()
+                        carrito.save()
+
+                        productos = ProductoCarrito.objects.filter(Carrito=carrito)
+
+                        for producto in productos:
+
+                            productoCarrito = producto.Codigo
+                            productoCarrito.Stock -= producto.Cantidad
+                            productoCarrito.save()
                 
                 except Pedido.DoesNotExist:
 
