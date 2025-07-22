@@ -683,9 +683,10 @@ class CreatePreferenceView(APIView):
 
         user = request.user
 
-        success_url = request.data.get('success', '')
-        failure_url = request.data.get('failure', '')
-        pending_url = request.data.get('pending', '')
+        #Esto no se usa pero mercadopago rompe las bolainas sino
+        success_url = request.data.get('success', '') or 'https://example.com/success'
+        failure_url = request.data.get('failure', '') or 'https://example.com/failure'
+        pending_url = request.data.get('pending', '') or 'https://example.com/pending'
 
         carrito_activo = Carrito.objects.filter(Usuario=user, is_active=True).first()
 
