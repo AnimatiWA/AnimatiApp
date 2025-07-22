@@ -754,7 +754,7 @@ class CreatePreferenceView(APIView):
 
             sdk = mercadopago.SDK(settings.SDK)
             preference_response = sdk.preference().create(preference_data)
-
+            print("Preference response:", preference_response)
             init_point = preference_response["response"].get("init_point")
 
             return Response({
