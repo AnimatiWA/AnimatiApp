@@ -848,7 +848,12 @@ class EstadoPagoView(APIView):
 
             pedido = Pedido.objects.get(id=pedido_id, user=request.user)
             
-            return Response({"message": "Pedido aprobado"}, status=status.HTTP_200_OK)
+            if(pedido.estado == "aprobado"):
+                return Response({"message": "Pedido aprobado", "estado": "aprobado"}, status=status.HTTP_200_OK)
+            elif(pedido.estado == "pendiente"):
+                return Response({"message": "Pedido pendiente", "estado": "pendiente"}, status=status.HTTP_202_OK)
+            elif(pedido.estado == "rechazado"):
+                return Response({"message": "Pedido rechazado", "estado": "rechazado"}, status=status.HTTP_402_PAYMENT_REQUIRED)
 
         except Pedido.DoesNotExist:
 
