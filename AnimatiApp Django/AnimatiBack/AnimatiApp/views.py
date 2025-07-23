@@ -842,7 +842,7 @@ class EstadoPagoView(APIView):
 
         if not pedido_id:
 
-            return Response({"error": "Falta el ID del pedido"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Falta el ID del pedido", "estado": "rechazado"}, status=status.HTTP_400_BAD_REQUEST)
         
         try:
 
@@ -857,4 +857,4 @@ class EstadoPagoView(APIView):
 
         except Pedido.DoesNotExist:
 
-            return Response({"error": "Pedido no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Pedido no encontrado", "estado": "rechazado"}, status=status.HTTP_404_NOT_FOUND)
