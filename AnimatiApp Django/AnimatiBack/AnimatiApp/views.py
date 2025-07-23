@@ -851,7 +851,7 @@ class EstadoPagoView(APIView):
             if(pedido.estado == "aprobado"):
                 return Response({"message": "Pedido aprobado", "estado": "aprobado"}, status=status.HTTP_200_OK)
             elif(pedido.estado == "pendiente"):
-                return Response({"message": "Pedido pendiente", "estado": "pendiente"}, status=status.HTTP_202_OK)
+                return Response({"message": "Pedido pendiente", "estado": "pendiente"}, status=status.HTTP_202_ACCEPTED)
             elif(pedido.estado == "rechazado"):
                 return Response({"message": "Pedido rechazado", "estado": "rechazado"}, status=status.HTTP_402_PAYMENT_REQUIRED)
 
