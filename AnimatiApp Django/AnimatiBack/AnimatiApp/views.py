@@ -755,7 +755,6 @@ class CreatePreferenceView(APIView):
 
             sdk = mercadopago.SDK(settings.SDK)
             preference_response = sdk.preference().create(preference_data)
-            print("Preference response:", preference_response)
             init_point = preference_response["response"].get("init_point")
 
             return Response({
@@ -775,7 +774,7 @@ class MercadopagoWebhook(APIView):
     def post(self, request):
 
         try:
-
+            print(f"Mercadopago response: {request.query_params}")
             topic = request.query_params.get('topic') or request.data.get('topic')
             payment_id = request.query_params.get('id') or request.data.get('id')
 
