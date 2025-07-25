@@ -783,6 +783,7 @@ class MercadopagoWebhook(APIView):
                 return Response({"error": f"Tópico '{topic}' no soportado, solo se aceptan pagos"}, status=status.HTTP_400_BAD_REQUEST)
             
             if not payment_id:
+                print ("No se recibió id de pago")
                 return Response({"error": "No se recibió id de pago"}, status=status.HTTP_400_BAD_REQUEST)
 
             sdk = mercadopago.SDK(settings.SDK)
@@ -823,12 +824,15 @@ class MercadopagoWebhook(APIView):
                 
                 except Pedido.DoesNotExist:
 
+                    print("Pedido no encontrado")
                     return Response({"error": "Pedido no econtrado"}, status=status.HTTP_404_NOT_FOUND)
 
+            print("Pago recibido")
             return Response({"message": "Pago recibido"}, status=status.HTTP_200_OK)
 
         except Exception as e:
 
+            print("Error 500. " + str(e))
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class EstadoPagoView(APIView):
