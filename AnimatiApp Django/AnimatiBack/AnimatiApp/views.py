@@ -741,16 +741,16 @@ class CreatePreferenceView(APIView):
 
                 "items": items,
                 "external_reference": str(pedido.id),
-                "back_urls": {
+                # "back_urls": {
 
-                    # Esto no se usa en mobile, qudan vacios ahí porque estoy usando webhooks.
-                    # (Era esto o hacer vistas separadas para web y app, no da la verdad)
+                #     # Esto no se usa en mobile, qudan vacios ahí porque estoy usando webhooks.
+                #     # (Era esto o hacer vistas separadas para web y app, no da la verdad)
 
-                    "success": success_url,
-                    "failure": failure_url,
-                    "pending": pending_url
-                },
-                "auto_return": "approved"
+                #     "success": success_url,
+                #     "failure": failure_url,
+                #     "pending": pending_url
+                # },
+                # "auto_return": "approved"
             }
 
             sdk = mercadopago.SDK(settings.SDK)
