@@ -780,6 +780,7 @@ class MercadopagoWebhook(APIView):
             payment_id = request.query_params.get('id') or request.data.get('id')
 
             if topic != "payment":
+                print(f"Topico '{topic}' no soportado")
                 return Response({"error": f"Tópico '{topic}' no soportado, solo se aceptan pagos"}, status=status.HTTP_400_BAD_REQUEST)
             
             if not payment_id:
