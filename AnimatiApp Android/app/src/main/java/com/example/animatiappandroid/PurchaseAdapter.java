@@ -49,7 +49,7 @@
             holder.quantity.setText("Cantidad de articulos: " + String.valueOf(item.getQuantity()));
             holder.price.setText("Precio total: $" + String.valueOf(item.getPrice()));
 
-            if(!item.getConfirmado()){
+            if(item.getConfirmado().equals("pendiente") ){
 
                 holder.price.setTextColor(ContextCompat.getColor(this.context, R.color.red));
                 holder.confirm.setVisibility(View.VISIBLE);
