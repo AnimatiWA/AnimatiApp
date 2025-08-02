@@ -737,12 +737,7 @@ class CreatePreferenceView(APIView):
                 user=user,
                 carrito=carrito_activo,
                 estado='pendiente'
-            )
-
-            if pedido_pendiente:
-
-                pedido_pendiente.estado = 'cancelado'
-                pedido_pendiente.save()
+            ).update(estado='cancelado')
 
             pedido = Pedido.objects.create(
                 user=request.user,
