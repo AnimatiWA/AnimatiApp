@@ -642,7 +642,7 @@ class HistorialCarritoView(APIView):
 
         user = request.user
 
-        pedidos = Pedido.objects.filter(user=user).order_by('-creado')
+        pedidos = Pedido.objects.filter(user=user,estado__in=["aprobado", "pendiente"]).order_by('-creado')
 
         if not pedidos.exists():
 
@@ -664,7 +664,7 @@ class HistorialCarritoView(APIView):
 
                 'Id': pedido.id,
                 'CarritoId': carrito.id if carrito else None,
-                'Fecha': pedido.creado.date().isoformat() if carrito.Deshabilitado else None,
+                'Fecha': pedido.creado.date().isoformat(),
                 'Cantidad': total_cantidad,
                 'Precio': float(total_precio),
                 'Confirmado': pedido.estado,
@@ -729,6 +729,20 @@ class CreatePreferenceView(APIView):
                 })
 
                 total += producto.Codigo.Precio * producto.Cantidad
+
+            #Cancelo el pedido pendiente anterior si es que existe porque el salame del cliente se olvidó de pagar o cerro la pagina de ML
+            
+            pedido_pendiente = Pedido.objects.filter(
+
+                user=user,
+                carrito=carrito_activo,
+                estado='pendiente'
+            )
+
+            if pedido_pendiente:
+
+                pedido_pendiente.estado = 'cancelado'
+                pedido_pendiente.save()
 
             pedido = Pedido.objects.create(
                 user=request.user,
