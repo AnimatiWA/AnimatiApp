@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/icono_exito"
+            android:src="@drawable/ic_check_circle"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginBottom="16dp"
+            app:tint="#003366" />
+
+        <TextView
+            android:id="@+id/titulo_confirmacion"
+            android:text="¡Compra confirmada!"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#003366"
+            android:layout_marginBottom="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/subtitulo_confirmacion"
+            android:text="Gracias por tu compra en Animati 💖\nPronto recibirás un correo con los detalles."
+            android:textSize="16sp"
+            android:textColor="#555555"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginBottom="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Aquí agregamos el TextView para mensaje_confirmacion -->
+        <TextView
+            android:id="@+id/mensaje_confirmacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="18sp"
+            android:textColor="#003366"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/total_price_confirmado"
+            android:text="Total pagado: $0.00"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_volver_inicio"
+            android:text="Volver al inicio"
+            android:textAllCaps="false"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#003366"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp" />
+
+    </LinearLayout>
+</ScrollView>
+

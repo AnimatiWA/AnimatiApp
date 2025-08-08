@@ -93,12 +93,6 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
             confirmarCompra();
             finish();
-
-            Intent intent = new Intent(this, PagoProvisionalActivity.class);
-
-            intent.putExtra("total", cart.getTotalPrice());
-
-            startActivity(intent);
         }
     }
 
@@ -164,7 +158,7 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
     private void confirmarCompra(){
 
-        String url = "https://animatiapp.up.railway.app/api/carrito/crear";
+        String url = "https://animatiapp.up.railway.app/api/mercadopago/crearPreferencia";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
@@ -174,14 +168,16 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
 
                     try {
 
-                        int nuevoIdCarrito = response.getInt("id");
-
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt("idCarrito", nuevoIdCarrito);
-                        editor.apply();
+                        int pedido_id = response.getInt("pedido_id");
+                        String init_point = response.getString("init_point");
 
                         Toast.makeText(CartActivity.this, "Procesando compra por $" + cart.getTotalPrice(), Toast.LENGTH_LONG).show();
 
+                        Intent intent = new Intent(this, PagoProvisionalActivity.class);
+
+                        intent.putExtra("total", cart.getTotalPrice());
+
+                        startActivity(intent);
 
                     } catch (JSONException e) {
 
