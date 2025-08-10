@@ -874,3 +874,37 @@ class EstadoPagoView(APIView):
         except Pedido.DoesNotExist:
 
             return Response({"error": "Pedido no encontrado", "estado": "rechazado"}, status=status.HTTP_404_NOT_FOUND)
+        
+class ResumenComprasView(APIView):
+
+    permission_classes = [permissions.IsAdminUser]
+    http_method_names = ['get']
+
+    def get(self, request):
+
+        pedidos = Pedido.objects.filter(estado='aprobado') \
+        .select_related('carrito') \
+        .prefetch_related('carrito__productocarrito_set') #Esto esta piola. select_related es como hacer un JOIN asi nos ahorramos una consulta. Sirve para consultas 1:1
+                                                         #Y prefetch_related es masomenos lo mismo pero para consultas 1:N. No hace una consulta pero si como que las junta y queda mas optimizado.
+
+        total_ventas = 0
+        total_ingresos = 0.00
+        productos_vendidos = 0
+
+        for pedido in pedidos:
+
+            total_ventas += 1
+
+            for producto in pedido.carrito.productocarrito_set.all(): #Aca accedo al objeto precargado de prefetch_related que no requiere hacer otra consulta.
+
+                total_ingresos += producto.Precio
+
+                productos_vendidos += producto.Cantidad
+
+        resumen = {
+            "total_ventas": total_ventas,
+            "total_ingresos": total_ingresos,
+            "productos_vendidos": productos_vendidos,
+        } 
+
+        return Response(resumen, status=status.HTTP_200_OK)

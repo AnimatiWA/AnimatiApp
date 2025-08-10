@@ -47,6 +47,7 @@ urlpatterns = [
     path('mercadopago/crearPreferencia', CreatePreferenceView.as_view(), name='crearPreferencia'),
     path('mercadopago/mercadopagoWebhook', MercadopagoWebhook.as_view(), name='mercadopagoWebhook'),
     path('mercadopago/estadoPago', EstadoPagoView.as_view(), name='estadoPago'),
+    path('pedidos/resumenCompras', ResumenComprasView.as_view(), name='resumenCompras'),
 
     path('', include(router.urls)),
 ]
