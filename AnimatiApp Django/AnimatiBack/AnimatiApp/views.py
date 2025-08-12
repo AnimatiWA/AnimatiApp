@@ -1,3 +1,4 @@
+import calendar
 from decimal import Decimal
 from django.http import Http404
 from django.shortcuts import render
@@ -891,6 +892,10 @@ class ResumenComprasView(APIView):
         total_ingresos = 0.00
         productos_vendidos = 0
 
+        total_ultimo_mes = 0.00
+        total_penultimo_mes = 0.00
+        total_antepenultimo_mes = 0.00
+
         for pedido in pedidos:
 
             total_ventas += 1
@@ -901,10 +906,58 @@ class ResumenComprasView(APIView):
 
                 productos_vendidos += producto.Cantidad
 
+        for offset in range(1, 4):
+
+            inicio, fin = self.rango_mes(offset)
+            total_mes = Pedido.objects.filter(estado='aprobado', carrito__Deshabilitado__range=(inicio, fin)) \
+            .aggregate(total=Sum("carrito__productocarrito__Precio"))["total"] or 0.00
+
+            if offset == 1:
+                total_ultimo_mes = total_mes
+
+            if offset == 2:
+                total_penultimo_mes = total_mes
+
+            if offset == 3:
+                total_antepenultimo_mes = total_mes
+
         resumen = {
             "total_ventas": total_ventas,
             "total_ingresos": total_ingresos,
             "productos_vendidos": productos_vendidos,
+            "meses_previos": {
+                "ultimo_mes": total_ultimo_mes,
+                "penultimo_mes": total_penultimo_mes,
+                "antepenultimo_mes": total_antepenultimo_mes,
+            }
         } 
 
         return Response(resumen, status=status.HTTP_200_OK)
+    
+    def rango_mes(self, offset):
+        """
+        esto es para intentar calcular los ingresos mes por mes, puntualmente para identificar cuales son los meses anteriores, vamos a ver si sale
+        
+        Args:
+            offset (int): Cuantos meses hacia atras queremos revisar el tamaño del mes.
+
+        Returns:
+            tuple(datetime, datetime):
+                - start_date -> Primer dia del mes a las 00:00:00
+                - end_date -> Ultimo dia del mes a las 23:59:59 
+        """
+
+        ahora = timezone.now()
+
+        anio = ahora.year
+        mes = ahora.month - offset
+
+        while mes <= 0: #Esto es para corregir la fecha despues de aplicar el offset.
+
+            mes += 12
+            anio -= 1
+
+        fecha_inicio_mes = timezone.make_aware(timezone.datetime(anio, mes, 1)) #Fecha de inicio el primer dia del mes a las 00:00:00
+        fecha_fin_mes = timezone.make_aware(timezone.datetime(anio, mes, calendar.monthrange(anio, mes)[1], 23, 59, 59)) #Aca tengo que poner las 23:59:59 a mano :P
+
+        return fecha_inicio_mes, fecha_fin_mes
