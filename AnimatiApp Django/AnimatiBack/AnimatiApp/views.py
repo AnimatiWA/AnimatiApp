@@ -784,12 +784,17 @@ class MercadopagoWebhook(APIView):
     def post(self, request):
 
         try:
+            print("Headers:", request.headers)
+            print("Body:", request.data)
+
+
             print(f"Mercadopago response: {request.query_params}")
             topic = request.query_params.get('type') or request.data.get('type')
             payment_id = (
                 request.query_params.get('data.id')
                 or request.data.get('data', {}).get('id')
             )
+
 
             if topic != "payment":
                 print(f"Topico '{topic}' no soportado")
