@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/subtitulo_confirmacion"
-            android:text="Gracias por tu compra en Animati 💖\nPronto recibirás un correo con los detalles."
+            android:text="Gracias por tu compra en Animati 💖"
             android:textSize="16sp"
             android:textColor="#555555"
             android:gravity="center"
@@ -53,28 +53,6 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             />
-
-        <TextView
-            android:id="@+id/total_price_confirmado"
-            android:text="Total pagado: $0.00"
-            android:textSize="18sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btn_volver_inicio"
-            android:text="Volver al inicio"
-            android:textAllCaps="false"
-            android:layout_marginTop="24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#003366"
-            android:textColor="#FFFFFF"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp" />
 
     </LinearLayout>
 </ScrollView>

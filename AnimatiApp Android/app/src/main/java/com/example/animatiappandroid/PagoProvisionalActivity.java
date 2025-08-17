@@ -3,8 +3,10 @@ package com.example.animatiappandroid;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,8 +29,11 @@ public class PagoProvisionalActivity extends AppCompatActivity {
     private ProgressBar spinner;
     private RequestQueue queue;
     private int idCarrito;
+    private int idPedido;
     private String token;
     private double total;
+    private Intent intent;
+    private String init_point;
 
     private Handler handler = new Handler();
     private boolean pagoConfirmado = false;
@@ -40,6 +45,12 @@ public class PagoProvisionalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pago_provisional);
 
+        intent = getIntent();
+
+        total = intent.getDoubleExtra("total", 0.0);
+        idPedido = intent.getIntExtra("pedido_id", -1);
+        init_point = intent.getStringExtra("init_point");
+
         // Referencias a las vistas
         tituloPago = findViewById(R.id.titulo_pago);
         subtitulo = findViewById(R.id.subtitulo_pago);
@@ -47,6 +58,21 @@ public class PagoProvisionalActivity extends AppCompatActivity {
         spinner = findViewById(R.id.progress_bar_pago);
         textoProcesando = findViewById(R.id.texto_procesando_pago);
         totalPrice = findViewById(R.id.total_price);
+
+        if(total <= 0.0){
+
+            Toast.makeText(PagoProvisionalActivity.this, "El total del pedido debe ser igual o mayor a $0, por favor intentelo nuevamente", Toast.LENGTH_LONG).show();
+            finish();
+        } else{
+
+            totalPrice.setText("Total: $" + total);
+        }
+
+        if(idPedido == -1){
+
+            Toast.makeText(PagoProvisionalActivity.this, "El pedido no se generó correctamente, por favor vuelva a intentarlo", Toast.LENGTH_LONG).show();;
+            finish();
+        }
 
         queue = Volley.newRequestQueue(this);
 
@@ -59,7 +85,12 @@ public class PagoProvisionalActivity extends AppCompatActivity {
             return;
         }
 
-        obtenerTotalCarrito();
+        new Handler().postDelayed(() -> {
+
+            Intent mercadoPagoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(init_point));
+            startActivity(mercadoPagoIntent);
+        }, 3000);
+
         comenzarPollingEstadoPago();
     }
 
@@ -100,6 +131,7 @@ public class PagoProvisionalActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 segundosEsperados += 3;
 
                 consultarEstadoPagoDesdeAPI();
@@ -112,11 +144,12 @@ public class PagoProvisionalActivity extends AppCompatActivity {
     }
 
     private void consultarEstadoPagoDesdeAPI() {
-        String url = "https://animatiapp.up.railway.app/api/carrito/" + idCarrito;
+        String url = "https://animatiapp.up.railway.app/api/mercadopago/estadoPago?pedido_id=" + idPedido;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
+                        Log.d("ERROR ZARPADO", response.toString());
                         String estado = response.getString("estado");
 
                         if (estado.equalsIgnoreCase("aprobado")) {
@@ -130,6 +163,7 @@ public class PagoProvisionalActivity extends AppCompatActivity {
                     }
                 },
                 error -> {
+                    Log.d("ERROR ZARPADO", url);
                     Toast.makeText(PagoProvisionalActivity.this, "Error al verificar estado del pago", Toast.LENGTH_SHORT).show();
                 }) {
             @Override
@@ -152,12 +186,23 @@ public class PagoProvisionalActivity extends AppCompatActivity {
 
         tituloPago.setText("✅ ¡Tu pago fue aprobado exitosamente!");
 
+        SharedPreferences preferences = getSharedPreferences("AnimatiPreferencias", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("idCarrito", -1);
+        editor.apply();
+
         // Espera 2 segundos y cambia de pantalla
         handler.postDelayed(() -> {
             Intent intent = new Intent(PagoProvisionalActivity.this, CompraConfirmadaActivity.class);
             startActivity(intent);
             finish();
         }, 2000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
     }
 }
 

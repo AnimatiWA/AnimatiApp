@@ -176,6 +176,8 @@ public class CartActivity extends AppCompatActivity implements ProductListAdapte
                         Intent intent = new Intent(this, PagoProvisionalActivity.class);
 
                         intent.putExtra("total", cart.getTotalPrice());
+                        intent.putExtra("pedido_id", pedido_id);
+                        intent.putExtra("init_point", init_point);
 
                         startActivity(intent);
 
