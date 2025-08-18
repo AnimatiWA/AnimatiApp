@@ -1,5 +1,7 @@
 asgiref==3.8.1
+certifi==2025.6.15
 cffi==1.17.1
+charset-normalizer==3.4.2
 cryptography==44.0.0
 dj-database-url==2.2.0
 Django==5.1.1
@@ -11,15 +13,19 @@ djangorestframework-simplejwt==5.3.1
 drf-yasg==1.21.7
 greenlet==3.1.1
 gunicorn==23.0.0
+idna==3.10
 inflection==0.5.1
+mercadopago==2.3.0
 packaging==24.1
 pillow==10.4.0
 pycparser==2.22
 PyJWT==2.9.0
 PyMySQL==1.1.1
 python-decouple==3.8
+python-dotenv==1.1.1
 pytz==2024.2
 PyYAML==6.0.2
+requests==2.32.4
 setuptools==74.1.2
 SQLAlchemy==2.0.36
 sqlparams==6.1.0
@@ -27,3 +33,4 @@ sqlparse==0.5.1
 typing_extensions==4.12.2
 tzdata==2024.1
 uritemplate==4.1.1
+urllib3==2.5.0

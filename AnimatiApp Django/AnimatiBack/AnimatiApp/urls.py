@@ -43,7 +43,11 @@ urlpatterns = [
     path('passwordRecovery', PasswordResetView.as_view(), name='passwordrecovery'),
     path('contacto', ContactMessageView.as_view(), name='contacto'),
     path('passwordRecoveryEmail', PasswordRecoveryEmailAPIView.as_view(), name='passwordrecoveryemail'),
-    path('resetPassword', EmailPasswordResetView.as_view(), name='passwordreset'), 
+    path('resetPassword', EmailPasswordResetView.as_view(), name='passwordreset'),
+    path('mercadopago/crearPreferencia', CreatePreferenceView.as_view(), name='crearPreferencia'),
+    path('mercadopago/mercadopagoWebhook', MercadopagoWebhook.as_view(), name='mercadopagoWebhook'),
+    path('mercadopago/estadoPago', EstadoPagoView.as_view(), name='estadoPago'),
+    path('pedidos/resumenCompras', ResumenComprasView.as_view(), name='resumenCompras'),
 
     path('', include(router.urls)),
 ]
