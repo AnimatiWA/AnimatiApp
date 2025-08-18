@@ -21,6 +21,12 @@ class CarritoAdmin(admin.ModelAdmin):
 class ProductoCarritoAdmin(admin.ModelAdmin):
     list_display = ('Codigo', 'Cantidad', 'Precio', 'Carrito')
 
+class ContactoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'email', 'mensaje', 'creado')
+
+class PedidoAdmin(admin.ModelAdmin):
+    list_display = ('user', 'carrito', 'estado', 'total', 'creado')
+
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff')
 
@@ -33,3 +39,5 @@ admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Cliente, ClienteAdmin)   
 admin.site.register(Carrito, CarritoAdmin)   
 admin.site.register(ProductoCarrito, ProductoCarritoAdmin)
+admin.site.register(CorreoContacto, ContactoAdmin)
+admin.site.register(Pedido, PedidoAdmin)

@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvTotalVentas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total ventas: 0"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvTotalIngresos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total ingresos: $0.00"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvProductosVendidos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Productos vendidos: 0"
+        android:textSize="18sp" />
+</LinearLayout>

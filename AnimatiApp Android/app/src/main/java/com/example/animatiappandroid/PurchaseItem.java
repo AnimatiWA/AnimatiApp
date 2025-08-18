@@ -7,9 +7,9 @@ public class PurchaseItem implements Serializable {
     private String date;
     private int quantity;
     private double price;
-    private boolean confirmado;
+    private String confirmado;
 
-    public PurchaseItem(int id, String date, int quantity, double price, boolean confirmado) {
+    public PurchaseItem(int id, String date, int quantity, double price, String confirmado) {
         this.id = id;
         this.date = date;
         this.quantity = quantity;
@@ -30,5 +30,5 @@ public class PurchaseItem implements Serializable {
 
     public double getPrice() { return price; }
 
-    public boolean getConfirmado() { return confirmado; }
+    public String getConfirmado() { return confirmado; }
 }
