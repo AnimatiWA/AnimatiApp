@@ -99,7 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         adminButton.setOnClickListener(view -> {
-            Intent intent = new Intent(ProfileActivity.this, AdminActivity.class);
+            Intent intent = new Intent(ProfileActivity.this, MenuAdminActivity.class);
             startActivity(intent);
         });
         // Modificar perfil de usuario
