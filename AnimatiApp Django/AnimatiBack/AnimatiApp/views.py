@@ -836,7 +836,7 @@ class MercadopagoWebhook(APIView):
                             productoCarrito.Stock -= producto.Cantidad
                             productoCarrito.save()
                         
-                    nuevo_carrito = Carrito.objects.create(Usuario=user, is_active=True)
+                    # nuevo_carrito = Carrito.objects.create(Usuario=user, is_active=True)
                 
                 except Pedido.DoesNotExist:
 
