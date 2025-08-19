@@ -210,6 +210,28 @@ public class Gallery extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (requestCode == 1001 && resultCode == RESULT_OK && data != null) {
+            if (data.hasExtra("action") && "add_to_cart".equals(data.getStringExtra("action"))) {
+                // Producto desde vista detalle
+                int productoId = data.getIntExtra("producto_id", 0);
+                int cantidad = data.getIntExtra("producto_cantidad", 1);
+                
+                // Buscar el producto en la lista por ID
+                for (ProductAdmin product : productList) {
+                    if (product.getId() == productoId) {
+                        product.setQuantity(cantidad);
+                        agregarAlCarrito(product);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
     public void agregar(ProductAdmin product) {
         int idCarrito = sharedPreferences.getInt("idCarrito", -1);
         int codigoProducto = product.getId();

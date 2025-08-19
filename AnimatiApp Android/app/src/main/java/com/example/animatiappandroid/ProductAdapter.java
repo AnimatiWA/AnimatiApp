@@ -1,5 +1,6 @@
 package com.example.animatiappandroid;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .placeholder(R.drawable.imagen_placeholder)
                 .error(R.drawable.imagen_error)
                 .into(holder.productImage);
+                
+        holder.productImage.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductoDetalleActivity.class);
+            intent.putExtra("producto_id", product.getId());
+            intent.putExtra("producto_nombre", product.getName());
+            intent.putExtra("producto_precio", product.getPrice());
+            intent.putExtra("producto_stock", product.getStock());
+            intent.putExtra("producto_descripcion", product.getDescription());
+            intent.putExtra("producto_imagen", product.getImagen());
+            intent.putExtra("producto_categoria", product.getCategoria());
+            ((Gallery)context).startActivityForResult(intent, 1001);
+        });
 
         if(posicionBotonSeleccionado == position){
 
