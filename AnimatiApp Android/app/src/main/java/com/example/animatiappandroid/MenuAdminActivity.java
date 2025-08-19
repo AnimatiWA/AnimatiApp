@@ -15,6 +15,7 @@ public class MenuAdminActivity extends AppCompatActivity {
 
         Button btnGestionar = findViewById(R.id.btnGestionarProductos);
         Button btnResumen = findViewById(R.id.btnResumenVentas);
+        Button btnVolverAtras = findViewById(R.id.btnVolverAtras);
 
         btnGestionar.setOnClickListener(v -> {
             Intent intent = new Intent(MenuAdminActivity.this, AdminActivity.class);
@@ -24,6 +25,10 @@ public class MenuAdminActivity extends AppCompatActivity {
         btnResumen.setOnClickListener(v -> {
             Intent intent = new Intent(MenuAdminActivity.this, ResumenVentasActivity.class);
             startActivity(intent);
+        });
+        
+        btnVolverAtras.setOnClickListener(v -> {
+            finish();
         });
     }
 }

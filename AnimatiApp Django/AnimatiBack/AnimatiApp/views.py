@@ -655,6 +655,9 @@ class HistorialCarritoView(APIView):
 
             carrito = pedido.carrito
 
+            if not carrito:
+                continue
+
             productos = ProductoCarrito.objects.filter(Carrito=carrito) if carrito else []
 
             total_precio = productos.aggregate(total=Sum('Precio'))['total'] or 0.0
@@ -886,7 +889,7 @@ class ResumenComprasView(APIView):
 
     def get(self, request):
 
-        pedidos = Pedido.objects.filter(estado='aprobado') \
+        pedidos = Pedido.objects.filter(estado='aprobado', carrito__isnull=False) \
         .select_related('carrito') \
         .prefetch_related('carrito__productocarrito_set') #Esto esta piola. select_related es como hacer un JOIN asi nos ahorramos una consulta. Sirve para consultas 1:1
                                                          #Y prefetch_related es masomenos lo mismo pero para consultas 1:N. No hace una consulta pero si como que las junta y queda mas optimizado.
@@ -912,7 +915,7 @@ class ResumenComprasView(APIView):
         for offset in range(1, 4):
 
             inicio, fin = self.rango_mes(offset)
-            total_mes = Pedido.objects.filter(estado='aprobado', carrito__Deshabilitado__range=(inicio, fin)) \
+            total_mes = Pedido.objects.filter(estado='aprobado', carrito__isnull=False, carrito__Deshabilitado__range=(inicio, fin)) \
             .aggregate(total=Sum("carrito__productocarrito__Precio"))["total"] or 0.00
 
             if offset == 1:

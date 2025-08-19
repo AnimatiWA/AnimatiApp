@@ -118,9 +118,16 @@ public class Gallery extends AppCompatActivity {
                                 int stock = productObject.getInt("Stock");
                                 int idCategoria = productObject.getInt("Id_Categoria");
                                 String imagen = productObject.getString("Imagen");
+                                String description = "";
+                                
+                                // Verificar si existe el campo Descripcion en la respuesta JSON
+                                if (productObject.has("Descripcion")) {
+                                    description = productObject.getString("Descripcion");
+                                }
+                                
                                 int cantidad = 1;
 
-                                productList.add(new ProductAdmin(id, nombre, precio, cantidad, idCategoria, stock, imagen));
+                                productList.add(new ProductAdmin(id, nombre, precio, cantidad, idCategoria, stock, imagen, description));
                             }
 
 
@@ -203,6 +210,28 @@ public class Gallery extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (requestCode == 1001 && resultCode == RESULT_OK && data != null) {
+            if (data.hasExtra("action") && "add_to_cart".equals(data.getStringExtra("action"))) {
+                // Producto desde vista detalle
+                int productoId = data.getIntExtra("producto_id", 0);
+                int cantidad = data.getIntExtra("producto_cantidad", 1);
+                
+                // Buscar el producto en la lista por ID
+                for (ProductAdmin product : productList) {
+                    if (product.getId() == productoId) {
+                        product.setQuantity(cantidad);
+                        agregarAlCarrito(product);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
     public void agregar(ProductAdmin product) {
         int idCarrito = sharedPreferences.getInt("idCarrito", -1);
         int codigoProducto = product.getId();

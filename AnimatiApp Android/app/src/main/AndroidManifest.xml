@@ -88,6 +88,7 @@
         <activity android:name=".ModifyProfileActivity" />
         <activity android:name=".PagoProvisionalActivity" />
         <activity android:name=".CompraConfirmadaActivity" />
+        <activity android:name=".ProductoDetalleActivity" />
     </application>
 
 </manifest>

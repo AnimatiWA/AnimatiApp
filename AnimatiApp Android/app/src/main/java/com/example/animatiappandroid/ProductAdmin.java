@@ -8,6 +8,7 @@ public class ProductAdmin {
     private int stock;
     private int Id_Categoria;
     private String imagen;
+    private String description;
 
     public ProductAdmin(int id, String name, double price, int quantity, int Id_Categoria, int stock, String imagen) {
         this.id = id;
@@ -17,6 +18,18 @@ public class ProductAdmin {
         this.stock = stock;
         this.Id_Categoria = Id_Categoria;
         this.imagen = imagen;
+        this.description = "";
+    }
+    
+    public ProductAdmin(int id, String name, double price, int quantity, int Id_Categoria, int stock, String imagen, String description) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.stock = stock;
+        this.Id_Categoria = Id_Categoria;
+        this.imagen = imagen;
+        this.description = description;
     }
 
     // Getters
@@ -74,5 +87,13 @@ public class ProductAdmin {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

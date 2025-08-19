@@ -1,5 +1,6 @@
 package com.example.animatiappandroid;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,12 +43,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productName.setText(product.getName());
         holder.productPrice.setText("$"+product.getPrice());
         holder.productStock.setText("En stock: " + product.getStock());
+        holder.productDescription.setText(product.getDescription());
 
         Glide.with(context)
                 .load(product.getImagen())
                 .placeholder(R.drawable.imagen_placeholder)
                 .error(R.drawable.imagen_error)
                 .into(holder.productImage);
+                
+        holder.productImage.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductoDetalleActivity.class);
+            intent.putExtra("producto_id", product.getId());
+            intent.putExtra("producto_nombre", product.getName());
+            intent.putExtra("producto_precio", product.getPrice());
+            intent.putExtra("producto_stock", product.getStock());
+            intent.putExtra("producto_descripcion", product.getDescription());
+            intent.putExtra("producto_imagen", product.getImagen());
+            intent.putExtra("producto_categoria", product.getCategoria());
+            ((Gallery)context).startActivityForResult(intent, 1001);
+        });
 
         if(posicionBotonSeleccionado == position){
 
@@ -114,7 +128,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder{
-        TextView productName, productPrice, productStock;
+        TextView productName, productPrice, productStock, productDescription;
         ImageButton addToCart;
         EditText productQuantity;
         Button confirmAddToCart, decrementQuantity, incrementQuantity;
@@ -125,6 +139,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
             productStock = itemView.findViewById(R.id.product_stock);
+            productDescription = itemView.findViewById(R.id.product_description);
             addToCart = itemView.findViewById(R.id.add_to_cart);
             productQuantity = itemView.findViewById(R.id.product_quantity);
             confirmAddToCart = itemView.findViewById(R.id.confirm_add_to_cart);

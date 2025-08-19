@@ -97,7 +97,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                             for (int i = 0; i < response.length(); i++) {
 
                                 JSONObject purchaseObject = response.getJSONObject(i);
-                                int id = purchaseObject.getInt("PedidoId");
+                                int id = purchaseObject.getInt("CarritoId");
                                 String fecha = purchaseObject.getString("Fecha");
                                 int cantidad = purchaseObject.getInt("Cantidad");
                                 double precio = purchaseObject.getDouble("Precio");
@@ -106,7 +106,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                                 purchaseList.add(new PurchaseItem(id, fecha, cantidad, precio, confirmado));
                             }
 
-                            Collections.reverse(purchaseList);
+                            //Collections.reverse(purchaseList);
 
                             purchaseAdapter = new PurchaseAdapter(
                                     PurchaseHistoryActivity.this,
