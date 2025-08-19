@@ -118,9 +118,16 @@ public class Gallery extends AppCompatActivity {
                                 int stock = productObject.getInt("Stock");
                                 int idCategoria = productObject.getInt("Id_Categoria");
                                 String imagen = productObject.getString("Imagen");
+                                String description = "";
+                                
+                                // Verificar si existe el campo Descripcion en la respuesta JSON
+                                if (productObject.has("Descripcion")) {
+                                    description = productObject.getString("Descripcion");
+                                }
+                                
                                 int cantidad = 1;
 
-                                productList.add(new ProductAdmin(id, nombre, precio, cantidad, idCategoria, stock, imagen));
+                                productList.add(new ProductAdmin(id, nombre, precio, cantidad, idCategoria, stock, imagen, description));
                             }
 
 
