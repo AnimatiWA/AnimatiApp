@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import org.json.JSONObject;
 
 public class RecoveryPasswordActivity extends AppCompatActivity {
-    private Button goHomeButton, sendButton;
+    private Button goHomeButton, sendButton, volverButton;
     private EditText newPasswordEditText, repeatPasswordEditText;
 
     @Override
@@ -28,6 +28,7 @@ public class RecoveryPasswordActivity extends AppCompatActivity {
         // Inicialización de las vistas
         goHomeButton = findViewById(R.id.buttonGoHome);
         sendButton = findViewById(R.id.buttonSend);
+        volverButton = findViewById(R.id.buttonVolver);
         newPasswordEditText = findViewById(R.id.newPasswordEditText);
         repeatPasswordEditText = findViewById(R.id.repeatPasswordEditText);
 
@@ -54,6 +55,14 @@ public class RecoveryPasswordActivity extends AppCompatActivity {
                     // Ejecutar la tarea de recuperación de contraseña
                     new RecoverPasswordTask(newPassword).execute();
                 }
+            }
+        });
+        
+        // Listener para el botón "Volver Atrás"
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Cierra esta actividad y vuelve a la anterior en la pila
             }
         });
     }
