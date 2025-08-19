@@ -655,6 +655,9 @@ class HistorialCarritoView(APIView):
 
             carrito = pedido.carrito
 
+            if not carrito:
+                continue
+
             productos = ProductoCarrito.objects.filter(Carrito=carrito) if carrito else []
 
             total_precio = productos.aggregate(total=Sum('Precio'))['total'] or 0.0

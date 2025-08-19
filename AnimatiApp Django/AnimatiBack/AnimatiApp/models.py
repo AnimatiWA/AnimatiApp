@@ -78,6 +78,7 @@ class Producto(models.Model):
     Precio = models.DecimalField(blank=False, default=2000, decimal_places=2, max_digits=10)
     Stock = models.PositiveIntegerField(blank=False, default=0)
     Id_Categoria = models.ForeignKey(Categoria, to_field='Id_Categoria', on_delete=models.CASCADE)
+    Descripcion = models.TextField(blank=True, null=True)
     class Meta:
         db_table = 'producto'
         verbose_name = 'Producto'
